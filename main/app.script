@@ -60,12 +60,19 @@ function on_message(self, message_id, message, sender)
 		switch_screen(self, "levels")
 
 	elseif message_id == hash("show_game") then
+		self.selected_level_id = message.level_id
 		switch_screen(self, "game")
 
 		-- Collection loaded
 	elseif message_id == hash("proxy_loaded") then
 		msg.post(sender, "init")
 		msg.post(sender, "enable")
+
+		if self.current_screen == "game" then
+			msg.post("game:/game#game", "open_level", {
+				level_id = self.selected_level_id
+			})
+		end
 
 		print("Screen ready:", self.current_screen)
 

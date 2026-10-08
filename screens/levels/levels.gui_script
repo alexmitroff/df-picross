@@ -1,10 +1,135 @@
+
+local catalog = require "levels.catalog"
+
+local TOUCH = hash("touch")
+local APP = "main:/app#controller"
+
+local COLORS = {
+	card = vmath.vector4(0.20, 0.32, 0.40, 1),
+	locked = vmath.vector4(0.13, 0.22, 0.28, 1),
+	text = vmath.vector4(0.96, 0.92, 0.83, 1),
+	muted = vmath.vector4(0.70, 0.78, 0.80, 1)
+}
+
+local function add_text(x, y, text, color)
+	local node = gui.new_text_node(	vmath.vector3(x, y, 0),	text)
+	gui.set_font(node, "default")
+	gui.set_color(node, color or COLORS.text)
+	return node
+end
+
+local function add_card(x, y, width, height, color)
+	local node = gui.new_box_node(vmath.vector3(x, y, 0), vmath.vector3(width, height, 0))
+	gui.set_color(node, color or COLORS.card)
+	return node
+end
+
+local function clear_cards(self)
+	for _, node in ipairs(self.dynamic_nodes) do
+		gui.delete_node(node)
+	end
+
+	self.dynamic_nodes = {}
+	self.clickable_cards = {}
+end
+
+local function track(self, node)
+	table.insert(self.dynamic_nodes, node)
+	return node
+end
+
+local function add_clickable(self, node, value)
+	table.insert(self.clickable_cards, {node = node, value = value})
+end
+
+local function show_categories(self)
+	clear_cards(self)
+
+	self.page = "categories"
+	self.category = nil
+	gui.set_text(self.title, "SELECT DIFFICULTY")
+
+	for index, category in ipairs(catalog.categories) do
+		local unlocked = index == 1
+
+		-- Six cards arranged vertically.
+		local x = 360
+		local y = 950 - (index - 1) * 135
+
+		local card = track(self, add_card(x, y, 520, 105, unlocked and COLORS.card or COLORS.locked))
+		track(self, add_text(x, y + 15, category.name))
+		
+		local status = unlocked	and (#category.levels .. " puzzles") or "LOCKED"
+		track(self, add_text(x, y - 20, status, COLORS.muted))
+
+		if unlocked then
+			add_clickable(self, card, category)
+		end
+	end
+end
+
+local function show_puzzles(self, category)
+	clear_cards(self)
+
+	self.page = "puzzles"
+	self.category = category
+
+	gui.set_text(self.title, category.name:upper())
+
+	for index, level in ipairs(category.levels) do
+		local col = (index - 1) % 3
+		local row = math.floor((index - 1) / 3)
+
+		local x = 170 + col * 190
+		local y = 940 - row * 190
+
+		local card = track(self, add_card(x, y, 150, 150))
+
+		track(self, add_text(x, y + 18, tostring(index)))
+		track(self, add_text(x, y - 22, level.size .. " x " .. level.size,COLORS.muted))
+
+		add_clickable(self, card, level)
+	end
+end
+
 function init(self)
 	msg.post(".", "acquire_input_focus")
-	print("Levels initialized")
+
+	self.title = gui.get_node("title")
+	self.button_back = gui.get_node("button_back")
+
+	self.dynamic_nodes = {}
+	self.clickable_cards = {}
+
+	show_categories(self)
 end
 
 function on_input(self, action_id, action)
-	if action_id == hash("touch") and action.pressed then
-		msg.post("main:/app#controller", "show_game")
+	if action_id ~= TOUCH or not action.pressed then
+		return
+	end
+
+	local x, y = action.x, action.y
+
+	if gui.pick_node(self.button_back, x, y) then
+		if self.page == "puzzles" then
+			show_categories(self)
+		else
+			msg.post(APP, "show_menu")
+		end
+		return true
+	end
+
+	for _, card in ipairs(self.clickable_cards) do
+		if gui.pick_node(card.node, x, y) then
+
+			if self.page == "categories" then
+				show_puzzles(self, card.value)
+			elseif self.page == "puzzles" then
+				msg.post(APP, "show_game", {level_id = card.value.id})
+			end
+
+			return true
+		end
 	end
 end
