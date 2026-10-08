@@ -1,7 +1,86 @@
-function init(self)
-	print("Harbour Picross initialized")
+
+local SCREENS = {
+	menu = "#menu_proxy",
+	levels = "#levels_proxy",
+	game = "#game_proxy"
+}
+
+local function load_screen(self, name)
+	self.current_screen = name
+	self.current_proxy = SCREENS[name]
+
+	print("Loading screen:", name)
+	msg.post(self.current_proxy, "load")
 end
 
-function final(self)
-	print("Harbour Picross shutting down")
+local function switch_screen(self, name)
+	if not SCREENS[name] then
+		print("Unknown screen:", name)
+		return
+	end
+
+	if self.next_screen then
+		return
+	end
+
+	if self.current_screen == name then
+		return
+	end
+
+	self.next_screen = name
+
+	if self.current_proxy then
+		-- First unload the previous collection.
+		msg.post(self.current_proxy, "unload")
+	else
+		-- Nothing loaded yet.
+		self.next_screen = nil
+		load_screen(self, name)
+	end
+end
+
+function init(self)
+	self.current_screen = nil
+	self.current_proxy = nil
+	self.next_screen = nil
+
+	-- Required for input propagation to proxy worlds.
+	msg.post(".", "acquire_input_focus")
+
+	switch_screen(self, "menu")
+end
+
+function on_message(self, message_id, message, sender)
+
+	-- Navigation requests
+	if message_id == hash("show_menu") then
+		switch_screen(self, "menu")
+
+	elseif message_id == hash("show_levels") then
+		switch_screen(self, "levels")
+
+	elseif message_id == hash("show_game") then
+		switch_screen(self, "game")
+
+		-- Collection loaded
+	elseif message_id == hash("proxy_loaded") then
+		msg.post(sender, "init")
+		msg.post(sender, "enable")
+
+		print("Screen ready:", self.current_screen)
+
+		-- Collection unloaded
+	elseif message_id == hash("proxy_unloaded") then
+		self.current_screen = nil
+		self.current_proxy = nil
+
+		if self.next_screen then
+			local next_screen = self.next_screen
+			self.next_screen = nil
+			load_screen(self, next_screen)
+		end
+
+	elseif message_id == hash("proxy_error") then
+		print("Collection proxy error:", message.code)
+	end
 end
