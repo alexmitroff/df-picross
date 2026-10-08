@@ -1,4 +1,8 @@
 script: "/screens/levels/levels.gui_script"
+fonts {
+  name: "default"
+  font: "/builtins/fonts/default.font"
+}
 nodes {
   position {
     x: 360.0
@@ -10,6 +14,7 @@ nodes {
   }
   type: TYPE_TEXT
   text: "SELECT LEVEL"
+  font: "default"
   id: "title"
   inherit_alpha: true
 }
@@ -24,6 +29,7 @@ nodes {
   }
   type: TYPE_TEXT
   text: "CLICK TO START"
+  font: "default"
   id: "instruction"
   inherit_alpha: true
 }

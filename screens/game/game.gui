@@ -1,4 +1,8 @@
 script: "/screens/game/game.gui_script"
+fonts {
+  name: "default"
+  font: "/builtins/fonts/default.font"
+}
 nodes {
   position {
     x: 360.0
@@ -10,6 +14,7 @@ nodes {
   }
   type: TYPE_TEXT
   text: "PUZZLE SCREEN"
+  font: "default"
   id: "title"
   inherit_alpha: true
 }
@@ -24,6 +29,7 @@ nodes {
   }
   type: TYPE_TEXT
   text: "CLICK TO RETURN TO MENU"
+  font: "default"
   id: "instruction"
   inherit_alpha: true
 }
