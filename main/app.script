@@ -1,0 +1,7 @@
+function init(self)
+	print("Harbour Picross initialized")
+end
+
+function final(self)
+	print("Harbour Picross shutting down")
+end
