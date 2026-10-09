@@ -1,6 +1,7 @@
 local board = require "puzzle.board"
 local layout = require "puzzle.layout"
 local puzzles = require "levels.puzzles"
+local progress = require "levels.progress"
 
 local TOUCH = hash("touch")
 local CROSS = hash("cross")
@@ -210,7 +211,12 @@ local function paint_cell(self, row, col, state)
 	if board.is_solved(self.puzzle) then
 		self.completed = true
 		self.drag = nil
-		gui.set_text(self.status, "PUZZLE COMPLETED!")
+		local saved = progress.complete(self.level_id)
+		if saved then
+			gui.set_text(self.status, "PUZZLE COMPLETED!")
+		else
+			gui.set_text(self.status,"COMPLETED - SAVE FAILED")
+		end
 		print("Completed:", self.level_id)
 	end
 end

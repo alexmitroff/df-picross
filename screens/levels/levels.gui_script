@@ -1,5 +1,6 @@
 
 local catalog = require "levels.catalog"
+local progress = require "levels.progress"
 
 local TOUCH = hash("touch")
 local APP = "main:/app#controller"
@@ -8,7 +9,8 @@ local COLORS = {
 	card = vmath.vector4(0.20, 0.32, 0.40, 1),
 	locked = vmath.vector4(0.13, 0.22, 0.28, 1),
 	text = vmath.vector4(0.96, 0.92, 0.83, 1),
-	muted = vmath.vector4(0.70, 0.78, 0.80, 1)
+	muted = vmath.vector4(0.70, 0.78, 0.80, 1),
+	completed = vmath.vector4(0.23, 0.46, 0.39, 1),
 }
 
 local function add_text(x, y, text, color)
@@ -42,31 +44,41 @@ local function add_clickable(self, node, value)
 	table.insert(self.clickable_cards, {node = node, value = value})
 end
 
+
 local function show_categories(self)
 	clear_cards(self)
 
 	self.page = "categories"
 	self.category = nil
+
 	gui.set_text(self.title, "SELECT DIFFICULTY")
 
 	for index, category in ipairs(catalog.categories) do
-		local unlocked = index == 1
+		local unlocked = progress.category_unlocked(category.id)
+		local completed, total = progress.category_progress(category)
 
-		-- Six cards arranged vertically.
 		local x = 360
 		local y = 950 - (index - 1) * 135
-
-		local card = track(self, add_card(x, y, 520, 105, unlocked and COLORS.card or COLORS.locked))
 		track(self, add_text(x, y + 15, category.name))
-		
-		local status = unlocked	and (#category.levels .. " puzzles") or "LOCKED"
+
+		local color = unlocked and COLORS.card or COLORS.locked
+		local card = track(self, add_card(x, y, 520, 105, color))
+		local status
+		if not unlocked then
+			status = "LOCKED"
+		elseif total == 0 then
+			status = "NO PUZZLES"
+		else
+			status = completed .. " / " .. total .. " completed"
+		end
 		track(self, add_text(x, y - 20, status, COLORS.muted))
 
-		if unlocked then
+		if unlocked and total > 0 then
 			add_clickable(self, card, category)
 		end
 	end
 end
+
 
 local function show_puzzles(self, category)
 	clear_cards(self)
