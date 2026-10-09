@@ -104,5 +104,45 @@ nodes {
   id: "status"
   inherit_alpha: true
 }
+nodes {
+  position {
+    x: 360.0
+    y: 245.0
+  }
+  size {
+    x: 300.0
+    y: 85.0
+  }
+  color {
+    x: 0.85882354
+    y: 0.7490196
+    z: 0.53333336
+  }
+  type: TYPE_BOX
+  id: "button_next"
+  inherit_alpha: true
+  enabled: false
+}
+nodes {
+  position {
+    x: 360.0
+    y: 245.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.09019608
+    y: 0.18039216
+    z: 0.2509804
+  }
+  type: TYPE_TEXT
+  text: "NEXT PUZZLE"
+  font: "default"
+  id: "label_next"
+  inherit_alpha: true
+  enabled: false
+}
 material: "/builtins/materials/gui.material"
 adjust_reference: ADJUST_REFERENCE_PARENT

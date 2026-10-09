@@ -80,6 +80,7 @@ local function show_categories(self)
 end
 
 
+
 local function show_puzzles(self, category)
 	clear_cards(self)
 
@@ -95,14 +96,22 @@ local function show_puzzles(self, category)
 		local x = 170 + col * 190
 		local y = 940 - row * 190
 
-		local card = track(self, add_card(x, y, 150, 150))
+		local completed = progress.is_completed(level.id)
 
-		track(self, add_text(x, y + 18, tostring(index)))
-		track(self, add_text(x, y - 22, level.size .. " x " .. level.size,COLORS.muted))
+		local color = completed	and COLORS.completed or COLORS.card
+
+		local card = track(self, add_card(x, y, 150, 150, color))
+		track(self, add_text(x, y + 25,	tostring(index)))
+		track(self, add_text(x, y - 10, level.size .. " x " .. level.size, COLORS.muted))
+
+		if completed then
+			track(self, add_text(x, y - 45, "DONE"))
+		end
 
 		add_clickable(self, card, level)
 	end
 end
+
 
 function init(self)
 	msg.post(".", "acquire_input_focus")

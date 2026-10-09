@@ -38,4 +38,24 @@ M.categories = {
 	}
 }
 
+
+function M.next_level(level_id)
+	local found = false
+
+	for _, category in ipairs(M.categories) do
+		for _, level in ipairs(category.levels) do
+			if found then
+				return level, category
+			end
+
+			if level.id == level_id then
+				found = true
+			end
+		end
+	end
+
+	return nil, nil
+end
+
+
 return M

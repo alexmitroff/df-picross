@@ -1,5 +1,6 @@
 local board = require "puzzle.board"
 local layout = require "puzzle.layout"
+local catalog = require "levels.catalog"
 local puzzles = require "levels.puzzles"
 local progress = require "levels.progress"
 
@@ -150,6 +151,12 @@ local function clear_grid(self)
 end
 
 
+local function set_next_visible(self, visible)
+	gui.set_enabled(self.button_next, visible)
+	gui.set_enabled(self.label_next, visible)
+end
+
+
 local function open_level(self, level_id)
 	local level = puzzles.get(level_id)
 
@@ -178,6 +185,9 @@ local function open_level(self, level_id)
 
 	gui.set_text(self.title, level.name)
 	gui.set_text(self.status, "Solve the puzzle")
+
+	self.next_level_id = nil
+	set_next_visible(self, false)
 
 	create_grid(self)
 	create_separators(self)
@@ -208,15 +218,27 @@ local function paint_cell(self, row, col, state)
 
 	print("CELL COLOR:", gui.get_color(self.cells[row][col].box))
 
+
 	if board.is_solved(self.puzzle) then
 		self.completed = true
 		self.drag = nil
+
 		local saved = progress.complete(self.level_id)
+
+		gui.set_text(self.status, saved and "PUZZLE COMPLETED!"	or "COMPLETED - SAVE FAILED")
+
+		self.next_level_id = nil
+		set_next_visible(self, false)
+
 		if saved then
-			gui.set_text(self.status, "PUZZLE COMPLETED!")
-		else
-			gui.set_text(self.status,"COMPLETED - SAVE FAILED")
+			local next_level, category = catalog.next_level(self.level_id)
+
+			if next_level and progress.category_unlocked(category.id) then
+				self.next_level_id = next_level.id
+				set_next_visible(self, true)
+			end
 		end
+
 		print("Completed:", self.level_id)
 	end
 end
@@ -300,6 +322,11 @@ function init(self)
 	self.title = gui.get_node("title")
 	self.status = gui.get_node("status")
 	self.button_back = gui.get_node("button_back")
+	self.button_next = gui.get_node("button_next")
+	self.label_next = gui.get_node("label_next")
+
+	self.next_level_id = nil
+	set_next_visible(self, false)
 
 	self.nodes = {}
 	self.cells = {}
@@ -358,6 +385,13 @@ function on_input(self, action_id, action)
 	and gui.pick_node(self.button_back, x, y) then
 
 		msg.post(APP, "show_levels")
+		return true
+	end
+
+	-- The `Next puzzle` button
+	if action_id == TOUCH and self.next_level_id and gui.is_enabled(self.button_next) and gui.pick_node(self.button_next, x, y) then
+		local level_id = self.next_level_id
+		open_level(self, level_id)
 		return true
 	end
 
