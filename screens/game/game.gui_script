@@ -1,25 +1,24 @@
 local board = require "puzzle.board"
+local layout = require "puzzle.layout"
 local puzzles = require "levels.puzzles"
 
 local TOUCH = hash("touch")
 local CROSS = hash("cross")
 local OPEN_LEVEL = hash("open_level")
 local APP = "main:/app#controller"
-local CELL_SIZE = 70
-local GRID_X = 220
-local GRID_Y = 760
 local COLORS = {
 	unknown = vmath.vector4(0.91, 0.94, 0.95, 1),
 	filled = vmath.vector4(0.86, 0.75, 0.53, 1),
 	crossed = vmath.vector4(0.91, 0.94, 0.95, 1),
 	text = vmath.vector4(0.96, 0.92, 0.83, 1),
-	cross = vmath.vector4(0.25, 0.39, 0.47, 1)
+	cross = vmath.vector4(0.25, 0.39, 0.47, 1),
+	separator = vmath.vector4(0.09, 0.18, 0.25, 1)
 }
 
 local function create_box(x, y, size, color)
 	local node = gui.new_box_node(vmath.vector3(x, y, 0), vmath.vector3(size, size, 0))
 	gui.set_color(node, color)
-	gui.set_adjust_mode(node, gui.ADJUST_STRETCH)
+	gui.set_adjust_mode(node, gui.ADJUST_FIT)
 	return node
 end
 
@@ -41,42 +40,86 @@ end
 local function create_grid(self)
 	self.cells = {}
 
+	local geometry = self.geometry
+	local size = geometry.cell_size
+
 	for row = 1, self.puzzle.height do
 		self.cells[row] = {}
 
 		for col = 1, self.puzzle.width do
-			local x = GRID_X + (col - 1) * CELL_SIZE
-			local y = GRID_Y - (row - 1) * CELL_SIZE
+			local x, y = layout.cell_position(geometry, row, col, self.puzzle.height)
 
-			local cell_node = track(self, create_box(x, y, CELL_SIZE - 2, COLORS.unknown))
+			local cell_node = track(self, create_box(x, y, size - 1.5, COLORS.unknown))
+
 			local cross_node = track(self, create_text(x, y, "X", COLORS.cross))
+			local scale = math.min(2, math.max(0.7, size / 45))
+			gui.set_scale(cross_node, vmath.vector3(scale, scale, 1))
 			gui.set_enabled(cross_node, false)
-			self.cells[row][col] = {box = cell_node, cross = cross_node}
+
+			self.cells[row][col] = {
+				box = cell_node,
+				cross = cross_node
+			}
 		end
 	end
 end
 
 
+
 local function create_clues(self)
-	-- Row clues
+	local geometry = self.geometry
+	local step = geometry.clue_step
+
+	local scale = math.min(1.0,	math.max(0.6, geometry.cell_size / 45))
+
+	-- ROW CLUES
 	for row, clues in ipairs(self.puzzle.row_clues) do
-		local parts = {}
-
-		for _, value in ipairs(clues) do
-			parts[#parts + 1] = tostring(value)
-		end
-		local y = GRID_Y - (row - 1) * CELL_SIZE
-		track(self, create_text(GRID_X - 100, y, table.concat(parts, " ")))
-	end
-
-	-- Column clues, stacked vertically
-	for col, clues in ipairs(self.puzzle.col_clues) do
-		local x = GRID_X + (col - 1) * CELL_SIZE
+		local _, y = layout.cell_position(geometry, row, 1, self.puzzle.height)
 
 		for index, value in ipairs(clues) do
-			local y = GRID_Y + 65 + (#clues - index) * 32
-			track(self, create_text(x, y, value))
+			-- Last clue stays nearest the grid.
+			local x = geometry.row_clue_right - (#clues - index) * step
+			local node = track(self, create_text(x, y, value))
+			gui.set_pivot(node, gui.PIVOT_E)
+			gui.set_scale(node, vmath.vector3(scale, scale, 1))
 		end
+	end
+
+	-- COLUMN CLUES
+	for col, clues in ipairs(self.puzzle.col_clues) do
+		local x = geometry.grid_left + (col - 0.5) * geometry.cell_size
+
+		for index, value in ipairs(clues) do
+			-- Last clue stays nearest the grid.
+			local y = geometry.col_clue_bottom + (#clues - index + 0.5) * step
+			local node = track(self, create_text(x, y, value))
+			gui.set_scale(node, vmath.vector3(scale, scale, 1))
+		end
+	end
+end
+
+
+local function create_separators(self)
+	local geometry = self.geometry
+	local size = geometry.cell_size
+	local thickness = math.max(2, size * 0.045)
+
+	-- Vertical lines after columns 5, 10, 15...
+	for col = 5, self.puzzle.width - 1, 5 do
+		local x = geometry.grid_left + col * size
+		local y = geometry.grid_bottom + geometry.grid_height / 2
+		local node = gui.new_box_node(vmath.vector3(x, y, 0), vmath.vector3(thickness, geometry.grid_height, 0))
+		gui.set_color(node, COLORS.separator)
+		track(self, node)
+	end
+
+	-- Horizontal lines after rows 5, 10, 15...
+	for row = 5, self.puzzle.height - 1, 5 do
+		local x = geometry.grid_left + geometry.grid_width / 2
+		local y = geometry.grid_bottom + (self.puzzle.height - row) * size
+		local node = gui.new_box_node(vmath.vector3(x, y, 0), vmath.vector3(geometry.grid_width, thickness, 0))
+		gui.set_color(node, COLORS.separator)
+		track(self, node)
 	end
 end
 
@@ -118,6 +161,17 @@ local function open_level(self, level_id)
 
 	self.level_id = level_id
 	self.puzzle = board.create(level)
+
+	local width = gui.get_width()
+	local height = gui.get_height()
+	self.geometry = layout.calculate(self.puzzle, {
+		x = width * 0.05,
+		y = height * 0.32,
+		width = width * 0.90,
+		height = height * 0.43,
+		max_cell_size = 92
+	})
+
 	self.completed = false
 	self.drag = nil
 
@@ -125,6 +179,7 @@ local function open_level(self, level_id)
 	gui.set_text(self.status, "Solve the puzzle")
 
 	create_grid(self)
+	create_separators(self)
 	create_clues(self)
 
 	print("Opened level:", level_id)
