@@ -1,0 +1,10 @@
+name: "settings"
+scale_along_z: 0
+embedded_instances {
+  id: "settings"
+  data: "components {\n"
+  "  id: \"settings\"\n"
+  "  component: \"/screens/settings/settings.gui\"\n"
+  "}\n"
+  ""
+}

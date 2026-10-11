@@ -1,4 +1,3 @@
-
 local TOUCH = hash("touch")
 
 local function animate_press(node)
@@ -36,8 +35,7 @@ function on_input(self, action_id, action)
 		return true
 
 	elseif gui.pick_node(self.button_settings, x, y) then
-		animate_press(self.button_settings)
-		print("Settings clicked")
+		msg.post("main:/app#controller", "show_settings")
 		return true
 
 	elseif gui.pick_node(self.button_about, x, y) then

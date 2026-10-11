@@ -114,4 +114,9 @@ function M.category_unlocked(category_id)
 end
 
 
+function M.reset()
+	return save_data(default_data())
+end
+
+
 return M

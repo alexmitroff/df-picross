@@ -1,0 +1,272 @@
+script: "/screens/settings/settings.gui_script"
+fonts {
+  name: "default"
+  font: "/builtins/fonts/default.font"
+}
+nodes {
+  position {
+    x: 360.0
+    y: 640.0
+  }
+  size {
+    x: 720.0
+    y: 1280.0
+  }
+  color {
+    x: 0.09019608
+    y: 0.18039216
+    z: 0.2509804
+  }
+  type: TYPE_BOX
+  id: "settings__background"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 360.0
+    y: 1100.0
+  }
+  scale {
+    x: 1.6
+    y: 1.6
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.95686275
+    y: 0.91764706
+    z: 0.83137256
+  }
+  type: TYPE_TEXT
+  text: "SETTINGS"
+  font: "default"
+  id: "settings__title"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 360.0
+    y: 570.0
+  }
+  size {
+    x: 380.0
+    y: 85.0
+  }
+  color {
+    x: 0.20392157
+    y: 0.32156864
+    z: 0.40392157
+  }
+  type: TYPE_BOX
+  id: "settings__button__reset"
+  inherit_alpha: true
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.95686275
+    y: 0.91764706
+    z: 0.83137256
+  }
+  type: TYPE_TEXT
+  text: "RESET PROGRESS\n"
+  ""
+  font: "default"
+  id: "settings__button__reset__label"
+  parent: "settings__button__reset"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 80.0
+    y: 1100.0
+  }
+  size {
+    x: 100.0
+    y: 80.0
+  }
+  color {
+    x: 0.20392157
+    y: 0.32156864
+    z: 0.40392157
+  }
+  type: TYPE_BOX
+  id: "settings__button__back"
+  inherit_alpha: true
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.95686275
+    y: 0.91764706
+    z: 0.83137256
+  }
+  type: TYPE_TEXT
+  text: "BACK"
+  font: "default"
+  id: "settings__button__back__label"
+  parent: "settings__button__back"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 360.0
+    y: 640.0
+  }
+  size {
+    x: 720.0
+    y: 1280.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_BOX
+  id: "dialog__background"
+  inherit_alpha: true
+  alpha: 0.5
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 360.0
+    y: 640.0
+  }
+  size {
+    x: 550.0
+    y: 330.0
+  }
+  color {
+    x: 0.14901961
+    y: 0.24705882
+    z: 0.3137255
+  }
+  type: TYPE_BOX
+  id: "reset__confirm"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    y: 115.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.95686275
+    y: 0.91764706
+    z: 0.83137256
+  }
+  type: TYPE_TEXT
+  text: "RESET ALL PROGRESS?\n"
+  ""
+  font: "default"
+  id: "reset__confirm__title"
+  parent: "reset__confirm"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: -120.0
+    y: -28.0
+  }
+  size {
+    x: 210.0
+    y: 75.0
+  }
+  color {
+    x: 0.20392157
+    y: 0.32156864
+    z: 0.40392157
+  }
+  type: TYPE_BOX
+  id: "reset__confirm__button__cancel"
+  parent: "reset__confirm"
+  inherit_alpha: true
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.95686275
+    y: 0.91764706
+    z: 0.83137256
+  }
+  type: TYPE_TEXT
+  text: "CANCEL\n"
+  ""
+  font: "default"
+  id: "reset__confirm__button__cancel__label"
+  parent: "reset__confirm__button__cancel"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 120.0
+    y: -28.0
+  }
+  size {
+    x: 210.0
+    y: 75.0
+  }
+  color {
+    x: 0.7254902
+    y: 0.3529412
+    z: 0.3137255
+  }
+  type: TYPE_BOX
+  id: "reset__confirm__button__confirm"
+  parent: "reset__confirm"
+  inherit_alpha: true
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.95686275
+    y: 0.91764706
+    z: 0.83137256
+  }
+  type: TYPE_TEXT
+  text: "RESET"
+  font: "default"
+  id: "reset__confirm__button__confirm__label"
+  parent: "reset__confirm__button__confirm"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 360.0
+    y: 601.0
+  }
+  size {
+    x: 550.0
+    y: 330.0
+  }
+  color {
+    x: 0.14901961
+    y: 0.24705882
+    z: 0.3137255
+  }
+  type: TYPE_BOX
+  id: "reset__confirm__panel"
+  parent: "reset__confirm"
+  inherit_alpha: true
+  enabled: false
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT

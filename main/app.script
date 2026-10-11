@@ -2,7 +2,8 @@
 local SCREENS = {
 	menu = "#menu_proxy",
 	levels = "#levels_proxy",
-	game = "#game_proxy"
+	game = "#game_proxy",
+	settings = "#settings_proxy",
 }
 
 local function load_screen(self, name)
@@ -62,6 +63,9 @@ function on_message(self, message_id, message, sender)
 	elseif message_id == hash("show_game") then
 		self.selected_level_id = message.level_id
 		switch_screen(self, "game")
+
+	elseif message_id == hash("show_settings") then
+		switch_screen(self, "settings")
 
 		-- Collection loaded
 	elseif message_id == hash("proxy_loaded") then
