@@ -285,7 +285,9 @@ local function begin_paint(self, action_id, x, y)
 	self.drag = {
 		state = target,
 		last_row = row,
-		last_col = col
+		last_col = col,
+		last_x = x,
+		last_y = y,
 	}
 
 	paint_cell(self, row, col, target)
@@ -298,21 +300,46 @@ local function continue_paint(self, x, y)
 		return
 	end
 
-	local row, col = find_cell(self, x, y)
+	local drag = self.drag
 
-	if not row then
-		return
+	local dx = x - drag.last_x
+	local dy = y - drag.last_y
+
+	local distance = math.sqrt(dx * dx + dy * dy)
+
+	-- Keep the sampling interval smaller than a cell.
+	local spacing = math.min(12, self.geometry.cell_size / 3)
+
+	local steps = math.max(1, math.ceil(distance / spacing))
+
+	local start_x = drag.last_x
+	local start_y = drag.last_y
+
+	for i = 1, steps do
+		local t = i / steps
+
+		local px = start_x + dx * t
+		local py = start_y + dy * t
+
+		local row, col = find_cell(self, px, py)
+
+		if row and (drag.last_row ~= row or drag.last_col ~= col) then
+			drag.last_row = row
+			drag.last_col = col
+
+			paint_cell(self, row, col, drag.state)
+
+			-- Victory can end the gesture.
+			if self.completed then
+				break
+			end
+		end
 	end
 
-	-- Avoid processing the same cell repeatedly.
-	if self.drag.last_row == row and self.drag.last_col == col then
-		return
+	if self.drag then
+		self.drag.last_x = x
+		self.drag.last_y = y
 	end
-
-	self.drag.last_row = row
-	self.drag.last_col = col
-
-	paint_cell(self, row, col, self.drag.state)
 end
 
 
@@ -381,9 +408,7 @@ function on_input(self, action_id, action)
 	local x, y = action.x, action.y
 
 	-- The Back button only responds to left click.
-	if action_id == TOUCH
-	and gui.pick_node(self.button_back, x, y) then
-
+	if action_id == TOUCH and gui.pick_node(self.button_back, x, y) then
 		msg.post(APP, "show_levels")
 		return true
 	end
@@ -392,6 +417,10 @@ function on_input(self, action_id, action)
 	if action_id == TOUCH and self.next_level_id and gui.is_enabled(self.button_next) and gui.pick_node(self.button_next, x, y) then
 		local level_id = self.next_level_id
 		open_level(self, level_id)
+		return true
+	end
+
+	if self.drag then
 		return true
 	end
 
