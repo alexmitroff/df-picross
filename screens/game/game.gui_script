@@ -34,6 +34,7 @@ end
 
 
 local function track(self, node)
+	gui.set_parent(node, self.puzzle_canvas, true)
 	self.nodes[#self.nodes + 1] = node
 	return node
 end
@@ -322,6 +323,7 @@ function init(self)
 	self.status = gui.get_node("status")
 	self.button_back = gui.get_node("button__back")
 	self.button_next = gui.get_node("button__next")
+	self.puzzle_canvas = gui.get_node("puzzle__canvas")
 
 	self.next_level_id = nil
 	set_next_visible(self, false)
