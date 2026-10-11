@@ -17,9 +17,9 @@ end
 function init(self)
 	msg.post(".", "acquire_input_focus")
 
-	self.button_play = gui.get_node("button_play")
-	self.button_settings = gui.get_node("button_settings")
-	self.button_about = gui.get_node("button_about")
+	self.button_play = gui.get_node("button__play")
+	self.button_settings = gui.get_node("button__settings")
+	self.button_about = gui.get_node("button__about")
 end
 
 function on_input(self, action_id, action)

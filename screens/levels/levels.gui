@@ -61,15 +61,11 @@ nodes {
     z: 0.40392157
   }
   type: TYPE_BOX
-  id: "button_back"
+  id: "button__back"
   inherit_alpha: true
   size_mode: SIZE_MODE_AUTO
 }
 nodes {
-  position {
-    x: 80.0
-    y: 1110.0
-  }
   size {
     x: 200.0
     y: 100.0
@@ -83,7 +79,8 @@ nodes {
   text: "BACK\n"
   ""
   font: "default"
-  id: "label_back"
+  id: "button__back__label"
+  parent: "button__back"
   inherit_alpha: true
 }
 material: "/builtins/materials/gui.material"

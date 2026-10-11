@@ -84,50 +84,10 @@ nodes {
     z: 0.53333336
   }
   type: TYPE_BOX
-  id: "button_play"
+  id: "button__play"
   inherit_alpha: true
 }
 nodes {
-  position {
-    x: 360.0
-    y: 500.0
-  }
-  size {
-    x: 360.0
-    y: 90.0
-  }
-  color {
-    x: 0.20392157
-    y: 0.32156864
-    z: 0.40392157
-  }
-  type: TYPE_BOX
-  id: "button_settings"
-  inherit_alpha: true
-}
-nodes {
-  position {
-    x: 360.0
-    y: 380.0
-  }
-  size {
-    x: 360.0
-    y: 90.0
-  }
-  color {
-    x: 0.20392157
-    y: 0.32156864
-    z: 0.40392157
-  }
-  type: TYPE_BOX
-  id: "button_about"
-  inherit_alpha: true
-}
-nodes {
-  position {
-    x: 360.0
-    y: 620.0
-  }
   size {
     x: 200.0
     y: 100.0
@@ -140,7 +100,8 @@ nodes {
   type: TYPE_TEXT
   text: "PLAY"
   font: "default"
-  id: "label_play"
+  id: "button__play__label"
+  parent: "button__play"
   inherit_alpha: true
 }
 nodes {
@@ -148,6 +109,20 @@ nodes {
     x: 360.0
     y: 500.0
   }
+  size {
+    x: 360.0
+    y: 90.0
+  }
+  color {
+    x: 0.20392157
+    y: 0.32156864
+    z: 0.40392157
+  }
+  type: TYPE_BOX
+  id: "button__settings"
+  inherit_alpha: true
+}
+nodes {
   size {
     x: 200.0
     y: 100.0
@@ -160,7 +135,8 @@ nodes {
   type: TYPE_TEXT
   text: "SETTINGS"
   font: "default"
-  id: "label_settings"
+  id: "button__settings__label"
+  parent: "button__settings"
   inherit_alpha: true
 }
 nodes {
@@ -168,6 +144,20 @@ nodes {
     x: 360.0
     y: 380.0
   }
+  size {
+    x: 360.0
+    y: 90.0
+  }
+  color {
+    x: 0.20392157
+    y: 0.32156864
+    z: 0.40392157
+  }
+  type: TYPE_BOX
+  id: "button__about"
+  inherit_alpha: true
+}
+nodes {
   size {
     x: 200.0
     y: 100.0
@@ -180,7 +170,8 @@ nodes {
   type: TYPE_TEXT
   text: "ABOUT"
   font: "default"
-  id: "label_about"
+  id: "button__about__label"
+  parent: "button__about"
   inherit_alpha: true
 }
 material: "/builtins/materials/gui.material"

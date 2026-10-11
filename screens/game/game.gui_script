@@ -153,7 +153,6 @@ end
 
 local function set_next_visible(self, visible)
 	gui.set_enabled(self.button_next, visible)
-	gui.set_enabled(self.label_next, visible)
 end
 
 
@@ -321,9 +320,8 @@ function init(self)
 
 	self.title = gui.get_node("title")
 	self.status = gui.get_node("status")
-	self.button_back = gui.get_node("button_back")
-	self.button_next = gui.get_node("button_next")
-	self.label_next = gui.get_node("label_next")
+	self.button_back = gui.get_node("button__back")
+	self.button_next = gui.get_node("button__next")
 
 	self.next_level_id = nil
 	set_next_visible(self, false)

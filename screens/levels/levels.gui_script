@@ -117,7 +117,7 @@ function init(self)
 	msg.post(".", "acquire_input_focus")
 
 	self.title = gui.get_node("title")
-	self.button_back = gui.get_node("button_back")
+	self.button_back = gui.get_node("button__back")
 
 	self.dynamic_nodes = {}
 	self.clickable_cards = {}
