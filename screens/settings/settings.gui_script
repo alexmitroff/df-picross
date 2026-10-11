@@ -1,4 +1,4 @@
-local progress = require "levels.progress"
+local progress = require "systems.progress"
 
 local TOUCH = hash("touch")
 local APP = "main:/app#controller"

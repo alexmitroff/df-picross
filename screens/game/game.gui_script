@@ -2,7 +2,7 @@ local board = require "puzzle.board"
 local layout = require "puzzle.layout"
 local catalog = require "levels.catalog"
 local puzzles = require "levels.puzzles"
-local progress = require "levels.progress"
+local progress = require "systems.progress"
 
 local TOUCH = hash("touch")
 local CROSS = hash("cross")
@@ -179,6 +179,8 @@ end
 
 local function set_next_visible(self, visible)
 	gui.set_enabled(self.button_next, visible)
+	gui.set_scale( self.button_next, vmath.vector3(0.85, 0.85, 1))
+	gui.animate(self.button_next, gui.PROP_SCALE, vmath.vector3(1, 1, 1), gui.EASING_OUTBACK, 0.25)
 end
 
 
