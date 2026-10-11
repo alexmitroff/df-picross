@@ -48,6 +48,42 @@ nodes {
 nodes {
   position {
     x: 360.0
+    y: 845.0
+  }
+  size {
+    x: 380.0
+    y: 85.0
+  }
+  color {
+    x: 0.20392157
+    y: 0.32156864
+    z: 0.40392157
+  }
+  type: TYPE_BOX
+  id: "settings__button__animations"
+  inherit_alpha: true
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.95686275
+    y: 0.91764706
+    z: 0.83137256
+  }
+  type: TYPE_TEXT
+  text: "RESET PROGRESS\n"
+  ""
+  font: "default"
+  id: "settings__button__animations__label"
+  parent: "settings__button__animations"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 360.0
     y: 570.0
   }
   size {

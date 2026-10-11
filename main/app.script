@@ -1,3 +1,4 @@
+local settings = require "systems.settings"
 
 local SCREENS = {
 	menu = "#menu_proxy",
@@ -45,6 +46,7 @@ function init(self)
 	self.current_proxy = nil
 	self.next_screen = nil
 
+	settings.init()
 	-- Required for input propagation to proxy worlds.
 	msg.post(".", "acquire_input_focus")
 
