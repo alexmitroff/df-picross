@@ -29,6 +29,23 @@ local function calculate_clues(line)
 	return clues
 end
 
+
+
+local function clues_match(actual, expected)
+	if #actual ~= #expected then
+		return false
+	end
+
+	for i = 1, #expected do
+		if actual[i] ~= expected[i] then
+			return false
+		end
+	end
+
+	return true
+end
+
+
 function M.create(level)
 	assert(level and level.solution, "Invalid level")
 
@@ -71,6 +88,7 @@ function M.create(level)
 	return board
 end
 
+
 function M.set_cell(board, row, col, state)
 	assert(row >= 1 and row <= board.height)
 	assert(col >= 1 and col <= board.width)
@@ -85,6 +103,7 @@ function M.set_cell(board, row, col, state)
 	return true
 end
 
+
 function M.is_solved(board)
 	for row = 1, board.height do
 		for col = 1, board.width do
@@ -97,6 +116,43 @@ function M.is_solved(board)
 	end
 
 	return true
+end
+
+
+function M.row_clues_satisfied(puzzle, row)
+	local values = {}
+
+	for col = 1, puzzle.width do
+		values[col] = puzzle.cells[row][col] == M.FILLED
+		and 1 or 0
+	end
+
+	local actual = calculate_clues(values)
+
+	-- Do not mark a completely untouched row as complete.
+	if actual[1] == 0 then
+		return false
+	end
+
+	return clues_match(actual, puzzle.row_clues[row])
+end
+
+
+function M.col_clues_satisfied(puzzle, col)
+	local values = {}
+
+	for row = 1, puzzle.height do
+		values[row] = puzzle.cells[row][col] == M.FILLED
+		and 1 or 0
+	end
+
+	local actual = calculate_clues(values)
+
+	if actual[1] == 0 then
+		return false
+	end
+
+	return clues_match(actual, puzzle.col_clues[col])
 end
 
 return M

@@ -14,7 +14,9 @@ local COLORS = {
 	crossed = vmath.vector4(0.91, 0.94, 0.95, 1),
 	text = vmath.vector4(0.96, 0.92, 0.83, 1),
 	cross = vmath.vector4(0.25, 0.39, 0.47, 1),
-	separator = vmath.vector4(0.09, 0.18, 0.25, 1)
+	separator = vmath.vector4(0.09, 0.18, 0.25, 1),
+	clue_normal = vmath.vector4(0.96, 0.92, 0.83, 1),
+	clue_satisfied = vmath.vector4(0.55, 0.83, 0.65, 1),
 }
 
 local function create_box(x, y, size, color)
@@ -68,8 +70,10 @@ local function create_grid(self)
 end
 
 
-
 local function create_clues(self)
+	self.row_clue_nodes = {}
+	self.col_clue_nodes = {}
+	
 	local geometry = self.geometry
 	local step = geometry.clue_step
 
@@ -85,6 +89,9 @@ local function create_clues(self)
 			local node = track(self, create_text(x, y, value))
 			gui.set_pivot(node, gui.PIVOT_E)
 			gui.set_scale(node, vmath.vector3(scale, scale, 1))
+
+			self.row_clue_nodes[row] = self.row_clue_nodes[row] or {}
+			table.insert(self.row_clue_nodes[row], node)
 		end
 	end
 
@@ -97,8 +104,26 @@ local function create_clues(self)
 			local y = geometry.col_clue_bottom + (#clues - index + 0.5) * step
 			local node = track(self, create_text(x, y, value))
 			gui.set_scale(node, vmath.vector3(scale, scale, 1))
+
+			self.col_clue_nodes[col] = self.col_clue_nodes[col] or {}
+			table.insert(self.col_clue_nodes[col], node)
 		end
 	end
+end
+
+
+local function update_clue_nodes(nodes, satisfied)
+	local color = satisfied	and COLORS.clue_satisfied or COLORS.clue_normal
+
+	for _, node in ipairs(nodes or {}) do
+		gui.set_color(node, color)
+	end
+end
+
+
+local function update_clues(self, row, col)
+	update_clue_nodes(self.row_clue_nodes[row],	board.row_clues_satisfied(self.puzzle, row))
+	update_clue_nodes(self.col_clue_nodes[col], board.col_clues_satisfied(self.puzzle, col))
 end
 
 
@@ -215,6 +240,7 @@ local function paint_cell(self, row, col, state)
 	end
 
 	update_cell(self, row, col)
+	update_clues(self, row, col)
 
 	print("CELL COLOR:", gui.get_color(self.cells[row][col].box))
 
