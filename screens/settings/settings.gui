@@ -134,7 +134,6 @@ nodes {
   id: "dialog__background"
   inherit_alpha: true
   alpha: 0.5
-  size_mode: SIZE_MODE_AUTO
 }
 nodes {
   position {
