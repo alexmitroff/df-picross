@@ -11,6 +11,7 @@ local TOUCH = hash("touch")
 local CROSS = hash("cross")
 local OPEN_LEVEL = hash("open_level")
 local LAYOUT_CHANGED = hash("layout_changed")
+
 local APP = "main:/app#controller"
 local COLORS = {
 	unknown = vmath.vector4(0.91, 0.94, 0.95, 1),
@@ -118,9 +119,7 @@ end
 
 local function update_clue_nodes(nodes, satisfied)
 	local color = satisfied	and COLORS.clue_satisfied or COLORS.clue_normal
-	for _, node in ipairs(nodes or {}) do
-		gui.set_color(node, color)
-	end
+	for _, node in ipairs(nodes or {}) do gui.set_color(node, color) end
 end
 
 
@@ -177,9 +176,7 @@ end
 
 
 local function clear_grid(self)
-	for _, node in ipairs(self.nodes) do
-		gui.delete_node(node)
-	end
+	for _, node in ipairs(self.nodes) do gui.delete_node(node) end
 	self.nodes = {}
 	self.cells = {}
 	self.row_clue_nodes = {}
@@ -190,9 +187,7 @@ end
 
 
 local function rebuild_board(self)
-	if not self.session then
-		return
-	end
+	if not self.session then return	end
 
 	self.drag = nil
 
@@ -233,9 +228,7 @@ end
 
 
 local function update_board_layout(self)
-	if not self.session then
-		return
-	end
+	if not self.session then return	end
 
 	self.drag = nil
 
@@ -313,9 +306,7 @@ local PUZZLE_STATUS_TEXT = {
 }
 
 local function sync_ui(self)
-	if not self.session then
-		return
-	end
+	if not self.session then return	end
 
 	local s = self.session
 	gui.set_text(self.title, s.level.name)
@@ -332,24 +323,45 @@ local function open_level(self, level_id)
 	end
 
 	self.drag = nil
-	self.session = session.new(level_id)
-	rebuild_board(self)
-	sync_ui(self)
-	print("Opened level:", level_id)
+
+	clear_grid(self)
+
+	-- Release the old puzzle session.
+	self.session = nil
+	self.geometry = nil
+
+	-- Schedule the next puzzle.
+	self.pending_level_id = level_id
+	self.pending_level_frames = 3
+
+	gui.set_enabled(self.button_next, false)
+	gui.set_text(self.title, "Loading...")
+	gui.set_text(self.status, "")
+
 	return true
 end
 
 
+local function load_pending_level(self)
+	local level_id = self.pending_level_id
+	if not level_id then return	end
+
+	self.pending_level_id = nil
+	self.pending_level_frames = nil
+
+	self.session = session.new(level_id)
+	rebuild_board(self)
+	sync_ui(self)
+
+	print("Opened level:", level_id)
+end
+
+
 local function paint_cell(self, row, col, state)
-	if not self.session then
-		return
-	end
+	if not self.session then return	end
 
 	local result = session.paint(self.session, row,	col, state)
-
-	if not result.changed then
-		return
-	end
+	if not result.changed then return end
 
 	update_cell(self, row, col)
 	update_clues(self, row, col)
@@ -376,9 +388,7 @@ end
 
 
 local function find_cell(self, x, y)
-	if not self.session or not self.session.board then
-		return nil, nil
-	end
+	if not self.session or not self.session.board then return nil, nil end
 
 	for row = 1, self.session.board.height do
 		for col = 1, self.session.board.width do
@@ -397,9 +407,7 @@ local function begin_paint(self, action_id, x, y)
 
 	local row, col = find_cell(self, x, y)
 
-	if not row or self.session.completed then
-		return false
-	end
+	if not row or self.session.completed then return false end
 
 	local mark = action_id == TOUCH	and board.FILLED or board.CROSSED
 
@@ -422,9 +430,7 @@ local function begin_paint(self, action_id, x, y)
 end
 
 local function continue_paint(self, x, y)
-	if not self.drag or self.session.completed then
-		return
-	end
+	if not self.drag or self.session.completed then return end
 
 	local drag = self.drag
 
@@ -456,9 +462,7 @@ local function continue_paint(self, x, y)
 			paint_cell(self, row, col, drag.state)
 
 			-- Victory can end the gesture.
-			if self.session.completed then
-				break
-			end
+			if self.session.completed then break end
 		end
 	end
 
@@ -484,12 +488,21 @@ function init(self)
 	self.nodes = {}
 	self.cells = {}
 
+	self.pending_level_id = nil
+	self.pending_level_frames = nil
+
 	self.session = nil
 	self.drag = nil
 end
 
 
 function update(self, dt)
+	if self.pending_level_id then
+		self.pending_level_frames =	self.pending_level_frames - 1
+		if self.pending_level_frames <= 0 then load_pending_level(self)	end
+		return
+	end
+	
 	local width = gui.get_width()
 	local height = gui.get_height()
 	if width ~= self.last_gui_width	or height ~= self.last_gui_height then
@@ -504,7 +517,7 @@ end
 function on_message(self, message_id, message, sender)
 	if message_id == OPEN_LEVEL then
 		open_level(self, message.level_id)
-	elseif message_id == LAYOUT_CHANGED then
+	elseif message_id == LAYOUT_CHANGED and not self.pending_level_id then
 		update_board_layout(self)
 		sync_ui(self)
 	end
@@ -530,9 +543,7 @@ function on_input(self, action_id, action)
 		return true
 	end
 
-	if not action.pressed then
-		return
-	end
+	if not action.pressed then return end
 
 	local x, y = action.x, action.y
 
@@ -543,18 +554,15 @@ function on_input(self, action_id, action)
 	end
 
 	-- If session does not exist we do not need the rest
-	if not self.session then
-		return false
-	end
+	if not self.session then return false end
 
 	-- The `Next puzzle` button
 	if action_id == TOUCH and self.session and self.session.ui.show_next and self.session.next_level_id and gui.pick_node(self.button_next, x, y) then
-		return open_level(self, self.session.next_level_id)
-	end
-
-	if self.drag then
+		open_level(self, self.session.next_level_id)
 		return true
 	end
+
+	if self.drag then return true end
 
 	-- Begin filling or crossing cells.
 	return begin_paint(self, action_id, x, y)
