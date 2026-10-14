@@ -1,4 +1,4 @@
-
+-- Global progress. Track of all solved puzzels.
 local catalog = require "levels.catalog"
 
 local M = {}

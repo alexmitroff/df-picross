@@ -4,10 +4,6 @@ fonts {
   font: "/builtins/fonts/default.font"
 }
 nodes {
-  position {
-    x: 360.0
-    y: 640.0
-  }
   size {
     x: 720.0
     y: 1280.0
@@ -19,6 +15,7 @@ nodes {
   }
   type: TYPE_BOX
   id: "settings__background"
+  pivot: PIVOT_SW
   inherit_alpha: true
 }
 nodes {
@@ -26,6 +23,16 @@ nodes {
     x: 360.0
     y: 1100.0
   }
+  size {
+    x: 1.0
+    y: 1.0
+  }
+  type: TYPE_BOX
+  id: "settings__header"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
   scale {
     x: 1.6
     y: 1.6
@@ -43,84 +50,12 @@ nodes {
   text: "SETTINGS"
   font: "default"
   id: "settings__title"
+  parent: "settings__header"
   inherit_alpha: true
 }
 nodes {
   position {
-    x: 360.0
-    y: 845.0
-  }
-  size {
-    x: 380.0
-    y: 85.0
-  }
-  color {
-    x: 0.20392157
-    y: 0.32156864
-    z: 0.40392157
-  }
-  type: TYPE_BOX
-  id: "settings__button__animations"
-  inherit_alpha: true
-}
-nodes {
-  size {
-    x: 200.0
-    y: 100.0
-  }
-  color {
-    x: 0.95686275
-    y: 0.91764706
-    z: 0.83137256
-  }
-  type: TYPE_TEXT
-  text: "RESET PROGRESS\n"
-  ""
-  font: "default"
-  id: "settings__button__animations__label"
-  parent: "settings__button__animations"
-  inherit_alpha: true
-}
-nodes {
-  position {
-    x: 360.0
-    y: 570.0
-  }
-  size {
-    x: 380.0
-    y: 85.0
-  }
-  color {
-    x: 0.20392157
-    y: 0.32156864
-    z: 0.40392157
-  }
-  type: TYPE_BOX
-  id: "settings__button__reset"
-  inherit_alpha: true
-}
-nodes {
-  size {
-    x: 200.0
-    y: 100.0
-  }
-  color {
-    x: 0.95686275
-    y: 0.91764706
-    z: 0.83137256
-  }
-  type: TYPE_TEXT
-  text: "RESET PROGRESS\n"
-  ""
-  font: "default"
-  id: "settings__button__reset__label"
-  parent: "settings__button__reset"
-  inherit_alpha: true
-}
-nodes {
-  position {
-    x: 80.0
-    y: 1100.0
+    x: -280.0
   }
   size {
     x: 100.0
@@ -133,6 +68,7 @@ nodes {
   }
   type: TYPE_BOX
   id: "settings__button__back"
+  parent: "settings__header"
   inherit_alpha: true
 }
 nodes {
@@ -158,6 +94,85 @@ nodes {
     y: 640.0
   }
   size {
+    x: 1.0
+    y: 1.0
+  }
+  type: TYPE_BOX
+  id: "settings__main"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    y: 240.0
+  }
+  size {
+    x: 380.0
+    y: 85.0
+  }
+  color {
+    x: 0.20392157
+    y: 0.32156864
+    z: 0.40392157
+  }
+  type: TYPE_BOX
+  id: "settings__button__animations"
+  parent: "settings__main"
+  inherit_alpha: true
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.95686275
+    y: 0.91764706
+    z: 0.83137256
+  }
+  type: TYPE_TEXT
+  text: "ANIMATIONS\n"
+  ""
+  font: "default"
+  id: "settings__button__animations__label"
+  parent: "settings__button__animations"
+  inherit_alpha: true
+}
+nodes {
+  size {
+    x: 380.0
+    y: 85.0
+  }
+  color {
+    x: 0.20392157
+    y: 0.32156864
+    z: 0.40392157
+  }
+  type: TYPE_BOX
+  id: "settings__button__reset"
+  parent: "settings__main"
+  inherit_alpha: true
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.95686275
+    y: 0.91764706
+    z: 0.83137256
+  }
+  type: TYPE_TEXT
+  text: "RESET PROGRESS\n"
+  ""
+  font: "default"
+  id: "settings__button__reset__label"
+  parent: "settings__button__reset"
+  inherit_alpha: true
+}
+nodes {
+  size {
     x: 720.0
     y: 1280.0
   }
@@ -168,6 +183,7 @@ nodes {
   }
   type: TYPE_BOX
   id: "dialog__background"
+  pivot: PIVOT_SW
   inherit_alpha: true
   alpha: 0.5
 }
@@ -304,4 +320,68 @@ nodes {
   enabled: false
 }
 material: "/builtins/materials/gui.material"
+layouts {
+  name: "Landscape"
+  nodes {
+    size {
+      x: 1280.0
+      y: 720.0
+    }
+    type: TYPE_BOX
+    id: "settings__background"
+    adjust_mode: ADJUST_MODE_STRETCH
+    overridden_fields: 4
+    overridden_fields: 17
+  }
+  nodes {
+    position {
+      x: 640.0
+      y: 600.0
+    }
+    type: TYPE_BOX
+    id: "settings__header"
+    overridden_fields: 1
+  }
+  nodes {
+    position {
+      x: 640.0
+      y: 270.0
+    }
+    type: TYPE_BOX
+    id: "settings__main"
+    overridden_fields: 1
+  }
+  nodes {
+    position {
+      y: 120.0
+    }
+    type: TYPE_BOX
+    id: "settings__button__animations"
+    parent: "settings__main"
+    overridden_fields: 1
+  }
+  nodes {
+    size {
+      x: 1280.0
+      y: 720.0
+    }
+    type: TYPE_BOX
+    id: "dialog__background"
+    adjust_mode: ADJUST_MODE_STRETCH
+    overridden_fields: 4
+    overridden_fields: 17
+  }
+  nodes {
+    position {
+      x: 641.0
+      y: 317.0
+    }
+    type: TYPE_BOX
+    id: "reset__confirm"
+    overridden_fields: 1
+  }
+}
+layouts {
+  name: "Portrait"
+}
 adjust_reference: ADJUST_REFERENCE_PARENT

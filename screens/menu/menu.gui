@@ -19,13 +19,29 @@ nodes {
   }
   type: TYPE_BOX
   id: "background"
+  adjust_mode: ADJUST_MODE_STRETCH
   inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
 }
 nodes {
   position {
     x: 360.0
     y: 900.0
   }
+  size {
+    x: 1.0
+    y: 1.0
+  }
+  color {
+    x: 0.09019608
+    y: 0.18039216
+    z: 0.2509804
+  }
+  type: TYPE_BOX
+  id: "header"
+  inherit_alpha: true
+}
+nodes {
   scale {
     x: 1.6
     y: 1.6
@@ -43,12 +59,12 @@ nodes {
   text: "HARBOUR PICROSS"
   font: "default"
   id: "title"
+  parent: "header"
   inherit_alpha: true
 }
 nodes {
   position {
-    x: 360.0
-    y: 840.0
+    y: -60.0
   }
   scale {
     x: 0.8
@@ -67,6 +83,7 @@ nodes {
   text: "A Nonogram Puzzle Game"
   font: "default"
   id: "subtitle"
+  parent: "header"
   inherit_alpha: true
 }
 nodes {
@@ -74,6 +91,21 @@ nodes {
     x: 360.0
     y: 620.0
   }
+  size {
+    x: 1.0
+    y: 1.0
+  }
+  color {
+    x: 0.09019608
+    y: 0.18039216
+    z: 0.2509804
+  }
+  type: TYPE_BOX
+  id: "main"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
   size {
     x: 360.0
     y: 90.0
@@ -85,6 +117,7 @@ nodes {
   }
   type: TYPE_BOX
   id: "button__play"
+  parent: "main"
   inherit_alpha: true
 }
 nodes {
@@ -106,8 +139,7 @@ nodes {
 }
 nodes {
   position {
-    x: 360.0
-    y: 500.0
+    y: -120.0
   }
   size {
     x: 360.0
@@ -120,6 +152,7 @@ nodes {
   }
   type: TYPE_BOX
   id: "button__settings"
+  parent: "main"
   inherit_alpha: true
 }
 nodes {
@@ -141,8 +174,7 @@ nodes {
 }
 nodes {
   position {
-    x: 360.0
-    y: 380.0
+    y: -240.0
   }
   size {
     x: 360.0
@@ -155,6 +187,7 @@ nodes {
   }
   type: TYPE_BOX
   id: "button__about"
+  parent: "main"
   inherit_alpha: true
 }
 nodes {
@@ -175,4 +208,40 @@ nodes {
   inherit_alpha: true
 }
 material: "/builtins/materials/gui.material"
+layouts {
+  name: "Landscape"
+  nodes {
+    size {
+      x: 1280.0
+      y: 720.0
+    }
+    type: TYPE_BOX
+    id: "background"
+    pivot: PIVOT_SW
+    overridden_fields: 1
+    overridden_fields: 4
+    overridden_fields: 14
+  }
+  nodes {
+    position {
+      x: 640.0
+      y: 600.0
+    }
+    type: TYPE_BOX
+    id: "header"
+    overridden_fields: 1
+  }
+  nodes {
+    position {
+      x: 640.0
+      y: 400.0
+    }
+    type: TYPE_BOX
+    id: "main"
+    overridden_fields: 1
+  }
+}
+layouts {
+  name: "Portrait"
+}
 adjust_reference: ADJUST_REFERENCE_PARENT

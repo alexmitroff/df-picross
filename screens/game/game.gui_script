@@ -1,13 +1,16 @@
-local board = require "puzzle.board"
-local layout = require "puzzle.layout"
 local catalog = require "levels.catalog"
 local puzzles = require "levels.puzzles"
+
+local board = require "puzzle.board"
+local layout = require "puzzle.layout"
+
 local progress = require "systems.progress"
-local motion = require "systems.motion"
+local session = require "systems.session"
 
 local TOUCH = hash("touch")
 local CROSS = hash("cross")
 local OPEN_LEVEL = hash("open_level")
+local LAYOUT_CHANGED = hash("layout_changed")
 local APP = "main:/app#controller"
 local COLORS = {
 	unknown = vmath.vector4(0.91, 0.94, 0.95, 1),
@@ -19,6 +22,7 @@ local COLORS = {
 	clue_normal = vmath.vector4(0.96, 0.92, 0.83, 1),
 	clue_satisfied = vmath.vector4(0.55, 0.83, 0.65, 1),
 }
+
 
 local function create_box(x, y, size, color)
 	local node = gui.new_box_node(vmath.vector3(x, y, 0), vmath.vector3(size, size, 0))
@@ -37,7 +41,7 @@ end
 
 
 local function track(self, node)
-	gui.set_parent(node, self.puzzle_canvas, true)
+	gui.set_parent(node, self.puzzle_canvas, false)
 	self.nodes[#self.nodes + 1] = node
 	return node
 end
@@ -49,11 +53,11 @@ local function create_grid(self)
 	local geometry = self.geometry
 	local size = geometry.cell_size
 
-	for row = 1, self.puzzle.height do
+	for row = 1, self.session.board.height do
 		self.cells[row] = {}
 
-		for col = 1, self.puzzle.width do
-			local x, y = layout.cell_position(geometry, row, col, self.puzzle.height)
+		for col = 1, self.session.board.width do
+			local x, y = layout.cell_position(geometry, row, col, self.session.board.height)
 
 			local cell_node = track(self, create_box(x, y, size - 1.5, COLORS.unknown))
 
@@ -77,12 +81,11 @@ local function create_clues(self)
 	
 	local geometry = self.geometry
 	local step = geometry.clue_step
-
 	local scale = math.min(1.0,	math.max(0.6, geometry.cell_size / 45))
 
 	-- ROW CLUES
-	for row, clues in ipairs(self.puzzle.row_clues) do
-		local _, y = layout.cell_position(geometry, row, 1, self.puzzle.height)
+	for row, clues in ipairs(self.session.board.row_clues) do
+		local _, y = layout.cell_position(geometry, row, 1, self.session.board.height)
 
 		for index, value in ipairs(clues) do
 			-- Last clue stays nearest the grid.
@@ -97,7 +100,7 @@ local function create_clues(self)
 	end
 
 	-- COLUMN CLUES
-	for col, clues in ipairs(self.puzzle.col_clues) do
+	for col, clues in ipairs(self.session.board.col_clues) do
 		local x = geometry.grid_left + (col - 0.5) * geometry.cell_size
 
 		for index, value in ipairs(clues) do
@@ -115,7 +118,6 @@ end
 
 local function update_clue_nodes(nodes, satisfied)
 	local color = satisfied	and COLORS.clue_satisfied or COLORS.clue_normal
-
 	for _, node in ipairs(nodes or {}) do
 		gui.set_color(node, color)
 	end
@@ -123,8 +125,8 @@ end
 
 
 local function update_clues(self, row, col)
-	update_clue_nodes(self.row_clue_nodes[row],	board.row_clues_satisfied(self.puzzle, row))
-	update_clue_nodes(self.col_clue_nodes[col], board.col_clues_satisfied(self.puzzle, col))
+	update_clue_nodes(self.row_clue_nodes[row],	board.row_clues_satisfied(self.session.board, row))
+	update_clue_nodes(self.col_clue_nodes[col], board.col_clues_satisfied(self.session.board, col))
 end
 
 
@@ -134,7 +136,7 @@ local function create_separators(self)
 	local thickness = math.max(2, size * 0.045)
 
 	-- Vertical lines after columns 5, 10, 15...
-	for col = 5, self.puzzle.width - 1, 5 do
+	for col = 5, self.session.board.width - 1, 5 do
 		local x = geometry.grid_left + col * size
 		local y = geometry.grid_bottom + geometry.grid_height / 2
 		local node = gui.new_box_node(vmath.vector3(x, y, 0), vmath.vector3(thickness, geometry.grid_height, 0))
@@ -143,9 +145,9 @@ local function create_separators(self)
 	end
 
 	-- Horizontal lines after rows 5, 10, 15...
-	for row = 5, self.puzzle.height - 1, 5 do
+	for row = 5, self.session.board.height - 1, 5 do
 		local x = geometry.grid_left + geometry.grid_width / 2
-		local y = geometry.grid_bottom + (self.puzzle.height - row) * size
+		local y = geometry.grid_bottom + (self.session.board.height - row) * size
 		local node = gui.new_box_node(vmath.vector3(x, y, 0), vmath.vector3(geometry.grid_width, thickness, 0))
 		gui.set_color(node, COLORS.separator)
 		track(self, node)
@@ -155,7 +157,7 @@ end
 
 local function update_cell(self, row, col)
 	local cell = self.cells[row][col]
-	local state = self.puzzle.cells[row][col]
+	local state = self.session.board.cells[row][col]
 
 	gui.set_enabled(cell.cross,	state == board.CROSSED)
 
@@ -175,112 +177,131 @@ local function clear_grid(self)
 	end
 	self.nodes = {}
 	self.cells = {}
+	self.row_clue_nodes = {}
+	self.col_clue_nodes = {}
 end
 
 
-local function set_next_visible(self, visible)
-	gui.set_enabled(self.button_next, visible)
-	gui.set_scale( self.button_next, vmath.vector3(0.85, 0.85, 1))
-	motion.animate(self.button_next, gui.PROP_SCALE, vmath.vector3(1, 1, 1), gui.EASING_OUTBACK, 0.25)
-end
-
-
-local function open_level(self, level_id)
-	local level = puzzles.get(level_id)
-
-	if not level then
-		print("Unknown level:", tostring(level_id))
+local function rebuild_board(self)
+	if not self.session then
 		return
 	end
 
-	clear_grid(self)
-
-	self.level_id = level_id
-	self.puzzle = board.create(level)
-
-	local width = gui.get_width()
-	local height = gui.get_height()
-	self.geometry = layout.calculate(self.puzzle, {
-		x = width * 0.05,
-		y = height * 0.32,
-		width = width * 0.90,
-		height = height * 0.43,
-		max_cell_size = 92
-	})
-
-	self.completed = false
 	self.drag = nil
 
-	gui.set_text(self.title, level.name)
-	gui.set_text(self.status, "Solve the puzzle")
+	clear_grid(self)
 
-	self.next_level_id = nil
-	set_next_visible(self, false)
+	local puzzle = self.session.board
+	local size = gui.get_size(self.puzzle_canvas)
+
+	self.geometry = layout.calculate(puzzle, {
+		x = -size.x / 2,
+		y = -size.y / 2,
+		width = size.x,
+		height = size.y,
+		max_cell_size = 92
+	})
 
 	create_grid(self)
 	create_separators(self)
 	create_clues(self)
 
+	-- Restore painted cells
+	for row = 1, puzzle.height do
+		for col = 1, puzzle.width do
+			update_cell(self, row, col)
+		end
+	end
+
+	-- Restore clue highlighting
+	for row = 1, puzzle.height do
+		update_clue_nodes(self.row_clue_nodes[row],	board.row_clues_satisfied(self.session.board, row))
+	end
+
+	for col = 1, puzzle.width do
+		update_clue_nodes(self.col_clue_nodes[col],	board.col_clues_satisfied(self.session.board, col))
+	end
+end
+
+
+local PUZZLE_STATUS_TEXT = {
+	playing = "Solve the puzzle",
+	completed = "Completed!",
+	save_failed = "Completed! Progress not saved."
+}
+
+local function sync_ui(self)
+	if not self.session then
+		return
+	end
+
+	local s = self.session
+
+	gui.set_text(self.title, s.level.name)
+	gui.set_text(self.status, PUZZLE_STATUS_TEXT[s.ui.status] or "")
+	gui.set_enabled(self.button_next, s.ui.show_next)
+end
+
+
+
+local function open_level(self, level_id)
+	if not puzzles.get(level_id) then
+		print("Unknown level:", tostring(level_id))
+		return false
+	end
+
+	self.drag = nil
+	self.session = session.new(level_id)
+	rebuild_board(self)
+	sync_ui(self)
 	print("Opened level:", level_id)
+	return true
 end
 
 
 local function paint_cell(self, row, col, state)
-	if not self.puzzle or self.completed then
-		print("PAINT BLOCKED")
+	if not self.session then
 		return
 	end
 
-	print("PAINT:", row, col, state)
+	local result = session.paint(self.session, row,	col, state)
 
-	local changed = board.set_cell(self.puzzle, row, col, state)
-
-	print("CHANGED:", changed)
-	print("CELL STATE:", self.puzzle.cells[row][col])
-
-	if not changed then
+	if not result.changed then
 		return
 	end
 
 	update_cell(self, row, col)
 	update_clues(self, row, col)
 
-	print("CELL COLOR:", gui.get_color(self.cells[row][col].box))
+	if result.completed_now then
+		local s = self.session
+		local saved = progress.complete(s.level_id)
+		local can_advance = false
 
+		if saved and s.next_level_id then
+			local next_level, category = catalog.next_level(s.level_id)
 
-	if board.is_solved(self.puzzle) then
-		self.completed = true
-		self.drag = nil
-
-		local saved = progress.complete(self.level_id)
-
-		gui.set_text(self.status, saved and "PUZZLE COMPLETED!"	or "COMPLETED - SAVE FAILED")
-
-		self.next_level_id = nil
-		set_next_visible(self, false)
-
-		if saved then
-			local next_level, category = catalog.next_level(self.level_id)
-
-			if next_level and progress.category_unlocked(category.id) then
-				self.next_level_id = next_level.id
-				set_next_visible(self, true)
+			if next_level and category then
+				can_advance = progress.category_unlocked(category.id)
 			end
 		end
 
-		print("Completed:", self.level_id)
+		session.finish(s, saved, can_advance)
+		sync_ui(self)
+
+		self.drag = nil
 	end
 end
 
 
 local function find_cell(self, x, y)
-	if not self.puzzle then
+	if not self.session or not self.session.board then
 		print("FIND CELL: No puzzle")
 		return nil, nil
 	end
 
-	for row = 1, self.puzzle.height do
-		for col = 1, self.puzzle.width do
+	for row = 1, self.session.board.height do
+		for col = 1, self.session.board.width do
 			local cell = self.cells[row][col]
 
 			if gui.pick_node(cell.box, x, y) then
@@ -300,13 +321,13 @@ local function begin_paint(self, action_id, x, y)
 
 	local row, col = find_cell(self, x, y)
 
-	if not row or self.completed then
+	if not row or self.session.completed then
 		return false
 	end
 
 	local mark = action_id == TOUCH	and board.FILLED or board.CROSSED
 
-	local current = self.puzzle.cells[row][col]
+	local current = self.session.board.cells[row][col]
 
 	-- If the cell already has this mark, erase it.
 	local target = current == mark and board.UNKNOWN or mark
@@ -325,7 +346,7 @@ local function begin_paint(self, action_id, x, y)
 end
 
 local function continue_paint(self, x, y)
-	if not self.drag or self.completed then
+	if not self.drag or self.session.completed then
 		return
 	end
 
@@ -359,7 +380,7 @@ local function continue_paint(self, x, y)
 			paint_cell(self, row, col, drag.state)
 
 			-- Victory can end the gesture.
-			if self.completed then
+			if self.session.completed then
 				break
 			end
 		end
@@ -375,43 +396,51 @@ end
 function init(self)
 	msg.post(".", "acquire_input_focus")
 
+	self.last_gui_width = gui.get_width()
+	self.last_gui_height = gui.get_height()
+
 	self.title = gui.get_node("title")
 	self.status = gui.get_node("status")
 	self.button_back = gui.get_node("button__back")
 	self.button_next = gui.get_node("button__next")
 	self.puzzle_canvas = gui.get_node("puzzle__canvas")
 
-	self.next_level_id = nil
-	set_next_visible(self, false)
-
 	self.nodes = {}
 	self.cells = {}
 
-	self.puzzle = nil
-	self.level_id = nil
-	self.completed = false
+	self.session = nil
 	self.drag = nil
 end
+
+
+function update(self, dt)
+	local width = gui.get_width()
+	local height = gui.get_height()
+	if width ~= self.last_gui_width	or height ~= self.last_gui_height then
+		self.last_gui_width = width
+		self.last_gui_height = height
+		rebuild_board(self)
+		sync_ui(self)
+	end
+end
+
 
 function on_message(self, message_id, message, sender)
 	if message_id == OPEN_LEVEL then
 		open_level(self, message.level_id)
+	elseif message_id == LAYOUT_CHANGED then
+		rebuild_board(self)
+		sync_ui(self)
 	end
 end
 
 function on_input(self, action_id, action)
-	if action.pressed and self.puzzle then
+	if action.pressed and self.session then
 		local node = self.cells[1][1].box
 		local pos = gui.get_position(node)
 		local size = gui.get_size(node)
-
-		print("GUI:", gui.get_width(), gui.get_height())
-		print("INPUT:", action.x, action.y)
-		print("CELL POSITION:", pos.x, pos.y)
-		print("CELL SIZE:", size.x, size.y)
-		print("PICK AT CENTER:",gui.pick_node(node, pos.x, pos.y))
-		print("PICK AT MOUSE:",	gui.pick_node(node, action.x, action.y))
 	end
+
 	-- Pointer movement during a drag.
 	if action_id == nil then
 		if self.drag and action.x and action.y then
@@ -442,11 +471,14 @@ function on_input(self, action_id, action)
 		return true
 	end
 
+	-- If session does not exist we do not need the rest
+	if not self.session then
+		return false
+	end
+
 	-- The `Next puzzle` button
-	if action_id == TOUCH and self.next_level_id and gui.is_enabled(self.button_next) and gui.pick_node(self.button_next, x, y) then
-		local level_id = self.next_level_id
-		open_level(self, level_id)
-		return true
+	if action_id == TOUCH and self.session and self.session.ui.show_next and self.session.next_level_id and gui.pick_node(self.button_next, x, y) then
+		return open_level(self, self.session.next_level_id)
 	end
 
 	if self.drag then

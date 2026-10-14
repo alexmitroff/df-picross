@@ -4,10 +4,6 @@ fonts {
   font: "/builtins/fonts/default.font"
 }
 nodes {
-  position {
-    x: 360.0
-    y: 640.0
-  }
   size {
     x: 720.0
     y: 1280.0
@@ -19,14 +15,26 @@ nodes {
   }
   type: TYPE_BOX
   id: "background"
+  pivot: PIVOT_SW
+  adjust_mode: ADJUST_MODE_STRETCH
   inherit_alpha: true
   size_mode: SIZE_MODE_AUTO
 }
 nodes {
   position {
     x: 360.0
-    y: 1110.0
+    y: 1100.0
   }
+  size {
+    x: 1.0
+    y: 1.0
+  }
+  type: TYPE_BOX
+  id: "header"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
   scale {
     x: 1.6
     y: 1.6
@@ -44,12 +52,12 @@ nodes {
   text: "SELECT DIFFICULTY"
   font: "default"
   id: "title"
+  parent: "header"
   inherit_alpha: true
 }
 nodes {
   position {
-    x: 80.0
-    y: 1110.0
+    x: -280.0
   }
   size {
     x: 100.0
@@ -62,6 +70,7 @@ nodes {
   }
   type: TYPE_BOX
   id: "button__back"
+  parent: "header"
   inherit_alpha: true
   size_mode: SIZE_MODE_AUTO
 }
@@ -83,6 +92,69 @@ nodes {
   parent: "button__back"
   inherit_alpha: true
 }
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_BOX
+  id: "main"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
 material: "/builtins/materials/gui.material"
+layouts {
+  name: "Landscape"
+  nodes {
+    size {
+      x: 1280.0
+      y: 720.0
+    }
+    type: TYPE_BOX
+    id: "background"
+    overridden_fields: 4
+  }
+  nodes {
+    position {
+      x: 640.0
+      y: 600.0
+    }
+    type: TYPE_BOX
+    id: "header"
+    overridden_fields: 1
+  }
+  nodes {
+    position {
+      x: 640.0
+      y: 360.0
+    }
+    size {
+      x: 1.0
+      y: 1.0
+    }
+    type: TYPE_BOX
+    id: "main"
+    overridden_fields: 1
+    overridden_fields: 4
+    overridden_fields: 38
+  }
+}
+layouts {
+  name: "Portrait"
+  nodes {
+    position {
+      x: 360.0
+      y: 640.0
+    }
+    size {
+      x: 1.0
+      y: 1.0
+    }
+    type: TYPE_BOX
+    id: "main"
+    overridden_fields: 1
+    overridden_fields: 4
+  }
+}
 adjust_reference: ADJUST_REFERENCE_PARENT
 max_nodes: 256

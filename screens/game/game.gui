@@ -24,8 +24,18 @@ nodes {
 nodes {
   position {
     x: 360.0
-    y: 1050.0
+    y: 1100.0
   }
+  size {
+    x: 1.0
+    y: 1.0
+  }
+  type: TYPE_BOX
+  id: "header"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
   scale {
     x: 1.6
     y: 1.6
@@ -43,12 +53,12 @@ nodes {
   text: "PUZZLE"
   font: "default"
   id: "title"
+  parent: "header"
   inherit_alpha: true
 }
 nodes {
   position {
-    x: 80.0
-    y: 1110.0
+    x: -280.0
   }
   size {
     x: 100.0
@@ -61,6 +71,7 @@ nodes {
   }
   type: TYPE_BOX
   id: "button__back"
+  parent: "header"
   inherit_alpha: true
   size_mode: SIZE_MODE_AUTO
 }
@@ -97,7 +108,20 @@ nodes {
 nodes {
   position {
     x: 360.0
-    y: 340.0
+    y: 245.0
+  }
+  size {
+    x: 1.0
+    y: 1.0
+  }
+  type: TYPE_BOX
+  id: "footer"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    y: 95.0
   }
   size {
     x: 200.0
@@ -112,13 +136,10 @@ nodes {
   text: "Solve the puzzle"
   font: "default"
   id: "status"
+  parent: "footer"
   inherit_alpha: true
 }
 nodes {
-  position {
-    x: 360.0
-    y: 245.0
-  }
   size {
     x: 300.0
     y: 85.0
@@ -130,6 +151,7 @@ nodes {
   }
   type: TYPE_BOX
   id: "button__next"
+  parent: "footer"
   inherit_alpha: true
   enabled: false
 }
@@ -151,4 +173,50 @@ nodes {
   inherit_alpha: true
 }
 material: "/builtins/materials/gui.material"
+layouts {
+  name: "Landscape"
+  nodes {
+    size {
+      x: 1280.0
+      y: 720.0
+    }
+    type: TYPE_BOX
+    id: "background"
+    pivot: PIVOT_SW
+    overridden_fields: 1
+    overridden_fields: 4
+    overridden_fields: 14
+  }
+  nodes {
+    position {
+      x: 430.0
+      y: 600.0
+    }
+    type: TYPE_BOX
+    id: "header"
+    overridden_fields: 1
+  }
+  nodes {
+    position {
+      x: 960.0
+      y: 265.0
+    }
+    type: TYPE_BOX
+    id: "puzzle__canvas"
+    overridden_fields: 1
+  }
+  nodes {
+    position {
+      x: 320.0
+      y: 245.0
+    }
+    type: TYPE_BOX
+    id: "footer"
+    overridden_fields: 1
+  }
+}
+layouts {
+  name: "Portrait"
+}
 adjust_reference: ADJUST_REFERENCE_PARENT
+max_nodes: 1024
