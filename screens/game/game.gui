@@ -3,6 +3,10 @@ fonts {
   name: "default"
   font: "/builtins/fonts/default.font"
 }
+textures {
+  name: "cells"
+  texture: "/assets/puzzle/cells.atlas"
+}
 nodes {
   position {
     x: 360.0

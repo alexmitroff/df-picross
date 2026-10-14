@@ -1,0 +1,10 @@
+images {
+  image: "/assets/puzzle/cell_unknown.png"
+}
+images {
+  image: "/assets/puzzle/cell_filled.png"
+}
+images {
+  image: "/assets/puzzle/cell_crossed.png"
+}
+extrude_borders: 2

@@ -48,29 +48,32 @@ local function track(self, node)
 end
 
 
+
+local CELL_TEXTURE = "cells"
+
+local CELL_IMAGES = {
+	[board.UNKNOWN] = "cell_unknown",
+	[board.FILLED] = "cell_filled",
+	[board.CROSSED] = "cell_crossed"
+}
+
 local function create_grid(self)
 	self.cells = {}
 
+	local puzzle = self.session.board
 	local geometry = self.geometry
 	local size = geometry.cell_size
 
-	for row = 1, self.session.board.height do
+	for row = 1, puzzle.height do
 		self.cells[row] = {}
 
-		for col = 1, self.session.board.width do
-			local x, y = layout.cell_position(geometry, row, col, self.session.board.height)
-
-			local cell_node = track(self, create_box(x, y, size - 1.5, COLORS.unknown))
-
-			local cross_node = track(self, create_text(x, y, "X", COLORS.cross))
-			local scale = math.min(2, math.max(0.7, size / 45))
-			gui.set_scale(cross_node, vmath.vector3(scale, scale, 1))
-			gui.set_enabled(cross_node, false)
-
-			self.cells[row][col] = {
-				box = cell_node,
-				cross = cross_node
-			}
+		for col = 1, puzzle.width do
+			local x, y = layout.cell_position(geometry, row, col, puzzle.height)
+			local node = create_box(x, y, math.max(0.1, size - 1.5), vmath.vector4(1, 1, 1, 1))
+			gui.set_texture(node, CELL_TEXTURE)
+			gui.play_flipbook(node, CELL_IMAGES[board.UNKNOWN])
+			track(self, node)
+			self.cells[row][col] = node
 		end
 	end
 end
@@ -160,18 +163,9 @@ end
 
 
 local function update_cell(self, row, col)
-	local cell = self.cells[row][col]
+	local node = self.cells[row][col]
 	local state = self.session.board.cells[row][col]
-
-	gui.set_enabled(cell.cross,	state == board.CROSSED)
-
-	if state == board.FILLED then
-		gui.set_color(cell.box, COLORS.filled)
-	elseif state == board.CROSSED then
-		gui.set_color(cell.box, COLORS.crossed)
-	else
-		gui.set_color(cell.box, COLORS.unknown)
-	end
+	gui.play_flipbook(node, CELL_IMAGES[state])
 end
 
 
@@ -253,12 +247,9 @@ local function update_board_layout(self)
 			local x, y = layout.cell_position(g, row, col, puzzle.height)
 			local pos = vmath.vector3(x, y, 0)
 
-			gui.set_position(cell.box, pos)
-			gui.set_size(cell.box, vmath.vector3(math.max(0.1, size - 1.5),	math.max(0.1, size - 1.5), 0))
-			gui.set_position(cell.cross, pos)
-
-			local scale = math.min(2, math.max(0.1, size / 45))
-			gui.set_scale(cell.cross, vmath.vector3(scale, scale, 1))
+			gui.set_position(cell, pos)
+			gui.set_size(cell, vmath.vector3(math.max(0.1, size - 1.5),	math.max(0.1, size - 1.5), 0))
+			gui.set_position(cell, pos)
 		end
 	end
 
@@ -394,7 +385,7 @@ local function find_cell(self, x, y)
 		for col = 1, self.session.board.width do
 			local cell = self.cells[row][col]
 
-			if gui.pick_node(cell.box, x, y) then
+			if gui.pick_node(cell, x, y) then
 				return row, col
 			end
 		end
