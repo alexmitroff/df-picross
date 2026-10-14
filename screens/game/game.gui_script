@@ -41,12 +41,17 @@ local function create_text(x, y, value, color)
 end
 
 
-local function track(self, node)
-	gui.set_parent(node, self.puzzle_canvas, false)
+local function track(self, node, parent)
+	gui.set_parent(node, parent, false)
 	self.nodes[#self.nodes + 1] = node
 	return node
 end
 
+
+local function viewport_position(viewport, x, y)
+	local origin = gui.get_position(viewport)
+	return vmath.vector3(x - origin.x, y - origin.y, 0)
+end
 
 
 local CELL_TEXTURE = "cells"
@@ -68,10 +73,13 @@ local function create_grid(self)
 
 		for col = 1, puzzle.width do
 			local x, y = layout.cell_position(geometry, row, col, puzzle.height)
-			local node = create_box(x, y, math.max(0.1, geometry.visual_cell_size), vmath.vector4(1, 1, 1, 1))
+
+			local node = create_box(0, 0, geometry.visual_cell_size, vmath.vector4(1, 1, 1, 1))
+
 			gui.set_texture(node, CELL_TEXTURE)
 			gui.play_flipbook(node, CELL_IMAGES[board.UNKNOWN])
-			track(self, node)
+			track(self, node, self.grid_viewport)
+			gui.set_position(node, viewport_position(self.grid_viewport, x, y))
 			self.cells[row][col] = node
 		end
 	end
@@ -93,7 +101,8 @@ local function create_clues(self)
 		for index, value in ipairs(clues) do
 			-- Last clue stays nearest the grid.
 			local x = geometry.row_clue_right - (#clues - index) * step
-			local node = track(self, create_text(x, y, value))
+			local node = track(self, create_text(x, y, value), self.rows_viewport)
+			gui.set_position(node, viewport_position(self.rows_viewport, x, y))
 			gui.set_pivot(node, gui.PIVOT_E)
 			gui.set_scale(node, vmath.vector3(scale, scale, 1))
 
@@ -109,7 +118,8 @@ local function create_clues(self)
 		for index, value in ipairs(clues) do
 			-- Last clue stays nearest the grid.
 			local y = geometry.col_clue_bottom + (#clues - index + 0.5) * step
-			local node = track(self, create_text(x, y, value))
+			local node = track(self, create_text(x, y, value), self.columns_viewport)
+			gui.set_position(node, viewport_position(self.columns_viewport, x, y))
 			gui.set_scale(node, vmath.vector3(scale, scale, 1))
 
 			self.col_clue_nodes[col] = self.col_clue_nodes[col] or {}
@@ -147,6 +157,27 @@ local function clear_grid(self)
 end
 
 
+
+local function set_viewport_rect(node, x, y, width, height)
+	gui.set_position(node, vmath.vector3(x + width / 2,	y + height / 2,	0))
+	gui.set_size(node, vmath.vector3(width, height, 0))
+end
+
+
+local function configure_viewports(self)
+	local g = self.geometry
+
+	-- Main grid
+	set_viewport_rect(self.grid_viewport, g.grid_left, g.grid_bottom, g.grid_width,	g.grid_height)
+	-- Row clues, left of the grid.
+	set_viewport_rect(self.rows_viewport, g.grid_left - g.clue_gap - g.row_panel_width,	g.grid_bottom, g.row_panel_width, g.grid_height)
+	-- Column clues, above the grid.
+	set_viewport_rect(self.columns_viewport, g.grid_left, g.col_clue_bottom, g.grid_width, g.col_panel_height)
+end
+
+
+
+
 local function rebuild_board(self)
 	if not self.session then return	end
 
@@ -165,6 +196,7 @@ local function rebuild_board(self)
 		max_cell_size = 92
 	})
 
+	configure_viewports(self)
 	create_grid(self)
 	create_clues(self)
 
@@ -202,7 +234,7 @@ local function update_board_layout(self)
 		height = canvas_size.y,
 		max_cell_size = 92
 	})
-
+	configure_viewports(self)
 	local g = self.geometry
 	local size = g.cell_size
 
@@ -211,7 +243,7 @@ local function update_board_layout(self)
 		for col = 1, puzzle.width do
 			local node = self.cells[row][col]
 			local x, y = layout.cell_position(g, row, col, puzzle.height)
-			gui.set_position(node, vmath.vector3(x, y, 0))
+			gui.set_position(node, viewport_position(self.grid_viewport, x, y))
 			gui.set_size(node, vmath.vector3(g.visual_cell_size, g.visual_cell_size, 0))
 		end
 	end
@@ -222,7 +254,7 @@ local function update_board_layout(self)
 		local _, y = layout.cell_position(g, row, 1, puzzle.height)
 		for index, node in ipairs(self.row_clue_nodes[row] or {}) do
 			local x = g.row_clue_right - (#clues - index) * g.clue_step
-			gui.set_position(node, vmath.vector3(x, y, 0))
+			gui.set_position(node, viewport_position(self.rows_viewport, x, y))
 			gui.set_scale(node,	vmath.vector3(clue_scale, clue_scale, 1))
 		end
 	end
@@ -232,7 +264,7 @@ local function update_board_layout(self)
 		local x = select(1, layout.cell_position(g, 1, col, puzzle.height))
 		for index, node in ipairs(self.col_clue_nodes[col] or {}) do
 			local y = g.col_clue_bottom + (#clues - index + 0.5) * g.clue_step
-			gui.set_position(node, vmath.vector3(x, y, 0))
+			gui.set_position(node, viewport_position(self.columns_viewport, x, y))
 			gui.set_scale(node, vmath.vector3(clue_scale, clue_scale, 1))
 		end
 	end
@@ -329,6 +361,7 @@ end
 
 local function find_cell(self, x, y)
 	if not self.session or not self.session.board then return nil, nil end
+	if not gui.pick_node(self.grid_viewport, x, y) then	return nil, nil	end
 
 	for row = 1, self.session.board.height do
 		for col = 1, self.session.board.width do
@@ -424,6 +457,9 @@ function init(self)
 	self.button_back = gui.get_node("button__back")
 	self.button_next = gui.get_node("button__next")
 	self.puzzle_canvas = gui.get_node("puzzle__canvas")
+	self.grid_viewport = gui.get_node("puzzle__canvas__grid")
+	self.rows_viewport = gui.get_node("puzzle__canvas__rows")
+	self.columns_viewport =	gui.get_node("puzzle__canvas__columns")
 
 	self.nodes = {}
 	self.cells = {}

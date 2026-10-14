@@ -41,6 +41,9 @@ function M.calculate(puzzle, area)
 	local grid_width = cols * size + group_count(cols) * group_gap
 	local grid_height =	rows * size + group_count(rows) * group_gap
 
+	local row_panel_width =	max_row_clues * clue_step + clue_step
+	local col_panel_height = max_col_clues * clue_step + clue_step
+
 	return {
 		cell_size = size,
 		visual_cell_size = size * (1 - cell_gap_ratio),
@@ -56,6 +59,9 @@ function M.calculate(puzzle, area)
 
 		row_clue_right = grid_left - clue_gap,
 		col_clue_bottom = grid_bottom + grid_height + clue_gap,
+
+		row_panel_width = row_panel_width,
+		col_panel_height = col_panel_height,
 
 		total_width = total_width,
 		total_height = total_height

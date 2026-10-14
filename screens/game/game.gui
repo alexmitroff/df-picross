@@ -115,6 +115,52 @@ nodes {
   inherit_alpha: true
 }
 nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.09019608
+    y: 0.18039216
+    z: 0.2509804
+  }
+  type: TYPE_BOX
+  id: "puzzle__canvas__grid"
+  parent: "puzzle__canvas"
+  inherit_alpha: true
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.20392157
+    y: 0.32156864
+    z: 0.40392157
+  }
+  type: TYPE_BOX
+  id: "puzzle__canvas__columns"
+  parent: "puzzle__canvas"
+  inherit_alpha: true
+  clipping_mode: CLIPPING_MODE_STENCIL
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.20392157
+    y: 0.32156864
+    z: 0.40392157
+  }
+  type: TYPE_BOX
+  id: "puzzle__canvas__rows"
+  parent: "puzzle__canvas"
+  inherit_alpha: true
+}
+nodes {
   position {
     x: 360.0
     y: 132.0
