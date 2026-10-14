@@ -62,14 +62,13 @@ local function create_grid(self)
 
 	local puzzle = self.session.board
 	local geometry = self.geometry
-	local size = geometry.cell_size
 
 	for row = 1, puzzle.height do
 		self.cells[row] = {}
 
 		for col = 1, puzzle.width do
 			local x, y = layout.cell_position(geometry, row, col, puzzle.height)
-			local node = create_box(x, y, math.max(0.1, size - 1.5), vmath.vector4(1, 1, 1, 1))
+			local node = create_box(x, y, math.max(0.1, geometry.visual_cell_size), vmath.vector4(1, 1, 1, 1))
 			gui.set_texture(node, CELL_TEXTURE)
 			gui.play_flipbook(node, CELL_IMAGES[board.UNKNOWN])
 			track(self, node)
@@ -105,7 +104,7 @@ local function create_clues(self)
 
 	-- COLUMN CLUES
 	for col, clues in ipairs(self.session.board.col_clues) do
-		local x = geometry.grid_left + (col - 0.5) * geometry.cell_size
+		local x = select(1, layout.cell_position(geometry, 1, col, self.session.board.height))
 
 		for index, value in ipairs(clues) do
 			-- Last clue stays nearest the grid.
@@ -132,36 +131,6 @@ local function update_clues(self, row, col)
 end
 
 
-local function create_separators(self)
-	self.vertical_separators = {}
-	self.horizontal_separators = {}
-
-	local geometry = self.geometry
-	local size = geometry.cell_size
-	local thickness = math.max(2, size * 0.045)
-
-	-- Vertical lines after columns 5, 10, 15...
-	for col = 5, self.session.board.width - 1, 5 do
-		local x = geometry.grid_left + col * size
-		local y = geometry.grid_bottom + geometry.grid_height / 2
-		local node = gui.new_box_node(vmath.vector3(x, y, 0), vmath.vector3(thickness, geometry.grid_height, 0))
-		table.insert(self.vertical_separators, node)
-		gui.set_color(node, COLORS.separator)
-		track(self, node)
-	end
-
-	-- Horizontal lines after rows 5, 10, 15...
-	for row = 5, self.session.board.height - 1, 5 do
-		local x = geometry.grid_left + geometry.grid_width / 2
-		local y = geometry.grid_bottom + (self.session.board.height - row) * size
-		local node = gui.new_box_node(vmath.vector3(x, y, 0), vmath.vector3(geometry.grid_width, thickness, 0))
-		table.insert(self.horizontal_separators, node)
-		gui.set_color(node, COLORS.separator)
-		track(self, node)
-	end
-end
-
-
 local function update_cell(self, row, col)
 	local node = self.cells[row][col]
 	local state = self.session.board.cells[row][col]
@@ -175,8 +144,6 @@ local function clear_grid(self)
 	self.cells = {}
 	self.row_clue_nodes = {}
 	self.col_clue_nodes = {}
-	self.vertical_separators = {}
-	self.horizontal_separators = {}
 end
 
 
@@ -199,7 +166,6 @@ local function rebuild_board(self)
 	})
 
 	create_grid(self)
-	create_separators(self)
 	create_clues(self)
 
 	-- Restore painted cells
@@ -243,13 +209,10 @@ local function update_board_layout(self)
 	-- Reposition and resize existing cells.
 	for row = 1, puzzle.height do
 		for col = 1, puzzle.width do
-			local cell = self.cells[row][col]
+			local node = self.cells[row][col]
 			local x, y = layout.cell_position(g, row, col, puzzle.height)
-			local pos = vmath.vector3(x, y, 0)
-
-			gui.set_position(cell, pos)
-			gui.set_size(cell, vmath.vector3(math.max(0.1, size - 1.5),	math.max(0.1, size - 1.5), 0))
-			gui.set_position(cell, pos)
+			gui.set_position(node, vmath.vector3(x, y, 0))
+			gui.set_size(node, vmath.vector3(g.visual_cell_size, g.visual_cell_size, 0))
 		end
 	end
 
@@ -266,26 +229,12 @@ local function update_board_layout(self)
 
 	-- Reposition existing column clues.
 	for col, clues in ipairs(puzzle.col_clues) do
-		local x = g.grid_left + (col - 0.5) * size
+		local x = select(1, layout.cell_position(g, 1, col, puzzle.height))
 		for index, node in ipairs(self.col_clue_nodes[col] or {}) do
 			local y = g.col_clue_bottom + (#clues - index + 0.5) * g.clue_step
 			gui.set_position(node, vmath.vector3(x, y, 0))
 			gui.set_scale(node, vmath.vector3(clue_scale, clue_scale, 1))
 		end
-	end
-
-	-- Reposition existing separators.
-	local thickness = math.max(2, size * 0.045)
-	for i, node in ipairs(self.vertical_separators) do
-		local col = i * 5
-		gui.set_position(node, vmath.vector3(g.grid_left + col * size, g.grid_bottom + g.grid_height / 2, 0))
-		gui.set_size(node, vmath.vector3(thickness, g.grid_height, 0))
-	end
-
-	for i, node in ipairs(self.horizontal_separators) do
-		local row = i * 5
-		gui.set_position(node, vmath.vector3(g.grid_left + g.grid_width / 2, g.grid_bottom + (puzzle.height - row) * size, 0))
-		gui.set_size(node, vmath.vector3(g.grid_width, thickness, 0))
 	end
 end
 

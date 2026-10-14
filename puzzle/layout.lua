@@ -5,64 +5,77 @@ function M.calculate(puzzle, area)
 	local rows = puzzle.height
 	local cols = puzzle.width
 
-	-- Determine how much space clues require.
+	local clue_ratio = 0.45
+	local clue_gap_ratio = 0.25
+	local cell_gap_ratio = 0.05
+	local group_gap_ratio = 0.12
+
+	local function group_count(count)
+		return math.floor((count - 1) / 5)
+	end
+
 	local max_row_clues = 0
 	local max_col_clues = 0
 
-	for _, clues in ipairs(puzzle.row_clues) do
-		max_row_clues = math.max(max_row_clues, #clues)
-	end
+	for _, clues in ipairs(puzzle.row_clues) do	max_row_clues = math.max(max_row_clues, #clues)	end
 
-	for _, clues in ipairs(puzzle.col_clues) do
-		max_col_clues = math.max(max_col_clues, #clues)
-	end
+	for _, clues in ipairs(puzzle.col_clues) do	max_col_clues = math.max(max_col_clues, #clues)	end
 
-	-- Clue slots are proportional to cell size.
-	local clue_ratio = 0.45
-	local gap_ratio = 0.25
+	local width_units =	cols + group_count(cols) * group_gap_ratio + max_row_clues * clue_ratio	+ clue_gap_ratio
+	local height_units = rows + group_count(rows) * group_gap_ratio	+ max_col_clues * clue_ratio + clue_gap_ratio
 
-	local total_width_units = cols + max_row_clues * clue_ratio + gap_ratio
-	local total_height_units = rows + max_col_clues * clue_ratio + gap_ratio
+	local size = math.min(area.width / width_units,	area.height / height_units,	area.max_cell_size or 92)
 
-	local cell_size = math.min(area.width / total_width_units, area.height / total_height_units, area.max_cell_size or 92)
-
-	-- Whole layout: grid + clues + gaps.
-	local total_width = total_width_units * cell_size
-	local total_height = total_height_units * cell_size
+	local total_width = width_units * size
+	local total_height = height_units * size
 
 	local left = area.x + (area.width - total_width) / 2
 	local bottom = area.y + (area.height - total_height) / 2
 
-	local row_clue_width = max_row_clues * clue_ratio * cell_size
-	local col_clue_height = max_col_clues * clue_ratio * cell_size
+	local clue_step = size * clue_ratio
+	local clue_gap = size * clue_gap_ratio
+	local group_gap = size * group_gap_ratio
 
-	local gap = gap_ratio * cell_size
-	local grid_left = left + row_clue_width + gap
+	local grid_left = left + max_row_clues * clue_step + clue_gap
 	local grid_bottom = bottom
+	local grid_width = cols * size + group_count(cols) * group_gap
+	local grid_height =	rows * size + group_count(rows) * group_gap
 
 	return {
-		cell_size = cell_size,
-		clue_step = cell_size * clue_ratio,
-		clue_gap = gap,
+		cell_size = size,
+		visual_cell_size = size * (1 - cell_gap_ratio),
+		group_gap = group_gap,
+
+		clue_step = clue_step,
+		clue_gap = clue_gap,
 
 		grid_left = grid_left,
 		grid_bottom = grid_bottom,
-		grid_width = cols * cell_size,
-		grid_height = rows * cell_size,
+		grid_width = grid_width,
+		grid_height = grid_height,
 
-		-- Used to position the clue groups.
-		row_clue_right = grid_left - gap,
-		col_clue_bottom = grid_bottom + rows * cell_size + gap,
+		row_clue_right = grid_left - clue_gap,
+		col_clue_bottom = grid_bottom + grid_height + clue_gap,
 
 		total_width = total_width,
 		total_height = total_height
 	}
 end
 
+
 function M.cell_position(geometry, row, col, height)
 	local size = geometry.cell_size
-	local x = geometry.grid_left + (col - 0.5) * size
-	local y = geometry.grid_bottom + (height - row + 0.5) * size
+	local extra = geometry.group_gap
+
+	local x = geometry.grid_left + (col - 0.5) * size + math.floor((col - 1) / 5) * extra
+	local rows_below = height - row
+
+	local total_groups = math.floor((height - 1) / 5)
+	local groups_above = math.floor((row - 1) / 5)
+	local groups_below = total_groups - groups_above
+
+	local y = geometry.grid_bottom + (rows_below + 0.5) * size + groups_below * extra
+
 	return x, y
 end
 
