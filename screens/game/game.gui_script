@@ -131,6 +131,9 @@ end
 
 
 local function create_separators(self)
+	self.vertical_separators = {}
+	self.horizontal_separators = {}
+
 	local geometry = self.geometry
 	local size = geometry.cell_size
 	local thickness = math.max(2, size * 0.045)
@@ -140,6 +143,7 @@ local function create_separators(self)
 		local x = geometry.grid_left + col * size
 		local y = geometry.grid_bottom + geometry.grid_height / 2
 		local node = gui.new_box_node(vmath.vector3(x, y, 0), vmath.vector3(thickness, geometry.grid_height, 0))
+		table.insert(self.vertical_separators, node)
 		gui.set_color(node, COLORS.separator)
 		track(self, node)
 	end
@@ -149,6 +153,7 @@ local function create_separators(self)
 		local x = geometry.grid_left + geometry.grid_width / 2
 		local y = geometry.grid_bottom + (self.session.board.height - row) * size
 		local node = gui.new_box_node(vmath.vector3(x, y, 0), vmath.vector3(geometry.grid_width, thickness, 0))
+		table.insert(self.horizontal_separators, node)
 		gui.set_color(node, COLORS.separator)
 		track(self, node)
 	end
@@ -179,6 +184,8 @@ local function clear_grid(self)
 	self.cells = {}
 	self.row_clue_nodes = {}
 	self.col_clue_nodes = {}
+	self.vertical_separators = {}
+	self.horizontal_separators = {}
 end
 
 
@@ -224,6 +231,81 @@ local function rebuild_board(self)
 end
 
 
+
+local function update_board_layout(self)
+	if not self.session then
+		return
+	end
+
+	self.drag = nil
+
+	local puzzle = self.session.board
+	local canvas_size = gui.get_size(self.puzzle_canvas)
+
+	self.geometry = layout.calculate(puzzle, {
+		x = -canvas_size.x / 2,
+		y = -canvas_size.y / 2,
+		width = canvas_size.x,
+		height = canvas_size.y,
+		max_cell_size = 92
+	})
+
+	local g = self.geometry
+	local size = g.cell_size
+
+	-- Reposition and resize existing cells.
+	for row = 1, puzzle.height do
+		for col = 1, puzzle.width do
+			local cell = self.cells[row][col]
+			local x, y = layout.cell_position(g, row, col, puzzle.height)
+			local pos = vmath.vector3(x, y, 0)
+
+			gui.set_position(cell.box, pos)
+			gui.set_size(cell.box, vmath.vector3(math.max(0.1, size - 1.5),	math.max(0.1, size - 1.5), 0))
+			gui.set_position(cell.cross, pos)
+
+			local scale = math.min(2, math.max(0.1, size / 45))
+			gui.set_scale(cell.cross, vmath.vector3(scale, scale, 1))
+		end
+	end
+
+	-- Reposition existing row clues.
+	local clue_scale = math.min(1, g.clue_step / 20)
+	for row, clues in ipairs(puzzle.row_clues) do
+		local _, y = layout.cell_position(g, row, 1, puzzle.height)
+		for index, node in ipairs(self.row_clue_nodes[row] or {}) do
+			local x = g.row_clue_right - (#clues - index) * g.clue_step
+			gui.set_position(node, vmath.vector3(x, y, 0))
+			gui.set_scale(node,	vmath.vector3(clue_scale, clue_scale, 1))
+		end
+	end
+
+	-- Reposition existing column clues.
+	for col, clues in ipairs(puzzle.col_clues) do
+		local x = g.grid_left + (col - 0.5) * size
+		for index, node in ipairs(self.col_clue_nodes[col] or {}) do
+			local y = g.col_clue_bottom + (#clues - index + 0.5) * g.clue_step
+			gui.set_position(node, vmath.vector3(x, y, 0))
+			gui.set_scale(node, vmath.vector3(clue_scale, clue_scale, 1))
+		end
+	end
+
+	-- Reposition existing separators.
+	local thickness = math.max(2, size * 0.045)
+	for i, node in ipairs(self.vertical_separators) do
+		local col = i * 5
+		gui.set_position(node, vmath.vector3(g.grid_left + col * size, g.grid_bottom + g.grid_height / 2, 0))
+		gui.set_size(node, vmath.vector3(thickness, g.grid_height, 0))
+	end
+
+	for i, node in ipairs(self.horizontal_separators) do
+		local row = i * 5
+		gui.set_position(node, vmath.vector3(g.grid_left + g.grid_width / 2, g.grid_bottom + (puzzle.height - row) * size, 0))
+		gui.set_size(node, vmath.vector3(g.grid_width, thickness, 0))
+	end
+end
+
+
 local PUZZLE_STATUS_TEXT = {
 	playing = "Solve the puzzle",
 	completed = "Completed!",
@@ -236,7 +318,6 @@ local function sync_ui(self)
 	end
 
 	local s = self.session
-
 	gui.set_text(self.title, s.level.name)
 	gui.set_text(self.status, PUZZLE_STATUS_TEXT[s.ui.status] or "")
 	gui.set_enabled(self.button_next, s.ui.show_next)
@@ -414,7 +495,7 @@ function update(self, dt)
 	if width ~= self.last_gui_width	or height ~= self.last_gui_height then
 		self.last_gui_width = width
 		self.last_gui_height = height
-		rebuild_board(self)
+		update_board_layout(self)
 		sync_ui(self)
 	end
 end
@@ -424,7 +505,7 @@ function on_message(self, message_id, message, sender)
 	if message_id == OPEN_LEVEL then
 		open_level(self, message.level_id)
 	elseif message_id == LAYOUT_CHANGED then
-		rebuild_board(self)
+		update_board_layout(self)
 		sync_ui(self)
 	end
 end

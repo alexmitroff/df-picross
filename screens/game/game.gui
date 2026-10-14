@@ -98,8 +98,8 @@ nodes {
     y: 640.0
   }
   size {
-    x: 620.0
-    y: 600.0
+    x: 700.0
+    y: 700.0
   }
   color {
     x: 0.09019608
@@ -203,12 +203,17 @@ layouts {
   }
   nodes {
     position {
-      x: 939.0
+      x: 920.0
       y: 360.0
+    }
+    size {
+      x: 700.0
+      y: 700.0
     }
     type: TYPE_BOX
     id: "puzzle__canvas"
     overridden_fields: 1
+    overridden_fields: 4
   }
   nodes {
     position {
@@ -222,6 +227,15 @@ layouts {
 }
 layouts {
   name: "Portrait"
+  nodes {
+    size {
+      x: 700.0
+      y: 700.0
+    }
+    type: TYPE_BOX
+    id: "puzzle__canvas"
+    overridden_fields: 4
+  }
 }
 adjust_reference: ADJUST_REFERENCE_PARENT
-max_nodes: 1024
+max_nodes: 2048
