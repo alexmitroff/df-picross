@@ -43,7 +43,6 @@ function M.paint(session, row, col, state)
 
 	if completed_now then
 		session.completed = true
-		session.ui.status = "completed"
 	end
 
 	return {
