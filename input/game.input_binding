@@ -6,3 +6,15 @@ mouse_trigger {
   input: MOUSE_BUTTON_2
   action: "cross"
 }
+mouse_trigger {
+  input: MOUSE_BUTTON_3
+  action: "pan"
+}
+mouse_trigger {
+  input: MOUSE_WHEEL_UP
+  action: "zoom_in"
+}
+mouse_trigger {
+  input: MOUSE_WHEEL_DOWN
+  action: "zoom_out"
+}
