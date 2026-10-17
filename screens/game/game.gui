@@ -98,8 +98,8 @@ nodes {
 }
 nodes {
   position {
-    x: 360.0
-    y: 640.0
+    x: 10.0
+    y: 300.0
   }
   size {
     x: 700.0
@@ -111,13 +111,17 @@ nodes {
     z: 0.2509804
   }
   type: TYPE_BOX
-  id: "puzzle__canvas"
+  id: "puzzle"
+  pivot: PIVOT_SW
   inherit_alpha: true
 }
 nodes {
+  position {
+    x: 150.0
+  }
   size {
-    x: 200.0
-    y: 100.0
+    x: 550.0
+    y: 550.0
   }
   color {
     x: 0.09019608
@@ -125,39 +129,96 @@ nodes {
     z: 0.2509804
   }
   type: TYPE_BOX
-  id: "puzzle__canvas__grid"
-  parent: "puzzle__canvas"
-  inherit_alpha: true
-}
-nodes {
-  size {
-    x: 200.0
-    y: 100.0
-  }
-  color {
-    x: 0.20392157
-    y: 0.32156864
-    z: 0.40392157
-  }
-  type: TYPE_BOX
-  id: "puzzle__canvas__columns"
-  parent: "puzzle__canvas"
+  id: "puzzle__grid"
+  pivot: PIVOT_SW
+  parent: "puzzle"
   inherit_alpha: true
   clipping_mode: CLIPPING_MODE_STENCIL
 }
 nodes {
   size {
-    x: 200.0
-    y: 100.0
+    x: 550.0
+    y: 550.0
   }
   color {
-    x: 0.20392157
-    y: 0.32156864
-    z: 0.40392157
+    x: 0.09019608
+    y: 0.18039216
+    z: 0.2509804
   }
   type: TYPE_BOX
-  id: "puzzle__canvas__rows"
-  parent: "puzzle__canvas"
+  id: "puzzle__grid__content"
+  pivot: PIVOT_SW
+  parent: "puzzle__grid"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 150.0
+    y: 560.0
+  }
+  size {
+    x: 550.0
+    y: 140.0
+  }
+  color {
+    x: 0.09019608
+    y: 0.18039216
+    z: 0.2509804
+  }
+  type: TYPE_BOX
+  id: "puzzle__columns"
+  pivot: PIVOT_SW
+  parent: "puzzle"
+  inherit_alpha: true
+  clipping_mode: CLIPPING_MODE_STENCIL
+}
+nodes {
+  size {
+    x: 550.0
+    y: 140.0
+  }
+  color {
+    x: 0.09019608
+    y: 0.18039216
+    z: 0.2509804
+  }
+  type: TYPE_BOX
+  id: "puzzle__columns__content"
+  pivot: PIVOT_SW
+  parent: "puzzle__columns"
+  inherit_alpha: true
+}
+nodes {
+  size {
+    x: 140.0
+    y: 550.0
+  }
+  color {
+    x: 0.09019608
+    y: 0.18039216
+    z: 0.2509804
+  }
+  type: TYPE_BOX
+  id: "puzzle__rows"
+  pivot: PIVOT_SW
+  parent: "puzzle"
+  inherit_alpha: true
+  clipping_mode: CLIPPING_MODE_STENCIL
+}
+nodes {
+  size {
+    x: 140.0
+    y: 550.0
+  }
+  color {
+    x: 0.09019608
+    y: 0.18039216
+    z: 0.2509804
+  }
+  type: TYPE_BOX
+  id: "puzzle__rows__content"
+  pivot: PIVOT_SW
+  parent: "puzzle__rows"
   inherit_alpha: true
 }
 nodes {
@@ -253,15 +314,15 @@ layouts {
   }
   nodes {
     position {
-      x: 920.0
-      y: 360.0
+      x: 570.0
+      y: 10.0
     }
     size {
       x: 700.0
       y: 700.0
     }
     type: TYPE_BOX
-    id: "puzzle__canvas"
+    id: "puzzle"
     overridden_fields: 1
     overridden_fields: 4
   }
@@ -283,7 +344,7 @@ layouts {
       y: 700.0
     }
     type: TYPE_BOX
-    id: "puzzle__canvas"
+    id: "puzzle"
     overridden_fields: 4
   }
 }
