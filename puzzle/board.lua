@@ -89,6 +89,15 @@ function M.create(level)
 end
 
 
+function M.next_state(state)
+	if state == M.CROSSED then
+		return M.UNKNOWN
+	else
+		return state + 1
+	end
+end
+
+
 function M.set_cell(board, row, col, state)
 	assert(row >= 1 and row <= board.height)
 	assert(col >= 1 and col <= board.width)

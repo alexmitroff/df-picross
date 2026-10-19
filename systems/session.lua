@@ -23,6 +23,21 @@ function M.new(level_id)
 end
 
 
+function M.cycle_cell(s, row, col)
+	if s.completed then
+		return {
+			changed = false,
+			completed_now = false
+		}
+	end
+
+	local current_state = s.board.cells[row][col]
+	local next_state = board.next_state(current_state)
+
+	return M.paint(s, row, col, next_state)
+end
+
+
 function M.paint(session, row, col, state)
 	if session.completed then
 		return {

@@ -13,6 +13,7 @@ local CROSS = hash("cross")
 local PAN = hash("pan")
 local ZOOM_IN = hash("zoom_in")
 local ZOOM_OUT = hash("zoom_out")
+local MULTITOUCH = hash("multitouch")
 
 local OPEN_LEVEL = hash("open_level")
 local LAYOUT_CHANGED = hash("layout_changed")
@@ -293,6 +294,26 @@ local function sync_ui(self)
 end
 
 
+local function touch_position(self, touch)
+	local local_pos = gui.screen_to_local(self.grid_viewport, vmath.vector3(touch.screen_x, touch.screen_y, 0))
+	return local_pos.x, local_pos.y
+end
+
+
+local function touch_pair(self, first, second)
+	local x1, y1 = touch_position(self, first)
+	local x2, y2 = touch_position(self, second)
+	local center_x = (x1 + x2) / 2
+	local center_y = (y1 + y2) / 2
+
+	local dx = x2 - x1
+	local dy = y2 - y1
+	local distance = math.sqrt(dx * dx + dy * dy)
+
+	return center_x, center_y, distance
+end
+
+
 local function apply_viewport(self)
 	local v = self.viewport
 	local z = v.zoom
@@ -379,6 +400,10 @@ local function open_level(self, level_id)
 	end
 
 	self.drag = nil
+	self.touch_gesture.mode = "idle"
+	self.touch_gesture.last_x = nil
+	self.touch_gesture.last_y = nil
+	self.touch_gesture.last_distance = nil
 
 	clear_grid(self)
 
@@ -484,9 +509,9 @@ local function begin_paint(self, action_id, x, y)
 	}
 
 	paint_cell(self, row, col, target)
-
 	return true
 end
+
 
 local function continue_paint(self, x, y)
 	if not self.drag or self.session.completed then return end
@@ -532,6 +557,83 @@ local function continue_paint(self, x, y)
 end
 
 
+local function tap_cell(self, x, y)
+	local row, col = find_cell(self, x, y)
+
+	if not row then return false end
+
+	local current_state = self.session.board.cells[row][col]
+	local next_state = board.next_state(current_state)
+
+	paint_cell(self, row, col, next_state)
+	return true
+end
+
+
+local function handle_multitouch(self, action)
+	if not self.session or self.pending_level_id then return false end
+
+	local gesture = self.touch_gesture
+
+	-- Collect touches that have not been released.
+	local touches = {}
+
+	for _, touch in ipairs(action.touch or {}) do
+		if not touch.released then
+			touches[#touches + 1] = touch
+		end
+	end
+
+	table.sort(touches, function(a, b) return a.id < b.id end)
+
+	local count = #touches
+
+	-- All fingers released: ready for a new gesture.
+	if count == 0 then
+		self.drag = nil
+		gesture.mode = "idle"
+		gesture.last_distance = nil
+		return true
+	end
+
+	-- Two or more fingers: navigation mode.
+	if count >= 2 then
+		self.drag = nil
+		local x, y, distance = touch_pair(self, touches[1], touches[2])
+
+		if gesture.mode == "navigation" then
+			local size = gui.get_size(self.grid_viewport)
+			viewport.gesture(self.viewport, gesture.last_x, gesture.last_y,	gesture.last_distance, x, y, distance, self.geometry, size.x, size.y)
+			apply_viewport(self)
+		end
+
+		gesture.mode = "navigation"
+		gesture.last_x = x
+		gesture.last_y = y
+		gesture.last_distance = distance
+
+		return true
+	end
+
+	-- One finger remains after navigation.
+	-- Don't resume painting until all fingers are lifted.
+	if gesture.mode == "navigation" or gesture.mode == "blocked" then
+		self.drag = nil
+		gesture.mode = "blocked"
+		return true
+	end
+
+	-- One-finger painting.
+	local touch = touches[1]
+	if gesture.mode == "idle" and touch.pressed and gui.pick_node(self.grid_viewport, touch.x, touch.y) then
+		tap_cell(self, touch.x, touch.y)
+		gesture.mode = "painting"
+	end
+
+	return true
+end
+
+
 function init(self)
 	msg.post(".", "acquire_input_focus")
 
@@ -563,6 +665,13 @@ function init(self)
 	self.panning = false
 	self.last_pan_x = nil
 	self.last_pan_y = nil
+
+	self.touch_gesture = {
+		mode = "idle",
+		last_x = nil,
+		last_y = nil,
+		last_distance = nil
+	}
 end
 
 
@@ -613,6 +722,10 @@ function on_input(self, action_id, action)
 			continue_paint(self, action.x, action.y)
 		end
 		return
+	end
+
+	if action_id == MULTITOUCH then
+		return handle_multitouch(self, action)
 	end
 
 	if action_id == ZOOM_IN and action.value ~= 0 then

@@ -12,6 +12,7 @@ function M.new()
 	}
 end
 
+
 local function clamp_axis(offset, zoom, start, length, viewport_size)
 	local scaled_start = start * zoom
 	local scaled_length = length * zoom
@@ -29,10 +30,12 @@ local function clamp_axis(offset, zoom, start, length, viewport_size)
 	return math.max(min_offset, math.min(max_offset, offset))
 end
 
+
 function M.clamp(state, geometry, width, height)
 	state.pan_x = clamp_axis(state.pan_x, state.zoom, geometry.grid_left, geometry.grid_width, width)
 	state.pan_y = clamp_axis(state.pan_y, state.zoom, geometry.grid_bottom, geometry.grid_height, height)
 end
+
 
 function M.zoom_at(state, factor, cursor_x, cursor_y, geometry, width, height)
 	local old_zoom = state.zoom
@@ -49,10 +52,12 @@ function M.zoom_at(state, factor, cursor_x, cursor_y, geometry, width, height)
 	M.clamp(state, geometry, width, height)
 end
 
+
 function M.zoom_step(state, direction, x, y, geometry, width, height)
 	local factor = direction > 0 and ZOOM_FACTOR or 1 / ZOOM_FACTOR
 	M.zoom_at(state, factor, x, y, geometry, width, height)
 end
+
 
 function M.pan(state, dx, dy, geometry, width, height)
 	state.pan_x = state.pan_x + dx
@@ -66,5 +71,20 @@ function M.reset(state, geometry, width, height)
 	state.pan_y = 0
 	M.clamp(state, geometry, width, height)
 end
+
+
+function M.gesture(state, old_x, old_y, old_distance, new_x, new_y, new_distance, geometry, width, height)
+	-- First translate the viewport.
+	state.pan_x = state.pan_x + new_x - old_x
+	state.pan_y = state.pan_y + new_y - old_y
+
+	-- Then zoom around the new gesture midpoint.
+	if old_distance > 0 and new_distance > 0 then
+		M.zoom_at(state, new_distance / old_distance, new_x, new_y, geometry, width, height)
+	else
+		M.clamp(state, geometry, width, height)
+	end
+end
+
 
 return M
