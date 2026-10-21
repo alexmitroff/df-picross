@@ -92,7 +92,6 @@ local function create_clues(self)
 	
 	local geometry = self.geometry
 	local step = geometry.clue_step
-	local scale = math.min(1.0,	math.max(0.6, geometry.cell_size / 45))
 
 	-- ROW CLUES
 	for row, clues in ipairs(self.session.board.row_clues) do
@@ -104,7 +103,6 @@ local function create_clues(self)
 			local node = track(self, create_text(x, y, value), self.rows_content)
 			gui.set_position(node, vmath.vector3(x, y, 0))
 			gui.set_pivot(node, gui.PIVOT_E)
-			gui.set_scale(node, vmath.vector3(scale, scale, 1))
 
 			self.row_clue_nodes[row] = self.row_clue_nodes[row] or {}
 			table.insert(self.row_clue_nodes[row], node)
@@ -120,7 +118,6 @@ local function create_clues(self)
 			local y = geometry.col_clue_bottom + (#clues - index + 0.5) * step
 			local node = track(self, create_text(x, y, value), self.columns_content)
 			gui.set_position(node, vmath.vector3(x, y, 0))
-			gui.set_scale(node, vmath.vector3(scale, scale, 1))
 
 			self.col_clue_nodes[col] = self.col_clue_nodes[col] or {}
 			table.insert(self.col_clue_nodes[col], node)
@@ -141,21 +138,22 @@ local function update_clues(self, row, col)
 end
 
 
+
 local function update_clue_text_scales(self)
-	if not self.geometry then return end
+	if not self.geometry or not self.viewport then	return end
 
-	local z = self.viewport.zoom
-	local base = math.min(1, self.geometry.clue_step / 20)
+	local base_scale = math.min(1, self.geometry.clue_step / 20)
+	local target_scale = base_scale / self.viewport.zoom
 
-	for _, row_nodes in pairs(self.row_clue_nodes) do
-		for _, node in ipairs(row_nodes) do
-			gui.set_scale(node,	vmath.vector3(base, base / z, 1))
+	for _, nodes in pairs(self.row_clue_nodes) do
+		for _, node in ipairs(nodes) do
+			gui.set_scale(node,	vmath.vector3(base_scale, target_scale, 1))
 		end
 	end
 
-	for _, col_nodes in pairs(self.col_clue_nodes) do
-		for _, node in ipairs(col_nodes) do
-			gui.set_scale(node, vmath.vector3(base / z, base, 1))
+	for _, nodes in pairs(self.col_clue_nodes) do
+		for _, node in ipairs(nodes) do
+			gui.set_scale(node, vmath.vector3(target_scale, base_scale, 1))
 		end
 	end
 end
@@ -230,6 +228,8 @@ local function rebuild_board(self)
 	for col = 1, puzzle.width do
 		update_clue_nodes(self.col_clue_nodes[col],	board.col_clues_satisfied(self.session.board, col))
 	end
+
+	update_clue_text_scales(self)
 end
 
 
@@ -239,8 +239,6 @@ local function update_board_layout(self)
 
 	self.drag = nil
 	local puzzle = self.session.board
-	local canvas_size = gui.get_size(self.puzzle_canvas)
-
 
 	calculate_geometry(self)
 	local g = self.geometry
@@ -256,13 +254,11 @@ local function update_board_layout(self)
 	end
 
 	-- Reposition existing row clues.
-	local clue_scale = math.min(1, g.clue_step / 20)
 	for row, clues in ipairs(puzzle.row_clues) do
 		local _, y = layout.cell_position(g, row, 1, puzzle.height)
 		for index, node in ipairs(self.row_clue_nodes[row] or {}) do
 			local x = g.row_clue_right - (#clues - index) * g.clue_step
 			gui.set_position(node, vmath.vector3(x, y, 0))
-			gui.set_scale(node,	vmath.vector3(clue_scale, clue_scale, 1))
 		end
 	end
 
@@ -272,9 +268,10 @@ local function update_board_layout(self)
 		for index, node in ipairs(self.col_clue_nodes[col] or {}) do
 			local y = g.col_clue_bottom + (#clues - index + 0.5) * g.clue_step
 			gui.set_position(node, vmath.vector3(x, y, 0))
-			gui.set_scale(node, vmath.vector3(clue_scale, clue_scale, 1))
 		end
 	end
+
+	update_clue_text_scales(self)
 end
 
 
@@ -341,11 +338,9 @@ end
 
 
 local function grid_pointer_position(self, action)
-	local screen_pos = vmath.vector3(action.screen_x, action.screen_y, 0)
-	local local_pos = gui.screen_to_local(self.grid_content, screen_pos)
-	return local_pos.x, local_pos.y
+	local pos = gui.screen_to_local(self.grid_viewport,	vmath.vector3(action.screen_x, action.screen_y, 0))
+	return pos.x, pos.y
 end
-
 
 
 local function zoom_viewport(self, action, direction)
@@ -375,7 +370,7 @@ end
 
 
 local function continue_pan(self, action)
-	if not self.panning then return end
+	if not self.panning or not self.session then return end
 
 	local x, y = grid_pointer_position(self, action)
 
@@ -383,7 +378,6 @@ local function continue_pan(self, action)
 	local dy = y - self.last_pan_y
 
 	local size = gui.get_size(self.grid_viewport)
-
 	viewport.pan(self.viewport, dx, dy, self.geometry, size.x, size.y)
 
 	self.last_pan_x = x
