@@ -54,6 +54,16 @@ local function track(self, node, parent)
 end
 
 
+local function create_clue_container(self, parent, x, y)
+	local node = gui.new_box_node(vmath.vector3(0, 0, 0), vmath.vector3(1, 1, 0))
+	gui.set_pivot(node, gui.PIVOT_SW)
+	gui.set_visible(node, false)
+	track(self, node, parent)
+	gui.set_position(node, vmath.vector3(x, y, 0))
+	return node
+end
+
+
 local CELL_TEXTURE = "cells"
 
 local CELL_IMAGES = {
@@ -87,6 +97,9 @@ end
 
 
 local function create_clues(self)
+	self.row_containers = {}
+	self.col_containers = {}
+
 	self.row_clue_nodes = {}
 	self.col_clue_nodes = {}
 
@@ -95,31 +108,31 @@ local function create_clues(self)
 	-- ROW CLUES
 	for row, clues in ipairs(self.session.board.row_clues) do
 		local _, y = layout.cell_position(self.geometry, row, 1, self.session.board.height)
+		local container = create_clue_container(self, self.rows_content, 0, y)
+		self.row_containers[row] = container
+		self.row_clue_nodes[row] = {}
 
 		for index, value in ipairs(clues) do
-			-- Last clue stays nearest the grid.
 			local x = self.geometry.row_clue_right - (#clues - index) * step
-			local node = track(self, create_text(x, y, value), self.rows_content)
-			gui.set_position(node, vmath.vector3(x, y, 0))
+			local node = track(	self,create_text(0, 0, value), container)
+			gui.set_position(node, vmath.vector3(x, 0, 0))
 			gui.set_pivot(node, gui.PIVOT_E)
-
-			self.row_clue_nodes[row] = self.row_clue_nodes[row] or {}
-			table.insert(self.row_clue_nodes[row], node)
+			self.row_clue_nodes[row][index] = node
 		end
 	end
 
 	-- COLUMN CLUES
 	for col, clues in ipairs(self.session.board.col_clues) do
 		local x, _ = layout.cell_position(self.geometry, 1, col, self.session.board.height)
+		local container = create_clue_container(self, self.columns_content, x, 0)
+		self.col_containers[col] = container
+		self.col_clue_nodes[col] = {}
 
 		for index, value in ipairs(clues) do
-			-- Last clue stays nearest the grid.
 			local y = self.geometry.col_clue_bottom + (#clues - index + 0.5) * step
-			local node = track(self, create_text(x, y, value), self.columns_content)
-			gui.set_position(node, vmath.vector3(x, y, 0))
-
-			self.col_clue_nodes[col] = self.col_clue_nodes[col] or {}
-			table.insert(self.col_clue_nodes[col], node)
+			local node = track(	self, create_text(0, 0, value),	container)
+			gui.set_position(node, vmath.vector3(0, y, 0))
+			self.col_clue_nodes[col][index] = node
 		end
 	end
 end
@@ -169,6 +182,8 @@ local function clear_grid(self)
 	for _, node in ipairs(self.nodes) do gui.delete_node(node) end
 	self.nodes = {}
 	self.cells = {}
+	self.row_containers = {}
+	self.col_containers = {}
 	self.row_clue_nodes = {}
 	self.col_clue_nodes = {}
 end

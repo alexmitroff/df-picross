@@ -19,7 +19,6 @@ function M.calculate(puzzle, area)
 	local max_col_clues = 0
 
 	for _, clues in ipairs(puzzle.row_clues) do	max_row_clues = math.max(max_row_clues, #clues)	end
-
 	for _, clues in ipairs(puzzle.col_clues) do	max_col_clues = math.max(max_col_clues, #clues)	end
 
 	local row_panel_units =	max_row_clues * clue_ratio + 2 * clue_padding_ratio
