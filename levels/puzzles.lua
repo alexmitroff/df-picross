@@ -34,22 +34,22 @@ M.categories = {
 		name = "Tutorial",
 		levels = {
 			{
-				title: qsTr("Square"),
-				hintTitle: qsTr("Numbers = size of the groups"),
+				title: "Square",
+				hintTitle: "Numbers = size of the groups",
 				gridSize: 3, grid: {
 				1, 1, 1,
 				1, 1, 1,
 				1, 1, 1}
 			}, {
-				title: qsTr("Hole"),
-				hintTitle: qsTr("Groups are separated. But how far?"),
+				title: "Hole",
+				hintTitle: "Groups are separated. But how far?",
 				gridSize: 3, grid: {
 				1, 1, 1,
 				1, 0, 1,
 				1, 1, 1}
 			}, {
-				title: qsTr("Little grid"),
-				hintTitle: qsTr("Sometimes, there is no choice..."),
+				title: "Little grid",
+				hintTitle: "Sometimes, there is no choice...",
 				gridSize: 5, grid: {
 				1, 0, 1, 0, 1,
 				0, 1, 0, 1, 0,
@@ -57,8 +57,8 @@ M.categories = {
 				0, 1, 0, 1, 0,
 				1, 0, 1, 0, 1}
 			}, {
-				title: qsTr("Cross"),
-				hintTitle: qsTr("Green = corresponds. Click on it"),
+				title: "Cross",
+				hintTitle: "Green = corresponds. Click on it",
 				gridSize: 5, grid: {
 				0, 0, 0, 0, 0,
 				0, 0, 1, 0, 0,
@@ -67,8 +67,8 @@ M.categories = {
 				0, 0, 0, 0, 0,
 				}
 			}, {
-				title: qsTr("Pyramid"),
-				hintTitle: qsTr("You're on your own now"),
+				title: "Pyramid",
+				hintTitle: "You're on your own now",
 				gridSize: 5, grid: {
 				0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0,
@@ -76,8 +76,8 @@ M.categories = {
 				0, 1, 1, 1, 0,
 				1, 1, 1, 1, 1}
 			}, {
-				title: qsTr("Heart"),
-				hintTitle: qsTr("Your first real level"),
+				title: "Heart",
+				hintTitle: "Your first real level",
 				gridSize: 5, grid: {
 				0, 1, 0, 1, 0,
 				1, 0, 1, 0, 1,
@@ -85,8 +85,8 @@ M.categories = {
 				0, 1, 0, 1, 0,
 				0, 0, 1, 0, 0}
 			}, {
-				title: qsTr("Bubble"),
-				hintTitle: qsTr("What !!?"),
+				title: "Bubble",
+				hintTitle: "What !!?",
 				gridSize: 10, grid: {
 				0, 1, 1, 1, 1, 1, 1, 1, 1, 0,
 				1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
@@ -105,8 +105,8 @@ M.categories = {
 		name = "Easy",
 		levels = {
 			{
-				title: qsTr("Chick"),
-				hintTitle: qsTr("Yellow animal"),
+				title: "Chick",
+				hintTitle: "Yellow animal",
 				gridSize: 10, grid: {
 				0, 0, 1, 1, 1, 0, 0, 0, 0, 0,
 				0, 1, 1, 1, 1, 1, 0, 0, 0, 0,
@@ -119,8 +119,8 @@ M.categories = {
 				0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
 				0, 0, 0, 0, 1, 1, 0, 0, 0, 0}
 			}, {
-				title: qsTr("Heart"),
-				hintTitle: qsTr("Attraction"),
+				title: "Heart",
+				hintTitle: "Attraction",
 				gridSize: 10, grid: {
 				1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 				1, 0, 0, 1, 1, 1, 1, 0, 0, 1,
@@ -133,8 +133,8 @@ M.categories = {
 				1, 1, 1, 1, 0, 0, 1, 1, 1, 1,
 				1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 			}, {
-				title: qsTr("Creeper"),
-				hintTitle: qsTr("Ka-Boom!"),
+				title: "Creeper",
+				hintTitle: "Ka-Boom!",
 				gridSize: 8, grid: {
 				1, 1, 1, 1, 1, 1, 1, 1,
 				1, 0, 0, 1, 1, 0, 0, 1,
@@ -145,8 +145,8 @@ M.categories = {
 				1, 1, 0, 1, 1, 0, 1, 1,
 				1, 1, 1, 1, 1, 1, 1, 1}
 			}, {
-				title: qsTr("Rabbit"),
-				hintTitle: qsTr("I'm late, I'm late..."),
+				title: "Rabbit",
+				hintTitle: "I'm late, I'm late...",
 				gridSize: 8, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 1, 0, 0, 0, 0, 0,
@@ -157,8 +157,8 @@ M.categories = {
 				0, 0, 1, 1, 1, 1, 1, 1,
 				0, 1, 1, 0, 1, 1, 1, 0}
 			}, {
-				title: qsTr("Cup"),
-				hintTitle: qsTr("Tea time!"),
+				title: "Cup",
+				hintTitle: "Tea time!",
 				gridSize: 10, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -171,8 +171,8 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: qsTr("Small boat"),
-				hintTitle: qsTr("Let's sail"),
+				title: "Small boat",
+				hintTitle: "Let's sail",
 				gridSize: 10, grid: {
 				0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
 				0, 0, 0, 1, 1, 1, 0, 0, 0, 0,
@@ -185,8 +185,8 @@ M.categories = {
 				1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 				0, 1, 1, 1, 1, 1, 1, 1, 1, 0}
 			}, {
-				title: qsTr("Apple"),
-				hintTitle: qsTr("It's meant to fall"),
+				title: "Apple",
+				hintTitle: "It's meant to fall",
 				gridSize: 10, grid: {
 				0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
 				0, 1, 1, 1, 0, 1, 0, 1, 1, 0,
@@ -199,8 +199,8 @@ M.categories = {
 				0, 1, 1, 1, 1, 1, 1, 1, 1, 0,
 				0, 0, 1, 1, 1, 1, 1, 1, 0, 0}
 			}, {
-				title: qsTr("Cherry"),
-				hintTitle: qsTr("Small fruit"),
+				title: "Cherry",
+				hintTitle: "Small fruit",
 				gridSize: 10, grid: {
 				0, 0, 0, 1, 1, 1, 1, 1, 1, 0,
 				0, 0, 0, 0, 0, 0, 0, 1, 0, 0,
@@ -213,8 +213,8 @@ M.categories = {
 				0, 1, 1, 1, 0, 1, 1, 1, 1, 1,
 				0, 0, 0, 0, 0, 0, 1, 1, 1, 0}
 			}, {
-				title: qsTr("Flat"),
-				hintTitle: qsTr("It's high!"),
+				title: "Flat",
+				hintTitle: "It's high!",
 				gridSize: 15, grid: {
 				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
@@ -232,8 +232,8 @@ M.categories = {
 				1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1,
 				1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1}
 			}, {
-				title: qsTr("Dancer"),
-				hintTitle: qsTr("It swings!"),
+				title: "Dancer",
+				hintTitle: "It swings!",
 				gridSize: 10, grid: {
 				1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 				1, 1, 1, 1, 1, 0, 0, 1, 1, 1,
@@ -246,8 +246,8 @@ M.categories = {
 				1, 1, 0, 1, 1, 1, 1, 0, 1, 1,
 				0, 0, 0, 1, 1, 1, 1, 0, 0, 0}
 			}, {
-				title: qsTr("Crab"),
-				hintTitle: qsTr("He pinches"),
+				title: "Crab",
+				hintTitle: "He pinches",
 				gridSize: 10, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				1, 0, 1, 0, 0, 0, 0, 1, 0, 1,
@@ -260,8 +260,8 @@ M.categories = {
 				1, 1, 0, 1, 1, 1, 1, 0, 1, 1,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: qsTr("Humming-Bird"),
-				hintTitle: qsTr("Flower eater"),
+				title: "Humming-Bird",
+				hintTitle: "Flower eater",
 				gridSize: 10, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
 				0, 0, 1, 1, 0, 0, 0, 1, 1, 1,
@@ -274,8 +274,8 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
 				0, 0, 0, 0, 0, 0, 0, 1, 1, 0}
 			}, {
-				title: qsTr("Monkey"),
-				hintTitle: qsTr("Our ancestor"),
+				title: "Monkey",
+				hintTitle: "Our ancestor",
 				gridSize: 10, grid: {
 				0, 0, 1, 1, 1, 0, 0, 1, 1, 1,
 				0, 1, 1, 1, 1, 1, 0, 1, 0, 1,
@@ -288,8 +288,8 @@ M.categories = {
 				1, 0, 0, 1, 1, 0, 1, 1, 1, 1,
 				0, 1, 1, 1, 0, 1, 1, 1, 1, 0}
 			}, {
-				title: qsTr("Snail"),
-				hintTitle: qsTr("Small helix"),
+				title: "Snail",
+				hintTitle: "Small helix",
 				gridSize: 10, grid: {
 				1, 1, 0, 0, 0, 0, 0, 0, 0, 0,
 				1, 1, 0, 0, 1, 1, 1, 1, 1, 0,
@@ -302,8 +302,8 @@ M.categories = {
 				0, 1, 1, 0, 0, 0, 0, 0, 0, 1,
 				0, 0, 1, 1, 1, 1, 1, 1, 1, 0}
 			}, {
-				title: qsTr("Goldfish"),
-				hintTitle: qsTr("A very bad memory..."),
+				title: "Goldfish",
+				hintTitle: "A very bad memory...",
 				gridSize: 10, grid: {
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 0,
 				0, 0, 0, 0, 1, 1, 1, 0, 0, 0,
@@ -316,8 +316,8 @@ M.categories = {
 				0, 0, 1, 1, 1, 1, 1, 0, 0, 0,
 				0, 0, 0, 0, 1, 1, 1, 1, 1, 0}
 			}, {
-				title: qsTr("Kitten"),
-				hintTitle: qsTr("Little predator"),
+				title: "Kitten",
+				hintTitle: "Little predator",
 				gridSize: 14, grid: {
 				0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0,
 				0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0,
@@ -334,8 +334,8 @@ M.categories = {
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0,
 				0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0}
 			}, {
-				title: qsTr("Owl"),
-				hintTitle: qsTr("Night animal"),
+				title: "Owl",
+				hintTitle: "Night animal",
 				gridSize: 15, grid: {
 				0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,
 				0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0,
@@ -353,8 +353,8 @@ M.categories = {
 				0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
 				0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0}
 			}, {
-				title: qsTr("Beach"),
-				hintTitle: qsTr("Holidays location"),
+				title: "Beach",
+				hintTitle: "Holidays location",
 				gridSize: 15, grid: {
 				0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0,
 				0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0,
@@ -378,8 +378,8 @@ M.categories = {
 		name = "Medium",
 		levels = {
 			{
-				title: qsTr("Helicopter"),
-				hintTitle: qsTr("Not so \"U\" for a UFO"),
+				title: "Helicopter",
+				hintTitle: "Not so \"U\" for a UFO",
 				gridSize: 10, grid: {
 				1, 1, 1, 0, 1, 1, 1, 0, 0, 0,
 				0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
@@ -392,8 +392,8 @@ M.categories = {
 				1, 0, 1, 0, 1, 0, 0, 0, 0, 0,
 				1, 1, 1, 1, 1, 1, 1, 0, 0, 0}
 			}, {
-				title: qsTr("Flask"),
-				hintTitle: qsTr("Witch's util"),
+				title: "Flask",
+				hintTitle: "Witch's util",
 				gridSize: 8, grid: {
 				0, 0, 1, 0, 1, 1, 1, 0,
 				0, 0, 0, 1, 0, 1, 0, 0,
@@ -404,8 +404,8 @@ M.categories = {
 				0, 1, 1, 1, 1, 1, 1, 1,
 				0, 0, 1, 1, 1, 1, 1, 0}
 			}, {
-				title: qsTr("Moose"),
-				hintTitle: qsTr("He loves the cold"),
+				title: "Moose",
+				hintTitle: "He loves the cold",
 				gridSize: 15, grid: {
 				1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1,
 				1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1,
@@ -423,8 +423,8 @@ M.categories = {
 				0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1}
 			}, {
-				title: qsTr("Sailboat"),
-				hintTitle: qsTr("You are a pirate~"),
+				title: "Sailboat",
+				hintTitle: "You are a pirate~",
 				gridSize: 15, grid: {
 				0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1,
@@ -442,8 +442,8 @@ M.categories = {
 				0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0}
 			}, {
-				title: qsTr("Duck"),
-				hintTitle: qsTr("Ugly, according to Andersen"),
+				title: "Duck",
+				hintTitle: "Ugly, according to Andersen",
 				gridSize: 15, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0,
@@ -461,8 +461,8 @@ M.categories = {
 				0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0}
 			}, {
-				title: qsTr("Seal"),
-				hintTitle: qsTr("Often hunted for its fur"),
+				title: "Seal",
+				hintTitle: "Often hunted for its fur",
 				gridSize: 15, grid: {
 				0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
@@ -480,8 +480,8 @@ M.categories = {
 				1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0,
 				1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0}
 			}, {
-				title: qsTr("Squirrel"),
-				hintTitle: qsTr("Hiding his nuts"),
+				title: "Squirrel",
+				hintTitle: "Hiding his nuts",
 				gridSize: 15, grid: {
 				0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0,
 				0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1,
@@ -499,8 +499,8 @@ M.categories = {
 				0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0,
 				0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: qsTr("Panda"),
-				hintTitle: qsTr("Stained"),
+				title: "Panda",
+				hintTitle: "Stained",
 				gridSize: 15, grid: {
 				1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 				1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1,
@@ -518,8 +518,8 @@ M.categories = {
 				1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1,
 				1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1}
 			}, {
-				title: qsTr("Tap"),
-				hintTitle: qsTr("In the middle of the night"),
+				title: "Tap",
+				hintTitle: "In the middle of the night",
 				gridSize: 12, grid: {
 				0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 				0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -534,8 +534,8 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: qsTr("Mushroom"),
-				hintTitle: qsTr("Makes you stronger"),
+				title: "Mushroom",
+				hintTitle: "Makes you stronger",
 				gridSize: 17, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0,
@@ -555,8 +555,8 @@ M.categories = {
 				0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0,
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0}
 			}, {
-				title: qsTr("Meowth"),
-				hintTitle: qsTr("Gotta catch them all~"),
+				title: "Meowth",
+				hintTitle: "Gotta catch them all~",
 				gridSize: 15, grid: {
 				0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0,
 				0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1,
@@ -574,8 +574,8 @@ M.categories = {
 				1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1,
 				0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: qsTr("Elephants"),
-				hintTitle: qsTr("Cute couple"),
+				title: "Elephants",
+				hintTitle: "Cute couple",
 				gridSize: 15, grid: {
 				0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0,
@@ -593,8 +593,8 @@ M.categories = {
 				0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1,
 				0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1}
 			}, {
-				title: qsTr("Mario"),
-				hintTitle: qsTr("World most famous plumber"),
+				title: "Mario",
+				hintTitle: "World most famous plumber",
 				gridSize: 14, grid: {
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0,
 				0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0,
@@ -611,8 +611,8 @@ M.categories = {
 				0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0,
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0}
 			}, {
-				title: qsTr("Father and son"),
-				hintTitle: qsTr("Flesh of his flesh"),
+				title: "Father and son",
+				hintTitle: "Flesh of his flesh",
 				gridSize: 15, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0,
@@ -630,8 +630,8 @@ M.categories = {
 				1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1,
 				1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0}
 			}, {
-				title: qsTr("Snake"),
-				hintTitle: qsTr("Devil's animal"),
+				title: "Snake",
+				hintTitle: "Devil's animal",
 				gridSize: 15, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
 				0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0,
@@ -649,8 +649,8 @@ M.categories = {
 				0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 				0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0}
 			}, {
-				title: qsTr("Dog"),
-				hintTitle: qsTr("Woof!"),
+				title: "Dog",
+				hintTitle: "Woof!",
 				gridSize: 15, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1,
@@ -668,8 +668,8 @@ M.categories = {
 				0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1,
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1}
 			}, {
-				title: qsTr("Umbrella"),
-				hintTitle: qsTr("The best shelter when needed"),
+				title: "Umbrella",
+				hintTitle: "The best shelter when needed",
 				gridSize: 15, grid: {
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
 				0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1,
@@ -687,8 +687,8 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0}
 			}, {
-				title: qsTr("Penguin"),
-				hintTitle: qsTr("Classy BlackAndWhite"),
+				title: "Penguin",
+				hintTitle: "Classy BlackAndWhite",
 				gridSize: 20, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0,
@@ -711,8 +711,8 @@ M.categories = {
 				1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0,
 				1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0}
 			}, {
-				title: qsTr("UFO"),
-				hintTitle: qsTr("Space Invaders"),
+				title: "UFO",
+				hintTitle: "Space Invaders",
 				gridSize: 20, grid: {
 				1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
 				1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1,
@@ -735,8 +735,8 @@ M.categories = {
 				1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1,
 				1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1}
 			}, {
-				title: qsTr("Lion"),
-				hintTitle: qsTr("King of the jungle"),
+				title: "Lion",
+				hintTitle: "King of the jungle",
 				gridSize: 15, grid: {
 				0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
 				1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1,
@@ -754,8 +754,8 @@ M.categories = {
 				1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0,
 				1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0}
 			}, {
-				title: qsTr("Woman and mirror"),
-				hintTitle: qsTr("Who's the fairest one of all?"),
+				title: "Woman and mirror",
+				hintTitle: "Who's the fairest one of all?",
 				gridSize: 15, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1,
@@ -779,8 +779,8 @@ M.categories = {
 		name = "Hard",
 		levels = {
 			{
-				title: qsTr("Spiny"),
-				hintTitle: qsTr("You're first? Fear him..."),
+				title: "Spiny",
+				hintTitle: "You're first? Fear him...",
 				gridSize: 15, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
@@ -798,8 +798,8 @@ M.categories = {
 				0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0,
 				0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0}
 			}, {
-				title: qsTr("Puppy"),
-				hintTitle: qsTr("Smallest men's best friend"),
+				title: "Puppy",
+				hintTitle: "Smallest men's best friend",
 				gridSize: 15, grid: {
 				0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
 				0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0,
@@ -817,8 +817,8 @@ M.categories = {
 				1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 0,
 				0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0}
 			}, {
-				title: qsTr("Bunny"),
-				hintTitle: qsTr("Return of the latecomer"),
+				title: "Bunny",
+				hintTitle: "Return of the latecomer",
 				gridSize: 12, grid: {
 				0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0,
 				0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0,
@@ -833,8 +833,8 @@ M.categories = {
 				1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0,
 				0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0}
 			}, {
-				title: qsTr("Stroller"),
-				hintTitle: qsTr("Legs of the youngest"),
+				title: "Stroller",
+				hintTitle: "Legs of the youngest",
 				gridSize: 20, grid: {
 				1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
 				1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1,
@@ -857,8 +857,8 @@ M.categories = {
 				0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1,
 				0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1}
 			}, {
-				title: qsTr("The thinker"),
-				hintTitle: qsTr("What to do...?"),
+				title: "The thinker",
+				hintTitle: "What to do...?",
 				gridSize: 15, grid: {
 				0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
@@ -876,8 +876,8 @@ M.categories = {
 				1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0,
 				1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0}
 			}, {
-				title: qsTr("Nuclear mushroom"),
-				hintTitle: qsTr("It's very radioactive!"),
+				title: "Nuclear mushroom",
+				hintTitle: "It's very radioactive!",
 				gridSize: 15, grid: {
 				1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1,
 				1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1,
@@ -895,8 +895,8 @@ M.categories = {
 				0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0,
 				1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1}
 			}, {
-				title: qsTr("Flower"),
-				hintTitle: qsTr("Smells good"),
+				title: "Flower",
+				hintTitle: "Smells good",
 				gridSize: 15, grid: {
 				1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1,
 				1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1,
@@ -914,8 +914,8 @@ M.categories = {
 				0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1,
 				0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1}
 			}, {
-				title: qsTr("Deer"),
-				hintTitle: qsTr("Majestic"),
+				title: "Deer",
+				hintTitle: "Majestic",
 				gridSize: 20, grid: {
 				1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
 				1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0,
@@ -938,8 +938,8 @@ M.categories = {
 				1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1,
 				1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1}
 			}, {
-				title: qsTr("Cow"),
-				hintTitle: qsTr("Moo"),
+				title: "Cow",
+				hintTitle: "Moo",
 				gridSize: 19, grid: {
 				0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0,
 				1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1,
@@ -961,8 +961,8 @@ M.categories = {
 				0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1,
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 			}, {
-				title: qsTr("Yoshi"),
-				hintTitle: qsTr("Well-known little dragon"),
+				title: "Yoshi",
+				hintTitle: "Well-known little dragon",
 				gridSize: 10, grid: {
 				0, 0, 1, 1, 0, 1, 1, 0, 0, 0,
 				0, 1, 0, 0, 1, 0, 0, 1, 0, 0,
@@ -975,8 +975,8 @@ M.categories = {
 				1, 0, 0, 0, 1, 1, 0, 0, 1, 1,
 				1, 1, 1, 1, 1, 0, 0, 1, 1, 0}
 			}, {
-				title: qsTr("Sheep"),
-				hintTitle: qsTr("One falls, others follow"),
+				title: "Sheep",
+				hintTitle: "One falls, others follow",
 				gridSize: 15, grid: {
 				0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
 				0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0,
@@ -994,8 +994,8 @@ M.categories = {
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0,
 				0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0}
 			}, {
-				title: qsTr("Bird"),
-				hintTitle: qsTr("Flying animal"),
+				title: "Bird",
+				hintTitle: "Flying animal",
 				gridSize: 15, grid: {
 				0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -1013,8 +1013,8 @@ M.categories = {
 				0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0}
 			}, {
-				title: qsTr("Cow"),
-				hintTitle: qsTr("Farm animal"),
+				title: "Cow",
+				hintTitle: "Farm animal",
 				gridSize: 20, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
@@ -1037,8 +1037,8 @@ M.categories = {
 				1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0,
 				1, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0}
 			}, {
-				title: qsTr("Crane and truck"),
-				hintTitle: qsTr("Construction site"),
+				title: "Crane and truck",
+				hintTitle: "Construction site",
 				gridSize: 20, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1,
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1,
@@ -1061,8 +1061,8 @@ M.categories = {
 				0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0,
 				0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1}
 			}, {
-				title: qsTr("Boy"),
-				hintTitle: qsTr("Sup' bro"),
+				title: "Boy",
+				hintTitle: "Sup' bro",
 				gridSize: 20, grid: {
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0,
 				0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0,
@@ -1085,8 +1085,8 @@ M.categories = {
 				0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0,
 				1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0}
 			}, {
-				title: qsTr("Camera"),
-				hintTitle: qsTr("Cheese!"),
+				title: "Camera",
+				hintTitle: "Cheese!",
 				gridSize: 20, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
@@ -1109,8 +1109,8 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0}
 			}, {
-				title: qsTr("Koala"),
-				hintTitle: qsTr("Not so fast..."),
+				title: "Koala",
+				hintTitle: "Not so fast...",
 				gridSize: 20, grid: {
 				1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0,
 				1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1,
@@ -1133,8 +1133,8 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: qsTr("Peanuts"),
-				hintTitle: qsTr("Classy dog"),
+				title: "Peanuts",
+				hintTitle: "Classy dog",
 				gridSize: 20, grid: {
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1,
@@ -1157,8 +1157,8 @@ M.categories = {
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0}
 			}, {
-				title: qsTr("Parrot"),
-				hintTitle: qsTr("A true singer"),
+				title: "Parrot",
+				hintTitle: "A true singer",
 				gridSize: 20, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0,
@@ -1181,8 +1181,8 @@ M.categories = {
 				0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: qsTr("Barrow"),
-				hintTitle: qsTr("Easy carry"),
+				title: "Barrow",
+				hintTitle: "Easy carry",
 				gridSize: 20, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -1205,8 +1205,8 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: qsTr("Ninja"),
-				hintTitle: qsTr("You can't see him"),
+				title: "Ninja",
+				hintTitle: "You can't see him",
 				gridSize: 20, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0,
@@ -1229,8 +1229,8 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0}
 			}, {
-				title: qsTr("Rain"),
-				hintTitle: qsTr("Not a day to be out"),
+				title: "Rain",
+				hintTitle: "Not a day to be out",
 				gridSize: 20, grid: {
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0,
 				0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 0,
@@ -1253,8 +1253,8 @@ M.categories = {
 				1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1,
 				0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0}
 			}, {
-				title: qsTr("Monster Truck"),
-				hintTitle: qsTr("Don't be on its way!"),
+				title: "Monster Truck",
+				hintTitle: "Don't be on its way!",
 				gridSize: 20, grid: {
 				0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 0,
 				0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0,
@@ -1283,8 +1283,8 @@ M.categories = {
 		name = "Expert",
 		levels = {
 			{
-				title: qsTr("Kitty"),
-				hintTitle: qsTr("King of the Net"),
+				title: "Kitty",
+				hintTitle: "King of the Net",
 				gridSize: 20, grid: {
 				0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -1307,8 +1307,8 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1,
 				0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 0}
 			}, {
-				title: qsTr("Scorpion"),
-				hintTitle: qsTr("Beware, he can sting!"),
+				title: "Scorpion",
+				hintTitle: "Beware, he can sting!",
 				gridSize: 20, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0,
@@ -1331,8 +1331,8 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: qsTr("Thumbs up"),
-				hintTitle: qsTr("Good game!"),
+				title: "Thumbs up",
+				hintTitle: "Good game!",
 				gridSize: 20, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0,
@@ -1355,8 +1355,8 @@ M.categories = {
 				1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
 				1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: qsTr("Runner"),
-				hintTitle: qsTr("Run Forrest, run!"),
+				title: "Runner",
+				hintTitle: "Run Forrest, run!",
 				gridSize: 20, grid: {
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0,
@@ -1379,8 +1379,8 @@ M.categories = {
 				1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1,
 				0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1}
 			}, {
-				title: qsTr("Dinning table"),
-				hintTitle: qsTr("Bon appetit!"),
+				title: "Dinning table",
+				hintTitle: "Bon appetit!",
 				gridSize: 20, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0,
@@ -1403,8 +1403,8 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1,
 				0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1}
 			}, {
-				title: qsTr("Shocked rabbit"),
-				hintTitle: qsTr("He has seen things..."),
+				title: "Shocked rabbit",
+				hintTitle: "He has seen things...",
 				gridSize: 20, grid: {
 				0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0,
 				0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0,
@@ -1427,8 +1427,8 @@ M.categories = {
 				0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0,
 				0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0}
 			}, {
-				title: qsTr("Octopus"),
-				hintTitle: qsTr("Hey there"),
+				title: "Octopus",
+				hintTitle: "Hey there",
 				gridSize: 20, grid: {
 				0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
@@ -1451,8 +1451,8 @@ M.categories = {
 				0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0,
 				0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: qsTr("Racoon"),
-				hintTitle: qsTr("I've got a zombie city"),
+				title: "Racoon",
+				hintTitle: "I've got a zombie city",
 				gridSize: 20, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -1475,8 +1475,8 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: qsTr("Motorcycle"),
-				hintTitle: qsTr("Vroom vroom"),
+				title: "Motorcycle",
+				hintTitle: "Vroom vroom",
 				gridSize: 20, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1,
@@ -1499,8 +1499,8 @@ M.categories = {
 				1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: qsTr("Deer"),
-				hintTitle: qsTr("Rudolph"),
+				title: "Deer",
+				hintTitle: "Rudolph",
 				gridSize: 20, grid: {
 				0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
 				0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
@@ -1523,8 +1523,8 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: qsTr("Sheep"),
-				hintTitle: qsTr("Do not follow him..."),
+				title: "Sheep",
+				hintTitle: "Do not follow him...",
 				gridSize: 20, grid: {
 				0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0,
 				0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0,
@@ -1547,8 +1547,8 @@ M.categories = {
 				0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0,
 				0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1}
 			}, {
-				title: qsTr("Mask-arade"),
-				hintTitle: qsTr("Incognito"),
+				title: "Mask-arade",
+				hintTitle: "Incognito",
 				gridSize: 20, grid: {
 				0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
 				0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0,
@@ -1571,8 +1571,8 @@ M.categories = {
 				0, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1,
 				0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1}
 			}, {
-				title: qsTr("Chickadee"),
-				hintTitle: qsTr("Flying American"),
+				title: "Chickadee",
+				hintTitle: "Flying American",
 				gridSize: 20, grid: {
 				0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0,
 				1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0,
@@ -1595,8 +1595,8 @@ M.categories = {
 				1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 				1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1}
 			}, {
-				title: qsTr("Gargamel"),
-				hintTitle: qsTr("Smurf hunter"),
+				title: "Gargamel",
+				hintTitle: "Smurf hunter",
 				gridSize: 25, grid: {
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0,
@@ -1624,8 +1624,8 @@ M.categories = {
 				1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1,
 				1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1}
 			}, {
-				title: qsTr("Polar bear"),
-				hintTitle: qsTr("Be quiet..."),
+				title: "Polar bear",
+				hintTitle: "Be quiet...",
 				gridSize: 25, grid: {
 				1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0,
 				1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0,
@@ -1653,8 +1653,8 @@ M.categories = {
 				0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0,
 				1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0}
 			}, {
-				title: qsTr("Mouse"),
-				hintTitle: qsTr("Very cute"),
+				title: "Mouse",
+				hintTitle: "Very cute",
 				gridSize: 20, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
@@ -1683,8 +1683,8 @@ M.categories = {
 		name = "Insane",
 		levels = {
 			{
-				title: qsTr("Wolf"),
-				hintTitle: qsTr("Shouting to the moon"),
+				title: "Wolf",
+				hintTitle: "Shouting to the moon",
 				gridSize: 25, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -1712,8 +1712,8 @@ M.categories = {
 				0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 			}, {
-				title: qsTr("Rose"),
-				hintTitle: qsTr("Prickly beauty"),
+				title: "Rose",
+				hintTitle: "Prickly beauty",
 				gridSize: 25, grid: {
 				0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -1741,8 +1741,8 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: qsTr("Peach"),
-				hintTitle: qsTr("... On another castle"),
+				title: "Peach",
+				hintTitle: "... On another castle",
 				gridSize: 25, grid: {
 				0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1,
 				0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1,
@@ -1770,8 +1770,8 @@ M.categories = {
 				0, 0, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
 				0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0}
 			}, {
-				title: qsTr("Rasputine"),
-				hintTitle: qsTr("Lover of the russian queen~"),
+				title: "Rasputine",
+				hintTitle: "Lover of the russian queen~",
 				gridSize: 25, grid: {
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
@@ -1799,8 +1799,8 @@ M.categories = {
 				0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0,
 				0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1}
 			}, {
-				title: qsTr("Kiss"),
-				hintTitle: qsTr("Fake in every movie"),
+				title: "Kiss",
+				hintTitle: "Fake in every movie",
 				gridSize: 25, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
@@ -1828,8 +1828,8 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 			}, {
-				title: qsTr("Horseman"),
-				hintTitle: qsTr("Go Jolly Jumper!"),
+				title: "Horseman",
+				hintTitle: "Go Jolly Jumper!",
 				gridSize: 25, grid: {
 				1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,
 				1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
@@ -1857,8 +1857,8 @@ M.categories = {
 				0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1,
 				0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1}
 			}, {
-				title: qsTr("Archimedes"),
-				hintTitle: qsTr("Splash!"),
+				title: "Archimedes",
+				hintTitle: "Splash!",
 				gridSize: 25, grid: {
 				1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1,
 				1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1,
@@ -1886,8 +1886,8 @@ M.categories = {
 				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1,
 				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1}
 			}, {
-				title: qsTr("Peanuts"),
-				hintTitle: qsTr("A dark and stormy night"),
+				title: "Peanuts",
+				hintTitle: "A dark and stormy night",
 				gridSize: 25, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0,
@@ -1915,8 +1915,8 @@ M.categories = {
 				1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
 				1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0}
 			}, {
-				title: qsTr("Lucy"),
-				hintTitle: qsTr(".. In the sky with diamonds"),
+				title: "Lucy",
+				hintTitle: ".. In the sky with diamonds",
 				gridSize: 25, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
@@ -1944,8 +1944,8 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0}
 			}, {
-				title: qsTr("Partridge"),
-				hintTitle: qsTr("Looking for shine"),
+				title: "Partridge",
+				hintTitle: "Looking for shine",
 				gridSize: 25, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
@@ -1973,8 +1973,8 @@ M.categories = {
 				1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: qsTr("Windy day"),
-				hintTitle: qsTr("Poupoupidou~"),
+				title: "Windy day",
+				hintTitle: "Poupoupidou~",
 				gridSize: 25, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0,
@@ -2002,8 +2002,8 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1}
 			}, {
-				title: qsTr("Bee"),
-				hintTitle: qsTr("Honey plant"),
+				title: "Bee",
+				hintTitle: "Honey plant",
 				gridSize: 25, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0,
@@ -2031,8 +2031,8 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: qsTr("Pilot"),
-				hintTitle: qsTr("First flight"),
+				title: "Pilot",
+				hintTitle: "First flight",
 				gridSize: 25, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -2060,8 +2060,8 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0}
 			}, {
-				title: qsTr("Don Quixote"),
-				hintTitle: qsTr("Fighting windmill"),
+				title: "Don Quixote",
+				hintTitle: "Fighting windmill",
 				gridSize: 25, grid: {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -2089,8 +2089,8 @@ M.categories = {
 				1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
 				1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: qsTr("Viking"),
-				hintTitle: qsTr("Old norseman"),
+				title: "Viking",
+				hintTitle: "Old norseman",
 				gridSize: 25, grid: {
 				0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
 				0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0,
@@ -2118,8 +2118,8 @@ M.categories = {
 				1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
 				1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}
 			}, {
-				title: qsTr("Bee"),
-				hintTitle: qsTr("Honey maker"),
+				title: "Bee",
+				hintTitle: "Honey maker",
 				gridSize: 25, grid: {
 				0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0,
@@ -2147,8 +2147,8 @@ M.categories = {
 				1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0,
 				1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0}
 			}, {
-				title: qsTr("Shoemaker"),
-				hintTitle: qsTr("Worker at the last"),
+				title: "Shoemaker",
+				hintTitle: "Worker at the last",
 				gridSize: 25, grid: {
 				0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0,
 				0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0,
@@ -2176,8 +2176,8 @@ M.categories = {
 				0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0,
 				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1}
 			}, {
-				title: qsTr("Eagle"),
-				hintTitle: qsTr("Sacred feather source"),
+				title: "Eagle",
+				hintTitle: "Sacred feather source",
 				gridSize: 25, grid: {
 				0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
