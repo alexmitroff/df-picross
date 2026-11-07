@@ -323,6 +323,7 @@ local function update_board_layout(self)
 	local geometry = self.geometry
 
 	-- Reposition and resize existing cells.
+	local rows_size = gui.get_size(self.rows_viewport)
 	for row = 1, puzzle.height do
 		for col = 1, puzzle.width do
 			local node = self.cells[row][col]
@@ -333,10 +334,12 @@ local function update_board_layout(self)
 	end
 
 	-- Reposition existing row clues.
+	local columns_size = gui.get_size(self.columns_viewport)
 	for row, clues in ipairs(puzzle.row_clues) do
+		local container = self.row_containers[row]
 		local _, y = layout.cell_position(geometry, row, 1, puzzle.height)
-		gui.set_position(self.row_containers[row], vmath.vector3(0, y, 0))
-
+		gui.set_position(container,	vmath.vector3(0, y, 0))
+		gui.set_size(container, vmath.vector3(rows_size.x, geometry.cell_size, 0))
 		for index, node in ipairs(self.row_clue_nodes[row]) do
 			local x = geometry.row_clue_right - (#clues - index) * geometry.clue_step
 			gui.set_position(node, vmath.vector3(x, 0, 0))
@@ -345,11 +348,13 @@ local function update_board_layout(self)
 
 	-- Reposition existing column clues.
 	for col, clues in ipairs(puzzle.col_clues) do
-		local x = select(1, layout.cell_position(geometry, 1, col, puzzle.height))
-		gui.set_position(self.col_containers[col], vmath.vector3(x, 0, 0))
+		local container = self.col_containers[col]
 
+		local x = select(1, layout.cell_position(geometry, 1, col, puzzle.height))
+		gui.set_position(container,	vmath.vector3(x, 0, 0))
+		gui.set_size(container, vmath.vector3(geometry.cell_size, columns_size.y, 0))
 		for index, node in ipairs(self.col_clue_nodes[col]) do
-			local y = geometry.col_clue_bottom	+ (#clues - index + 0.5) * geometry.clue_step
+			local y = geometry.col_clue_bottom + (#clues - index + 0.5) * geometry.clue_step
 			gui.set_position(node, vmath.vector3(0, y, 0))
 		end
 	end
@@ -910,6 +915,7 @@ function update(self, dt)
 		if self.session then
 			local size = gui.get_size(self.grid_viewport)
 			viewport.clamp(self.viewport, self.geometry, size.x, size.y)
+			clamp_clue_scroll(self)
 			apply_viewport(self)
 		end
 		sync_ui(self)
