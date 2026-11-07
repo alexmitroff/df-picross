@@ -327,7 +327,7 @@ local function update_board_layout(self)
 	for row = 1, puzzle.height do
 		for col = 1, puzzle.width do
 			local node = self.cells[row][col]
-			local x, y = layout.cell_position(g, row, col, puzzle.height)
+			local x, y = layout.cell_position(geometry, row, col, puzzle.height)
 			gui.set_position(node, vmath.vector3(x, y, 0))
 			gui.set_size(node, vmath.vector3(geometry.visual_cell_size, geometry.visual_cell_size, 0))
 		end
@@ -335,7 +335,7 @@ local function update_board_layout(self)
 
 	-- Reposition existing row clues.
 	for row, clues in ipairs(puzzle.row_clues) do
-		local _, y = layout.cell_position(g, row, 1, puzzle.height)
+		local _, y = layout.cell_position(geometry, row, 1, puzzle.height)
 		for index, node in ipairs(self.row_clue_nodes[row] or {}) do
 			local x = geometry.row_clue_right - (#clues - index) * geometry.clue_step
 			gui.set_position(node, vmath.vector3(x, y, 0))
@@ -344,7 +344,7 @@ local function update_board_layout(self)
 
 	-- Reposition existing column clues.
 	for col, clues in ipairs(puzzle.col_clues) do
-		local x = select(1, layout.cell_position(g, 1, col, puzzle.height))
+		local x, _ = layout.cell_position(geometry, 1, col, puzzle.height)
 		for index, node in ipairs(self.col_clue_nodes[col] or {}) do
 			local y = geometry.col_clue_bottom + (#clues - index + 0.5) * geometry.clue_step
 			gui.set_position(node, vmath.vector3(x, y, 0))
