@@ -46,6 +46,9 @@ function init(self)
 	self.current_proxy = nil
 	self.next_screen = nil
 
+	self.selected_category_index = nil
+	self.selected_level_index = nil
+
 	settings.init()
 	-- Required for input propagation to proxy worlds.
 	msg.post(".", "acquire_input_focus")
@@ -63,7 +66,8 @@ function on_message(self, message_id, message, sender)
 		switch_screen(self, "levels")
 
 	elseif message_id == hash("show_game") then
-		self.selected_level_id = message.level_id
+		self.selected_category_index = message.category_index
+		self.selected_level_index = message.level_index
 		switch_screen(self, "game")
 
 	elseif message_id == hash("show_settings") then
@@ -76,7 +80,8 @@ function on_message(self, message_id, message, sender)
 
 		if self.current_screen == "game" then
 			msg.post("game:/game#game", "open_level", {
-				level_id = self.selected_level_id
+				category_index = self.selected_category_index,
+				level_index = self.selected_level_index
 			})
 		end
 

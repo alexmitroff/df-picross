@@ -576,7 +576,7 @@ local function paint_cell(self, row, col, state)
 		local can_advance = false
 
 		if saved and s.next_category_index then
-			can_advance = progress.category_unlocked(s.next_category_index)
+			can_advance = progress.is_category_unlocked(s.next_category_index)
 		end
 
 		session.finish(s, saved, can_advance)

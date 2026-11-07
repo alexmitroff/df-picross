@@ -70,12 +70,17 @@ local function read_solution(level)
 	end
 end
 
+
 function M.create(level)
-	assert(level and level.solution, "Invalid level")
+	assert(level and level.grid, "Invalid level")
+	local size = assert(level.gridSize, "Missing gridSize")
+
+	assert(type(size) == "number" and size > 0 and size % 1 == 0, "Invalid gridSize")
+	assert(#level.grid == size * size, "Invalid flat grid length")
 
 	local board = {
-		width = #level.solution[1],
-		height = #level.solution[1] > 0	and #level.solution or 0,
+		width = size,
+		height = size,
 		solution = {},
 		cells = {},
 		row_clues = {},
@@ -83,27 +88,27 @@ function M.create(level)
 	}
 
 	-- Initialize solution and player cells.
-	for row = 1, board.height do
-		assert(#level.solution[row] == board.width,	"Inconsistent row width")
+	for row = 1, size do
 		board.solution[row] = {}
 		board.cells[row] = {}
 
-		for col = 1, board.width do
-			local value = tonumber(level.solution[row]:sub(col, col))
-			assert(value == 0 or value == 1, "Invalid solution cell")
-
+		for col = 1, size do
+			local index = (row - 1) * size + col
+			local value = level.grid[index]
+			assert(value == 0 or value == 1, "Invalid solution cell at index " .. tostring(index))
 			board.solution[row][col] = value
 			board.cells[row][col] = M.UNKNOWN
 		end
 
-		board.row_clues[row] = calculate_clues(board.solution[row])
+		-- Generate clues for this row.
+		board.row_clues[row] =
+		calculate_clues(board.solution[row])
 	end
 
-	-- Calculate column clues.
-	for col = 1, board.width do
+	-- Generate column clues.
+	for col = 1, size do
 		local values = {}
-
-		for row = 1, board.height do
+		for row = 1, size do
 			values[row] = board.solution[row][col]
 		end
 		board.col_clues[col] = calculate_clues(values)
@@ -111,6 +116,7 @@ function M.create(level)
 
 	return board
 end
+
 
 
 function M.next_state(state)
