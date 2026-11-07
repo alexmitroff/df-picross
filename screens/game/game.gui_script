@@ -1,4 +1,3 @@
-local catalog = require "levels.catalog"
 local puzzles = require "levels.puzzles"
 
 local board = require "puzzle.board"
@@ -358,14 +357,15 @@ end
 local PUZZLE_STATUS_TEXT = {
 	playing = "Solve the puzzle",
 	completed = "Completed!",
-	save_failed = "Completed! Progress not saved."
+	save_failed = "Completed! Progress not saved.",
+	game_completed = "Game completed!"
 }
 
 local function sync_ui(self)
 	if not self.session then return	end
 
 	local s = self.session
-	gui.set_text(self.title, s.level.name)
+	gui.set_text(self.title, s.level.title)
 	gui.set_text(self.status, PUZZLE_STATUS_TEXT[s.ui.status] or "")
 	gui.set_enabled(self.button_next, s.ui.show_next)
 end
@@ -494,26 +494,38 @@ local function continue_pan(self, action)
 end
 
 
-local function open_level(self, level_id)
-	if not puzzles.get(level_id) then
-		print("Unknown level:", tostring(level_id))
+local TOUCH_MODES = {
+	idle = "idle",
+	navigation = "navigation",
+	blocked = "blocked",
+	painting = "painting",
+	scroll_rows = "scroll_rows",
+	scroll_columns = "scroll_columns",
+}
+
+local function open_level(self, category_index, level_index)
+	if not puzzles.get(category_index, level_index) then
+		print("Unknown puzzle:", tostring(category_index), tostring(level_index))
 		return false
 	end
 
 	self.drag = nil
-	self.touch_gesture.mode = "idle"
+	self.panning = false
+
+	self.touch_gesture.mode = TOUCH_MODES.idle
 	self.touch_gesture.last_x = nil
 	self.touch_gesture.last_y = nil
 	self.touch_gesture.last_distance = nil
 
 	clear_grid(self)
 
-	-- Release the old puzzle session.
+	-- Release the previous session.
 	self.session = nil
 	self.geometry = nil
 
-	-- Schedule the next puzzle.
-	self.pending_level_id = level_id
+	-- Schedule the new puzzle.
+	self.pending_category_index = category_index
+	self.pending_level_index = level_index
 	self.pending_level_frames = 3
 
 	gui.set_enabled(self.button_next, false)
@@ -524,14 +536,19 @@ local function open_level(self, level_id)
 end
 
 
-local function load_pending_level(self)
-	local level_id = self.pending_level_id
-	if not level_id then return	end
 
-	self.pending_level_id = nil
+local function load_pending_level(self)
+	local category_index = self.pending_category_index
+	local level_index = self.pending_level_index
+
+	if not category_index or not level_index then return end
+
+	self.pending_category_index = nil
+	self.pending_level_index = nil
 	self.pending_level_frames = nil
 
-	self.session = session.new(level_id)
+	self.session = session.new(category_index, level_index)
+
 	rebuild_board(self)
 
 	self.clue_scroll.rows_x = 0
@@ -540,7 +557,7 @@ local function load_pending_level(self)
 	reset_viewport(self)
 	sync_ui(self)
 
-	print("Opened level:", level_id)
+	print("Opened puzzle:",	category_index,	level_index)
 end
 
 
@@ -555,15 +572,11 @@ local function paint_cell(self, row, col, state)
 
 	if result.completed_now then
 		local s = self.session
-		local saved = progress.complete(s.level_id)
+		local saved = progress.complete(s.category_index, s.level_index)
 		local can_advance = false
 
-		if saved and s.next_level_id then
-			local next_level, category = catalog.next_level(s.level_id)
-
-			if next_level and category then
-				can_advance = progress.category_unlocked(category.id)
-			end
+		if saved and s.next_category_index then
+			can_advance = progress.category_unlocked(s.next_category_index)
 		end
 
 		session.finish(s, saved, can_advance)
@@ -675,17 +688,6 @@ local function tap_cell(self, x, y)
 end
 
 
-local TOUCH_MODES = {
-	idle = "idle",
-	navigation = "navigation",
-	blocked = "blocked",
-	painting = "painting",
-	scroll_rows = "scroll_rows",
-	scroll_columns = "scroll_columns",
-}
-
-
-
 local function begin_clue_swipe(self, touch, mode)
 	self.drag = nil
 	local viewport_node = mode == TOUCH_MODES.scroll_rows and self.rows_viewport or self.columns_viewport
@@ -720,7 +722,7 @@ end
 
 
 local function handle_multitouch(self, action)
-	if not self.session or self.pending_level_id then return false end
+	if not self.session or self.pending_category_index then return false end
 
 	local gesture = self.touch_gesture
 
@@ -811,9 +813,9 @@ local function handle_multitouch(self, action)
 		end
 
 		-- Next puzzle button
-		if self.session.ui.show_next and self.session.next_level_id and gui.pick_node(self.button_next, touch.x, touch.y) then
-			gesture.mode = TOUCH_MODES.blocked
-			open_level(self, self.session.next_level_id)
+		if self.session.ui.show_next and self.session.next_category_index and self.session.next_level_index
+		and gui.pick_node(self.button_next, touch.x, touch.y) then
+			open_level(self, self.session.next_category_index, self.session.next_level_index)
 			return true
 		end
 
@@ -862,7 +864,8 @@ function init(self)
 	self.nodes = {}
 	self.cells = {}
 
-	self.pending_level_id = nil
+	self.pending_category_index = nil
+	self.pending_level_index = nil
 	self.pending_level_frames = nil
 
 	self.session = nil
@@ -888,7 +891,7 @@ end
 
 
 function update(self, dt)
-	if self.pending_level_id then
+	if self.pending_category_index then
 		self.pending_level_frames =	self.pending_level_frames - 1
 		if self.pending_level_frames <= 0 then load_pending_level(self)	end
 		return
@@ -912,8 +915,8 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == OPEN_LEVEL then
-		open_level(self, message.level_id)
-	elseif message_id == LAYOUT_CHANGED and not self.pending_level_id then
+		open_level(self, message.category_index, message.level_index)
+	elseif message_id == LAYOUT_CHANGED and not self.pending_category_index then
 		update_board_layout(self)
 		if self.session then
 			local size = gui.get_size(self.grid_viewport)
@@ -981,9 +984,9 @@ function on_input(self, action_id, action)
 	if not self.session then return false end
 
 	-- The `Next puzzle` button
-	if action_id == TOUCH and self.session and self.session.ui.show_next and self.session.next_level_id and gui.pick_node(self.button_next, x, y) then
-		open_level(self, self.session.next_level_id)
-		return true
+	if action_id == TOUCH and self.session.ui.show_next	and self.session.next_category_index and self.session.next_level_index
+	and gui.pick_node(self.button_next, x, y) then
+		return open_level(self, self.session.next_category_index, self.session.next_level_index)
 	end
 
 	if self.drag then return true end
