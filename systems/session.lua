@@ -1,25 +1,28 @@
 -- Puzzle solving session
 local board = require "puzzle.board"
-local catalog = require "levels.catalog"
 local puzzles = require "levels.puzzles"
 
 local M = {}
 
-function M.new(level_id)
-	local level = assert(puzzles.get(level_id),	"Unknown puzzle: " .. tostring(level_id))
-	local next_level = catalog.next_level(level_id)
-	local session = {
-		level_id = level_id,
+function M.new(category_index, level_index)
+	local level = assert(puzzles.get(category_index, level_index), "Unknown puzzle")
+	local next_category, next_level = puzzles.next_puzzle(category_index, level_index)
+
+	return {
+		category_index = category_index,
+		level_index = level_index,
 		level = level,
 		board = board.create(level),
 		completed = false,
-		next_level_id = next_level and next_level.id or nil,
+
+		next_category_index = next_category,
+		next_level_index = next_level,
+
 		ui = {
 			status = "playing",
 			show_next = false
 		}
 	}
-	return session
 end
 
 
@@ -73,8 +76,16 @@ function M.finish(session, saved, can_advance)
 	assert(type(saved) == "boolean")
 	assert(type(can_advance) == "boolean")
 
-	session.ui.status = saved and "completed" or "save_failed"
-	session.ui.show_next = saved and can_advance and session.next_level_id ~= nil
+	local is_final_level = session.next_category_index == nil and session.next_level_index == nil
+	if not saved then
+		session.ui.status = "save_failed"
+	elseif is_final_level then
+		session.ui.status = "game_completed"
+	else
+		session.ui.status = "completed"
+	end
+	
+	session.ui.show_next = saved and can_advance and not is_final_level
 
 	return session.ui
 end

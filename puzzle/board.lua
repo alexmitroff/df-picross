@@ -46,6 +46,30 @@ local function clues_match(actual, expected)
 end
 
 
+local function read_solution(level)
+	-- Original Harbour Picross format
+	if level.grid then
+		local size = assert(level.gridSize, "Missing gridSize")
+		assert(#level.grid == size * size, "Invalid flat grid length")
+		return size, size, function(row, col)
+			local index = (row - 1) * size + col
+			return level.grid[index]
+		end
+	end
+
+	-- Temporary compatibility with existing test puzzles
+	local solution = assert(level.solution, "Missing solution")
+
+	local height = #solution
+	assert(height > 0, "Empty solution")
+
+	local width = #solution[1]
+
+	return width, height, function(row, col)
+		return tonumber(solution[row]:sub(col, col))
+	end
+end
+
 function M.create(level)
 	assert(level and level.solution, "Invalid level")
 
