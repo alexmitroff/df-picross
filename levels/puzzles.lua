@@ -1,14 +1,14 @@
 local M = {}
 
 function M.get(category_index, level_index)
-	local category = M.categories{category_index}
+	local category = M.categories[category_index]
 	if not category then return nil end
 
-	return category.levels{level_index}
+	return category.levels[level_index]
 end
 
 function M.next_puzzle(category_index, level_index)
-	local category = M.categories{category_index}
+	local category = M.categories[category_index]
 	if not category then
 		return nil, nil
 	end
@@ -34,32 +34,32 @@ M.categories = {
 		name = "Tutorial",
 		levels = {
 			{
-				title: "Square",
-				hintTitle: "Numbers = size of the groups",
-				gridSize: 3, grid: {
+				title = "Square",
+				hintTitle = "Numbers = size of the groups",
+				gridSize = 3, grid = {
 				1, 1, 1,
 				1, 1, 1,
 				1, 1, 1}
 			}, {
-				title: "Hole",
-				hintTitle: "Groups are separated. But how far?",
-				gridSize: 3, grid: {
+				title = "Hole",
+				hintTitle = "Groups are separated. But how far?",
+				gridSize = 3, grid = {
 				1, 1, 1,
 				1, 0, 1,
 				1, 1, 1}
 			}, {
-				title: "Little grid",
-				hintTitle: "Sometimes, there is no choice...",
-				gridSize: 5, grid: {
+				title = "Little grid",
+				hintTitle = "Sometimes, there is no choice...",
+				gridSize = 5, grid = {
 				1, 0, 1, 0, 1,
 				0, 1, 0, 1, 0,
 				1, 0, 1, 0, 1,
 				0, 1, 0, 1, 0,
 				1, 0, 1, 0, 1}
 			}, {
-				title: "Cross",
-				hintTitle: "Green = corresponds. Click on it",
-				gridSize: 5, grid: {
+				title = "Cross",
+				hintTitle = "Green = corresponds. Click on it",
+				gridSize = 5, grid = {
 				0, 0, 0, 0, 0,
 				0, 0, 1, 0, 0,
 				0, 1, 1, 1, 0,
@@ -67,27 +67,27 @@ M.categories = {
 				0, 0, 0, 0, 0,
 				}
 			}, {
-				title: "Pyramid",
-				hintTitle: "You're on your own now",
-				gridSize: 5, grid: {
+				title = "Pyramid",
+				hintTitle = "You're on your own now",
+				gridSize = 5, grid = {
 				0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0,
 				0, 0, 1, 0, 0,
 				0, 1, 1, 1, 0,
 				1, 1, 1, 1, 1}
 			}, {
-				title: "Heart",
-				hintTitle: "Your first real level",
-				gridSize: 5, grid: {
+				title = "Heart",
+				hintTitle = "Your first real level",
+				gridSize = 5, grid = {
 				0, 1, 0, 1, 0,
 				1, 0, 1, 0, 1,
 				1, 0, 0, 0, 1,
 				0, 1, 0, 1, 0,
 				0, 0, 1, 0, 0}
 			}, {
-				title: "Bubble",
-				hintTitle: "What !!?",
-				gridSize: 10, grid: {
+				title = "Bubble",
+				hintTitle = "What !!?",
+				gridSize = 10, grid = {
 				0, 1, 1, 1, 1, 1, 1, 1, 1, 0,
 				1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
 				1, 0, 1, 0, 1, 0, 1, 1, 0, 1,
@@ -105,9 +105,9 @@ M.categories = {
 		name = "Easy",
 		levels = {
 			{
-				title: "Chick",
-				hintTitle: "Yellow animal",
-				gridSize: 10, grid: {
+				title = "Chick",
+				hintTitle = "Yellow animal",
+				gridSize = 10, grid = {
 				0, 0, 1, 1, 1, 0, 0, 0, 0, 0,
 				0, 1, 1, 1, 1, 1, 0, 0, 0, 0,
 				1, 1, 0, 1, 1, 1, 0, 0, 0, 0,
@@ -119,9 +119,9 @@ M.categories = {
 				0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
 				0, 0, 0, 0, 1, 1, 0, 0, 0, 0}
 			}, {
-				title: "Heart",
-				hintTitle: "Attraction",
-				gridSize: 10, grid: {
+				title = "Heart",
+				hintTitle = "Attraction",
+				gridSize = 10, grid = {
 				1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 				1, 0, 0, 1, 1, 1, 1, 0, 0, 1,
 				0, 0, 0, 0, 1, 1, 0, 0, 0, 0,
@@ -133,9 +133,9 @@ M.categories = {
 				1, 1, 1, 1, 0, 0, 1, 1, 1, 1,
 				1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 			}, {
-				title: "Creeper",
-				hintTitle: "Ka-Boom!",
-				gridSize: 8, grid: {
+				title = "Creeper",
+				hintTitle = "Ka-Boom!",
+				gridSize = 8, grid = {
 				1, 1, 1, 1, 1, 1, 1, 1,
 				1, 0, 0, 1, 1, 0, 0, 1,
 				1, 0, 0, 1, 1, 0, 0, 1,
@@ -145,9 +145,9 @@ M.categories = {
 				1, 1, 0, 1, 1, 0, 1, 1,
 				1, 1, 1, 1, 1, 1, 1, 1}
 			}, {
-				title: "Rabbit",
-				hintTitle: "I'm late, I'm late...",
-				gridSize: 8, grid: {
+				title = "Rabbit",
+				hintTitle = "I'm late, I'm late...",
+				gridSize = 8, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 1, 0, 0, 0, 0, 0,
 				0, 0, 1, 0, 0, 0, 0, 0,
@@ -157,9 +157,9 @@ M.categories = {
 				0, 0, 1, 1, 1, 1, 1, 1,
 				0, 1, 1, 0, 1, 1, 1, 0}
 			}, {
-				title: "Cup",
-				hintTitle: "Tea time!",
-				gridSize: 10, grid: {
+				title = "Cup",
+				hintTitle = "Tea time!",
+				gridSize = 10, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 1, 1, 1, 1, 1, 1, 1, 1,
@@ -171,9 +171,9 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: "Small boat",
-				hintTitle: "Let's sail",
-				gridSize: 10, grid: {
+				title = "Small boat",
+				hintTitle = "Let's sail",
+				gridSize = 10, grid = {
 				0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
 				0, 0, 0, 1, 1, 1, 0, 0, 0, 0,
 				0, 0, 1, 0, 1, 1, 0, 0, 0, 0,
@@ -185,9 +185,9 @@ M.categories = {
 				1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 				0, 1, 1, 1, 1, 1, 1, 1, 1, 0}
 			}, {
-				title: "Apple",
-				hintTitle: "It's meant to fall",
-				gridSize: 10, grid: {
+				title = "Apple",
+				hintTitle = "It's meant to fall",
+				gridSize = 10, grid = {
 				0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
 				0, 1, 1, 1, 0, 1, 0, 1, 1, 0,
 				1, 1, 1, 1, 0, 0, 0, 1, 1, 1,
@@ -199,9 +199,9 @@ M.categories = {
 				0, 1, 1, 1, 1, 1, 1, 1, 1, 0,
 				0, 0, 1, 1, 1, 1, 1, 1, 0, 0}
 			}, {
-				title: "Cherry",
-				hintTitle: "Small fruit",
-				gridSize: 10, grid: {
+				title = "Cherry",
+				hintTitle = "Small fruit",
+				gridSize = 10, grid = {
 				0, 0, 0, 1, 1, 1, 1, 1, 1, 0,
 				0, 0, 0, 0, 0, 0, 0, 1, 0, 0,
 				0, 0, 0, 0, 0, 0, 1, 1, 0, 0,
@@ -213,9 +213,9 @@ M.categories = {
 				0, 1, 1, 1, 0, 1, 1, 1, 1, 1,
 				0, 0, 0, 0, 0, 0, 1, 1, 1, 0}
 			}, {
-				title: "Flat",
-				hintTitle: "It's high!",
-				gridSize: 15, grid: {
+				title = "Flat",
+				hintTitle = "It's high!",
+				gridSize = 15, grid = {
 				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
 				1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1,
@@ -232,9 +232,9 @@ M.categories = {
 				1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1,
 				1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1}
 			}, {
-				title: "Dancer",
-				hintTitle: "It swings!",
-				gridSize: 10, grid: {
+				title = "Dancer",
+				hintTitle = "It swings!",
+				gridSize = 10, grid = {
 				1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 				1, 1, 1, 1, 1, 0, 0, 1, 1, 1,
 				1, 0, 0, 1, 1, 0, 0, 1, 1, 1,
@@ -246,9 +246,9 @@ M.categories = {
 				1, 1, 0, 1, 1, 1, 1, 0, 1, 1,
 				0, 0, 0, 1, 1, 1, 1, 0, 0, 0}
 			}, {
-				title: "Crab",
-				hintTitle: "He pinches",
-				gridSize: 10, grid: {
+				title = "Crab",
+				hintTitle = "He pinches",
+				gridSize = 10, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				1, 0, 1, 0, 0, 0, 0, 1, 0, 1,
 				1, 1, 1, 0, 0, 0, 0, 1, 1, 1,
@@ -260,9 +260,9 @@ M.categories = {
 				1, 1, 0, 1, 1, 1, 1, 0, 1, 1,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: "Humming-Bird",
-				hintTitle: "Flower eater",
-				gridSize: 10, grid: {
+				title = "Humming-Bird",
+				hintTitle = "Flower eater",
+				gridSize = 10, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
 				0, 0, 1, 1, 0, 0, 0, 1, 1, 1,
 				0, 1, 0, 1, 1, 0, 1, 1, 1, 1,
@@ -274,9 +274,9 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
 				0, 0, 0, 0, 0, 0, 0, 1, 1, 0}
 			}, {
-				title: "Monkey",
-				hintTitle: "Our ancestor",
-				gridSize: 10, grid: {
+				title = "Monkey",
+				hintTitle = "Our ancestor",
+				gridSize = 10, grid = {
 				0, 0, 1, 1, 1, 0, 0, 1, 1, 1,
 				0, 1, 1, 1, 1, 1, 0, 1, 0, 1,
 				1, 1, 0, 1, 0, 1, 1, 0, 0, 1,
@@ -288,9 +288,9 @@ M.categories = {
 				1, 0, 0, 1, 1, 0, 1, 1, 1, 1,
 				0, 1, 1, 1, 0, 1, 1, 1, 1, 0}
 			}, {
-				title: "Snail",
-				hintTitle: "Small helix",
-				gridSize: 10, grid: {
+				title = "Snail",
+				hintTitle = "Small helix",
+				gridSize = 10, grid = {
 				1, 1, 0, 0, 0, 0, 0, 0, 0, 0,
 				1, 1, 0, 0, 1, 1, 1, 1, 1, 0,
 				0, 1, 0, 1, 1, 0, 0, 0, 1, 1,
@@ -302,9 +302,9 @@ M.categories = {
 				0, 1, 1, 0, 0, 0, 0, 0, 0, 1,
 				0, 0, 1, 1, 1, 1, 1, 1, 1, 0}
 			}, {
-				title: "Goldfish",
-				hintTitle: "A very bad memory...",
-				gridSize: 10, grid: {
+				title = "Goldfish",
+				hintTitle = "A very bad memory...",
+				gridSize = 10, grid = {
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 0,
 				0, 0, 0, 0, 1, 1, 1, 0, 0, 0,
 				0, 0, 1, 1, 1, 1, 0, 0, 0, 0,
@@ -316,9 +316,9 @@ M.categories = {
 				0, 0, 1, 1, 1, 1, 1, 0, 0, 0,
 				0, 0, 0, 0, 1, 1, 1, 1, 1, 0}
 			}, {
-				title: "Kitten",
-				hintTitle: "Little predator",
-				gridSize: 14, grid: {
+				title = "Kitten",
+				hintTitle = "Little predator",
+				gridSize = 14, grid = {
 				0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0,
 				0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0,
 				0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0,
@@ -334,9 +334,9 @@ M.categories = {
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0,
 				0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0}
 			}, {
-				title: "Owl",
-				hintTitle: "Night animal",
-				gridSize: 15, grid: {
+				title = "Owl",
+				hintTitle = "Night animal",
+				gridSize = 15, grid = {
 				0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,
 				0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0,
 				0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0,
@@ -353,9 +353,9 @@ M.categories = {
 				0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
 				0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0}
 			}, {
-				title: "Beach",
-				hintTitle: "Holidays location",
-				gridSize: 15, grid: {
+				title = "Beach",
+				hintTitle = "Holidays location",
+				gridSize = 15, grid = {
 				0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0,
 				0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0,
 				0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0,
@@ -378,9 +378,9 @@ M.categories = {
 		name = "Medium",
 		levels = {
 			{
-				title: "Helicopter",
-				hintTitle: "Not so \"U\" for a UFO",
-				gridSize: 10, grid: {
+				title = "Helicopter",
+				hintTitle = "Not so \"U\" for a UFO",
+				gridSize = 10, grid = {
 				1, 1, 1, 0, 1, 1, 1, 0, 0, 0,
 				0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
 				0, 1, 1, 1, 1, 1, 0, 0, 0, 0,
@@ -392,9 +392,9 @@ M.categories = {
 				1, 0, 1, 0, 1, 0, 0, 0, 0, 0,
 				1, 1, 1, 1, 1, 1, 1, 0, 0, 0}
 			}, {
-				title: "Flask",
-				hintTitle: "Witch's util",
-				gridSize: 8, grid: {
+				title = "Flask",
+				hintTitle = "Witch's util",
+				gridSize = 8, grid = {
 				0, 0, 1, 0, 1, 1, 1, 0,
 				0, 0, 0, 1, 0, 1, 0, 0,
 				0, 0, 0, 1, 0, 1, 0, 0,
@@ -404,9 +404,9 @@ M.categories = {
 				0, 1, 1, 1, 1, 1, 1, 1,
 				0, 0, 1, 1, 1, 1, 1, 0}
 			}, {
-				title: "Moose",
-				hintTitle: "He loves the cold",
-				gridSize: 15, grid: {
+				title = "Moose",
+				hintTitle = "He loves the cold",
+				gridSize = 15, grid = {
 				1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1,
 				1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1,
 				1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1,
@@ -423,9 +423,9 @@ M.categories = {
 				0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1}
 			}, {
-				title: "Sailboat",
-				hintTitle: "You are a pirate~",
-				gridSize: 15, grid: {
+				title = "Sailboat",
+				hintTitle = "You are a pirate~",
+				gridSize = 15, grid = {
 				0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1,
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0,
@@ -442,9 +442,9 @@ M.categories = {
 				0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0}
 			}, {
-				title: "Duck",
-				hintTitle: "Ugly, according to Andersen",
-				gridSize: 15, grid: {
+				title = "Duck",
+				hintTitle = "Ugly, according to Andersen",
+				gridSize = 15, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1,
@@ -461,9 +461,9 @@ M.categories = {
 				0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0}
 			}, {
-				title: "Seal",
-				hintTitle: "Often hunted for its fur",
-				gridSize: 15, grid: {
+				title = "Seal",
+				hintTitle = "Often hunted for its fur",
+				gridSize = 15, grid = {
 				0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
 				0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0,
@@ -480,9 +480,9 @@ M.categories = {
 				1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0,
 				1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0}
 			}, {
-				title: "Squirrel",
-				hintTitle: "Hiding his nuts",
-				gridSize: 15, grid: {
+				title = "Squirrel",
+				hintTitle = "Hiding his nuts",
+				gridSize = 15, grid = {
 				0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0,
 				0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1,
 				0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1,
@@ -499,9 +499,9 @@ M.categories = {
 				0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0,
 				0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: "Panda",
-				hintTitle: "Stained",
-				gridSize: 15, grid: {
+				title = "Panda",
+				hintTitle = "Stained",
+				gridSize = 15, grid = {
 				1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 				1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1,
 				1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
@@ -518,9 +518,9 @@ M.categories = {
 				1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1,
 				1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1}
 			}, {
-				title: "Tap",
-				hintTitle: "In the middle of the night",
-				gridSize: 12, grid: {
+				title = "Tap",
+				hintTitle = "In the middle of the night",
+				gridSize = 12, grid = {
 				0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 				0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1,
@@ -534,9 +534,9 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: "Mushroom",
-				hintTitle: "Makes you stronger",
-				gridSize: 17, grid: {
+				title = "Mushroom",
+				hintTitle = "Makes you stronger",
+				gridSize = 17, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0,
@@ -555,9 +555,9 @@ M.categories = {
 				0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0,
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0}
 			}, {
-				title: "Meowth",
-				hintTitle: "Gotta catch them all~",
-				gridSize: 15, grid: {
+				title = "Meowth",
+				hintTitle = "Gotta catch them all~",
+				gridSize = 15, grid = {
 				0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0,
 				0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1,
 				0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1,
@@ -574,9 +574,9 @@ M.categories = {
 				1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1,
 				0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: "Elephants",
-				hintTitle: "Cute couple",
-				gridSize: 15, grid: {
+				title = "Elephants",
+				hintTitle = "Cute couple",
+				gridSize = 15, grid = {
 				0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0,
 				1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0,
@@ -593,9 +593,9 @@ M.categories = {
 				0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1,
 				0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1}
 			}, {
-				title: "Mario",
-				hintTitle: "World most famous plumber",
-				gridSize: 14, grid: {
+				title = "Mario",
+				hintTitle = "World most famous plumber",
+				gridSize = 14, grid = {
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0,
 				0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0,
 				0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0,
@@ -611,9 +611,9 @@ M.categories = {
 				0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0,
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0}
 			}, {
-				title: "Father and son",
-				hintTitle: "Flesh of his flesh",
-				gridSize: 15, grid: {
+				title = "Father and son",
+				hintTitle = "Flesh of his flesh",
+				gridSize = 15, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0,
 				0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1, 0,
@@ -630,9 +630,9 @@ M.categories = {
 				1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1,
 				1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0}
 			}, {
-				title: "Snake",
-				hintTitle: "Devil's animal",
-				gridSize: 15, grid: {
+				title = "Snake",
+				hintTitle = "Devil's animal",
+				gridSize = 15, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
 				0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0,
 				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0,
@@ -649,9 +649,9 @@ M.categories = {
 				0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 				0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0}
 			}, {
-				title: "Dog",
-				hintTitle: "Woof!",
-				gridSize: 15, grid: {
+				title = "Dog",
+				hintTitle = "Woof!",
+				gridSize = 15, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1,
 				0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1,
@@ -668,9 +668,9 @@ M.categories = {
 				0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1,
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1}
 			}, {
-				title: "Umbrella",
-				hintTitle: "The best shelter when needed",
-				gridSize: 15, grid: {
+				title = "Umbrella",
+				hintTitle = "The best shelter when needed",
+				gridSize = 15, grid = {
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
 				0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1,
 				0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1,
@@ -687,9 +687,9 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0}
 			}, {
-				title: "Penguin",
-				hintTitle: "Classy BlackAndWhite",
-				gridSize: 20, grid: {
+				title = "Penguin",
+				hintTitle = "Classy BlackAndWhite",
+				gridSize = 20, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0,
 				0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0,
@@ -711,9 +711,9 @@ M.categories = {
 				1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0,
 				1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0}
 			}, {
-				title: "UFO",
-				hintTitle: "Space Invaders",
-				gridSize: 20, grid: {
+				title = "UFO",
+				hintTitle = "Space Invaders",
+				gridSize = 20, grid = {
 				1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
 				1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1,
 				1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1,
@@ -735,9 +735,9 @@ M.categories = {
 				1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1,
 				1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1}
 			}, {
-				title: "Lion",
-				hintTitle: "King of the jungle",
-				gridSize: 15, grid: {
+				title = "Lion",
+				hintTitle = "King of the jungle",
+				gridSize = 15, grid = {
 				0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
 				1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1,
 				1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1,
@@ -754,9 +754,9 @@ M.categories = {
 				1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0,
 				1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0}
 			}, {
-				title: "Woman and mirror",
-				hintTitle: "Who's the fairest one of all?",
-				gridSize: 15, grid: {
+				title = "Woman and mirror",
+				hintTitle = "Who's the fairest one of all?",
+				gridSize = 15, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1,
 				0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1,
@@ -779,9 +779,9 @@ M.categories = {
 		name = "Hard",
 		levels = {
 			{
-				title: "Spiny",
-				hintTitle: "You're first? Fear him...",
-				gridSize: 15, grid: {
+				title = "Spiny",
+				hintTitle = "You're first? Fear him...",
+				gridSize = 15, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0,
@@ -798,9 +798,9 @@ M.categories = {
 				0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0,
 				0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0}
 			}, {
-				title: "Puppy",
-				hintTitle: "Smallest men's best friend",
-				gridSize: 15, grid: {
+				title = "Puppy",
+				hintTitle = "Smallest men's best friend",
+				gridSize = 15, grid = {
 				0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
 				0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0,
 				1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1,
@@ -817,9 +817,9 @@ M.categories = {
 				1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 0,
 				0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0}
 			}, {
-				title: "Bunny",
-				hintTitle: "Return of the latecomer",
-				gridSize: 12, grid: {
+				title = "Bunny",
+				hintTitle = "Return of the latecomer",
+				gridSize = 12, grid = {
 				0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0,
 				0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0,
 				0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0,
@@ -833,9 +833,9 @@ M.categories = {
 				1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0,
 				0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0}
 			}, {
-				title: "Stroller",
-				hintTitle: "Legs of the youngest",
-				gridSize: 20, grid: {
+				title = "Stroller",
+				hintTitle = "Legs of the youngest",
+				gridSize = 20, grid = {
 				1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
 				1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1,
 				1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
@@ -857,9 +857,9 @@ M.categories = {
 				0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1,
 				0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1}
 			}, {
-				title: "The thinker",
-				hintTitle: "What to do...?",
-				gridSize: 15, grid: {
+				title = "The thinker",
+				hintTitle = "What to do...?",
+				gridSize = 15, grid = {
 				0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0,
@@ -876,9 +876,9 @@ M.categories = {
 				1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0,
 				1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0}
 			}, {
-				title: "Nuclear mushroom",
-				hintTitle: "It's very radioactive!",
-				gridSize: 15, grid: {
+				title = "Nuclear mushroom",
+				hintTitle = "It's very radioactive!",
+				gridSize = 15, grid = {
 				1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1,
 				1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1,
 				1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1,
@@ -895,9 +895,9 @@ M.categories = {
 				0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0,
 				1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1}
 			}, {
-				title: "Flower",
-				hintTitle: "Smells good",
-				gridSize: 15, grid: {
+				title = "Flower",
+				hintTitle = "Smells good",
+				gridSize = 15, grid = {
 				1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1,
 				1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1,
 				1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1,
@@ -914,9 +914,9 @@ M.categories = {
 				0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1,
 				0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1}
 			}, {
-				title: "Deer",
-				hintTitle: "Majestic",
-				gridSize: 20, grid: {
+				title = "Deer",
+				hintTitle = "Majestic",
+				gridSize = 20, grid = {
 				1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
 				1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0,
 				1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0,
@@ -938,9 +938,9 @@ M.categories = {
 				1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1,
 				1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1}
 			}, {
-				title: "Cow",
-				hintTitle: "Moo",
-				gridSize: 19, grid: {
+				title = "Cow",
+				hintTitle = "Moo",
+				gridSize = 19, grid = {
 				0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0,
 				1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1,
 				1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1,
@@ -961,9 +961,9 @@ M.categories = {
 				0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1,
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 			}, {
-				title: "Yoshi",
-				hintTitle: "Well-known little dragon",
-				gridSize: 10, grid: {
+				title = "Yoshi",
+				hintTitle = "Well-known little dragon",
+				gridSize = 10, grid = {
 				0, 0, 1, 1, 0, 1, 1, 0, 0, 0,
 				0, 1, 0, 0, 1, 0, 0, 1, 0, 0,
 				0, 1, 0, 1, 1, 0, 1, 1, 0, 0,
@@ -975,9 +975,9 @@ M.categories = {
 				1, 0, 0, 0, 1, 1, 0, 0, 1, 1,
 				1, 1, 1, 1, 1, 0, 0, 1, 1, 0}
 			}, {
-				title: "Sheep",
-				hintTitle: "One falls, others follow",
-				gridSize: 15, grid: {
+				title = "Sheep",
+				hintTitle = "One falls, others follow",
+				gridSize = 15, grid = {
 				0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
 				0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0,
 				1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1,
@@ -994,9 +994,9 @@ M.categories = {
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0,
 				0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0}
 			}, {
-				title: "Bird",
-				hintTitle: "Flying animal",
-				gridSize: 15, grid: {
+				title = "Bird",
+				hintTitle = "Flying animal",
+				gridSize = 15, grid = {
 				0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,
 				1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -1013,9 +1013,9 @@ M.categories = {
 				0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0}
 			}, {
-				title: "Cow",
-				hintTitle: "Farm animal",
-				gridSize: 20, grid: {
+				title = "Cow",
+				hintTitle = "Farm animal",
+				gridSize = 20, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
 				0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0,
@@ -1037,9 +1037,9 @@ M.categories = {
 				1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0,
 				1, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0}
 			}, {
-				title: "Crane and truck",
-				hintTitle: "Construction site",
-				gridSize: 20, grid: {
+				title = "Crane and truck",
+				hintTitle = "Construction site",
+				gridSize = 20, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1,
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1,
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1,
@@ -1061,9 +1061,9 @@ M.categories = {
 				0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0,
 				0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1}
 			}, {
-				title: "Boy",
-				hintTitle: "Sup' bro",
-				gridSize: 20, grid: {
+				title = "Boy",
+				hintTitle = "Sup' bro",
+				gridSize = 20, grid = {
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0,
 				0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0,
 				0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1,
@@ -1085,9 +1085,9 @@ M.categories = {
 				0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0,
 				1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0}
 			}, {
-				title: "Camera",
-				hintTitle: "Cheese!",
-				gridSize: 20, grid: {
+				title = "Camera",
+				hintTitle = "Cheese!",
+				gridSize = 20, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
 				0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
@@ -1109,9 +1109,9 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0}
 			}, {
-				title: "Koala",
-				hintTitle: "Not so fast...",
-				gridSize: 20, grid: {
+				title = "Koala",
+				hintTitle = "Not so fast...",
+				gridSize = 20, grid = {
 				1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0,
 				1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1,
 				1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1,
@@ -1133,9 +1133,9 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: "Peanuts",
-				hintTitle: "Classy dog",
-				gridSize: 20, grid: {
+				title = "Peanuts",
+				hintTitle = "Classy dog",
+				gridSize = 20, grid = {
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1,
 				0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1,
@@ -1157,9 +1157,9 @@ M.categories = {
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0}
 			}, {
-				title: "Parrot",
-				hintTitle: "A true singer",
-				gridSize: 20, grid: {
+				title = "Parrot",
+				hintTitle = "A true singer",
+				gridSize = 20, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1,
@@ -1181,9 +1181,9 @@ M.categories = {
 				0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: "Barrow",
-				hintTitle: "Easy carry",
-				gridSize: 20, grid: {
+				title = "Barrow",
+				hintTitle = "Easy carry",
+				gridSize = 20, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -1205,9 +1205,9 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: "Ninja",
-				hintTitle: "You can't see him",
-				gridSize: 20, grid: {
+				title = "Ninja",
+				hintTitle = "You can't see him",
+				gridSize = 20, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1,
@@ -1229,9 +1229,9 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0}
 			}, {
-				title: "Rain",
-				hintTitle: "Not a day to be out",
-				gridSize: 20, grid: {
+				title = "Rain",
+				hintTitle = "Not a day to be out",
+				gridSize = 20, grid = {
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0,
 				0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 0,
 				0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1,
@@ -1253,9 +1253,9 @@ M.categories = {
 				1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1,
 				0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0}
 			}, {
-				title: "Monster Truck",
-				hintTitle: "Don't be on its way!",
-				gridSize: 20, grid: {
+				title = "Monster Truck",
+				hintTitle = "Don't be on its way!",
+				gridSize = 20, grid = {
 				0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 0,
 				0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0,
 				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1,
@@ -1283,9 +1283,9 @@ M.categories = {
 		name = "Expert",
 		levels = {
 			{
-				title: "Kitty",
-				hintTitle: "King of the Net",
-				gridSize: 20, grid: {
+				title = "Kitty",
+				hintTitle = "King of the Net",
+				gridSize = 20, grid = {
 				0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0,
@@ -1307,9 +1307,9 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1,
 				0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 0}
 			}, {
-				title: "Scorpion",
-				hintTitle: "Beware, he can sting!",
-				gridSize: 20, grid: {
+				title = "Scorpion",
+				hintTitle = "Beware, he can sting!",
+				gridSize = 20, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0,
@@ -1331,9 +1331,9 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: "Thumbs up",
-				hintTitle: "Good game!",
-				gridSize: 20, grid: {
+				title = "Thumbs up",
+				hintTitle = "Good game!",
+				gridSize = 20, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0,
@@ -1355,9 +1355,9 @@ M.categories = {
 				1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
 				1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: "Runner",
-				hintTitle: "Run Forrest, run!",
-				gridSize: 20, grid: {
+				title = "Runner",
+				hintTitle = "Run Forrest, run!",
+				gridSize = 20, grid = {
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0,
 				0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0,
@@ -1379,9 +1379,9 @@ M.categories = {
 				1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1,
 				0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1}
 			}, {
-				title: "Dinning table",
-				hintTitle: "Bon appetit!",
-				gridSize: 20, grid: {
+				title = "Dinning table",
+				hintTitle = "Bon appetit!",
+				gridSize = 20, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1,
@@ -1403,9 +1403,9 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1,
 				0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1}
 			}, {
-				title: "Shocked rabbit",
-				hintTitle: "He has seen things...",
-				gridSize: 20, grid: {
+				title = "Shocked rabbit",
+				hintTitle = "He has seen things...",
+				gridSize = 20, grid = {
 				0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0,
 				0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0,
 				0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0,
@@ -1427,9 +1427,9 @@ M.categories = {
 				0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0,
 				0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0}
 			}, {
-				title: "Octopus",
-				hintTitle: "Hey there",
-				gridSize: 20, grid: {
+				title = "Octopus",
+				hintTitle = "Hey there",
+				gridSize = 20, grid = {
 				0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0,
@@ -1451,9 +1451,9 @@ M.categories = {
 				0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0,
 				0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: "Racoon",
-				hintTitle: "I've got a zombie city",
-				gridSize: 20, grid: {
+				title = "Racoon",
+				hintTitle = "I've got a zombie city",
+				gridSize = 20, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -1475,9 +1475,9 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: "Motorcycle",
-				hintTitle: "Vroom vroom",
-				gridSize: 20, grid: {
+				title = "Motorcycle",
+				hintTitle = "Vroom vroom",
+				gridSize = 20, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1,
@@ -1499,9 +1499,9 @@ M.categories = {
 				1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: "Deer",
-				hintTitle: "Rudolph",
-				gridSize: 20, grid: {
+				title = "Deer",
+				hintTitle = "Rudolph",
+				gridSize = 20, grid = {
 				0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
 				0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
 				0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0,
@@ -1523,9 +1523,9 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: "Sheep",
-				hintTitle: "Do not follow him...",
-				gridSize: 20, grid: {
+				title = "Sheep",
+				hintTitle = "Do not follow him...",
+				gridSize = 20, grid = {
 				0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0,
 				0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0,
 				0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0,
@@ -1547,9 +1547,9 @@ M.categories = {
 				0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0,
 				0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1}
 			}, {
-				title: "Mask-arade",
-				hintTitle: "Incognito",
-				gridSize: 20, grid: {
+				title = "Mask-arade",
+				hintTitle = "Incognito",
+				gridSize = 20, grid = {
 				0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
 				0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0,
 				0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0,
@@ -1571,9 +1571,9 @@ M.categories = {
 				0, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1,
 				0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1}
 			}, {
-				title: "Chickadee",
-				hintTitle: "Flying American",
-				gridSize: 20, grid: {
+				title = "Chickadee",
+				hintTitle = "Flying American",
+				gridSize = 20, grid = {
 				0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0,
 				1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0,
 				1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1,
@@ -1595,9 +1595,9 @@ M.categories = {
 				1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 				1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1}
 			}, {
-				title: "Gargamel",
-				hintTitle: "Smurf hunter",
-				gridSize: 25, grid: {
+				title = "Gargamel",
+				hintTitle = "Smurf hunter",
+				gridSize = 25, grid = {
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0,
 				1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0,
@@ -1624,9 +1624,9 @@ M.categories = {
 				1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1,
 				1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1}
 			}, {
-				title: "Polar bear",
-				hintTitle: "Be quiet...",
-				gridSize: 25, grid: {
+				title = "Polar bear",
+				hintTitle = "Be quiet...",
+				gridSize = 25, grid = {
 				1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0,
 				1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0,
 				1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1,
@@ -1653,9 +1653,9 @@ M.categories = {
 				0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0,
 				1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0}
 			}, {
-				title: "Mouse",
-				hintTitle: "Very cute",
-				gridSize: 20, grid: {
+				title = "Mouse",
+				hintTitle = "Very cute",
+				gridSize = 20, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0,
@@ -1683,9 +1683,9 @@ M.categories = {
 		name = "Insane",
 		levels = {
 			{
-				title: "Wolf",
-				hintTitle: "Shouting to the moon",
-				gridSize: 25, grid: {
+				title = "Wolf",
+				hintTitle = "Shouting to the moon",
+				gridSize = 25, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
@@ -1712,9 +1712,9 @@ M.categories = {
 				0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 			}, {
-				title: "Rose",
-				hintTitle: "Prickly beauty",
-				gridSize: 25, grid: {
+				title = "Rose",
+				hintTitle = "Prickly beauty",
+				gridSize = 25, grid = {
 				0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
@@ -1741,9 +1741,9 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: "Peach",
-				hintTitle: "... On another castle",
-				gridSize: 25, grid: {
+				title = "Peach",
+				hintTitle = "... On another castle",
+				gridSize = 25, grid = {
 				0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1,
 				0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1,
 				0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1,
@@ -1770,9 +1770,9 @@ M.categories = {
 				0, 0, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
 				0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0}
 			}, {
-				title: "Rasputine",
-				hintTitle: "Lover of the russian queen~",
-				gridSize: 25, grid: {
+				title = "Rasputine",
+				hintTitle = "Lover of the russian queen~",
+				gridSize = 25, grid = {
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
@@ -1799,9 +1799,9 @@ M.categories = {
 				0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0,
 				0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1}
 			}, {
-				title: "Kiss",
-				hintTitle: "Fake in every movie",
-				gridSize: 25, grid: {
+				title = "Kiss",
+				hintTitle = "Fake in every movie",
+				gridSize = 25, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
@@ -1828,9 +1828,9 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 			}, {
-				title: "Horseman",
-				hintTitle: "Go Jolly Jumper!",
-				gridSize: 25, grid: {
+				title = "Horseman",
+				hintTitle = "Go Jolly Jumper!",
+				gridSize = 25, grid = {
 				1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,
 				1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
 				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1,
@@ -1857,9 +1857,9 @@ M.categories = {
 				0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1,
 				0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1}
 			}, {
-				title: "Archimedes",
-				hintTitle: "Splash!",
-				gridSize: 25, grid: {
+				title = "Archimedes",
+				hintTitle = "Splash!",
+				gridSize = 25, grid = {
 				1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1,
 				1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1,
 				1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1,
@@ -1886,9 +1886,9 @@ M.categories = {
 				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1,
 				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1}
 			}, {
-				title: "Peanuts",
-				hintTitle: "A dark and stormy night",
-				gridSize: 25, grid: {
+				title = "Peanuts",
+				hintTitle = "A dark and stormy night",
+				gridSize = 25, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0,
@@ -1915,9 +1915,9 @@ M.categories = {
 				1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
 				1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0}
 			}, {
-				title: "Lucy",
-				hintTitle: ".. In the sky with diamonds",
-				gridSize: 25, grid: {
+				title = "Lucy",
+				hintTitle = ".. In the sky with diamonds",
+				gridSize = 25, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0,
@@ -1944,9 +1944,9 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0}
 			}, {
-				title: "Partridge",
-				hintTitle: "Looking for shine",
-				gridSize: 25, grid: {
+				title = "Partridge",
+				hintTitle = "Looking for shine",
+				gridSize = 25, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0,
@@ -1973,9 +1973,9 @@ M.categories = {
 				1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: "Windy day",
-				hintTitle: "Poupoupidou~",
-				gridSize: 25, grid: {
+				title = "Windy day",
+				hintTitle = "Poupoupidou~",
+				gridSize = 25, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0,
 				0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0,
@@ -2002,9 +2002,9 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1}
 			}, {
-				title: "Bee",
-				hintTitle: "Honey plant",
-				gridSize: 25, grid: {
+				title = "Bee",
+				hintTitle = "Honey plant",
+				gridSize = 25, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -2031,9 +2031,9 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: "Pilot",
-				hintTitle: "First flight",
-				gridSize: 25, grid: {
+				title = "Pilot",
+				hintTitle = "First flight",
+				gridSize = 25, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -2060,9 +2060,9 @@ M.categories = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0}
 			}, {
-				title: "Don Quixote",
-				hintTitle: "Fighting windmill",
-				gridSize: 25, grid: {
+				title = "Don Quixote",
+				hintTitle = "Fighting windmill",
+				gridSize = 25, grid = {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -2089,9 +2089,9 @@ M.categories = {
 				1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
 				1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0}
 			}, {
-				title: "Viking",
-				hintTitle: "Old norseman",
-				gridSize: 25, grid: {
+				title = "Viking",
+				hintTitle = "Old norseman",
+				gridSize = 25, grid = {
 				0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
 				0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0,
 				0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0,
@@ -2118,9 +2118,9 @@ M.categories = {
 				1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
 				1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}
 			}, {
-				title: "Bee",
-				hintTitle: "Honey maker",
-				gridSize: 25, grid: {
+				title = "Bee",
+				hintTitle = "Honey maker",
+				gridSize = 25, grid = {
 				0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
@@ -2147,9 +2147,9 @@ M.categories = {
 				1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0,
 				1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0}
 			}, {
-				title: "Shoemaker",
-				hintTitle: "Worker at the last",
-				gridSize: 25, grid: {
+				title = "Shoemaker",
+				hintTitle = "Worker at the last",
+				gridSize = 25, grid = {
 				0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0,
 				0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0,
 				0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0,
@@ -2176,9 +2176,9 @@ M.categories = {
 				0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0,
 				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1}
 			}, {
-				title: "Eagle",
-				hintTitle: "Sacred feather source",
-				gridSize: 25, grid: {
+				title = "Eagle",
+				hintTitle = "Sacred feather source",
+				gridSize = 25, grid = {
 				0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
