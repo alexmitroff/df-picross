@@ -1,14 +1,18 @@
 -- Global progress. Track of all solved puzzels.
-local catalog = require "levels.catalog"
+local puzzles = require "levels.puzzles"
 
 local M = {}
 
 local SAVE_PATH = sys.get_save_file("harbour_picross", "progress")
 
 
+local function get_progress_key(category_index, level_index)
+	return category_index .. "_" .. level_index
+end
+
+
 local function default_data()
 	return {
-		version = 1,
 		completed = {}
 	}
 end
@@ -40,39 +44,37 @@ local function save_data(data)
 end
 
 
-local function level_exists(level_id)
-	for _, category in ipairs(catalog.categories) do
-		for _, level in ipairs(category.levels) do
-			if level.id == level_id then
-				return true
-			end
-		end
-	end
-	return false
+local function level_exists(category_index, level_index)
+	-- Because Lua does not have integer number as the data type
+	-- https://www.lua.org/pil/2.3.html
+	if type(category_index) ~= "number"	or type(level_index) ~= "number" then return false end
+	if category_index % 1 ~= 0 or level_index % 1 ~= 0 then	return false end
+
+	return puzzles.get(category_index, level_index) ~= nil
 end
 
 
-function M.is_completed(level_id)
+function M.is_completed(category_index, level_index)
+	if not level_exists(category_index, level_index) then return false end
+
 	local data = load_data()
-	return data.completed[level_id] == true
+	return data.completed[get_progress_key(category_index, level_index)] == true
 end
 
 
-function M.complete(level_id)
-	if not level_exists(level_id) then
-		print("Unknown level:", tostring(level_id))
+function M.complete(category_index, level_index)
+	if not level_exists(category_index, level_index) then
+		print("Unknown puzzle:", tostring(category_index), tostring(level_index))
 		return false
 	end
 
 	local data = load_data()
-	if data.completed[level_id] then
-		return true
-	end
-
-	data.completed[level_id] = true
+	local key = get_progress_key(category_index, level_index)
+	if data.completed[key] then return true	end
+	data.completed[key] = true
 
 	if save_data(data) then
-		print("Progress saved:", level_id)
+		print( "Progress saved:", category_index, level_index)
 		return true
 	end
 
@@ -80,37 +82,39 @@ function M.complete(level_id)
 end
 
 
-function M.category_progress(category)
+
+function M.category_progress(category_index)
+	local category = puzzles.categories[category_index]
+	if not category then return 0, 0 end
+
 	local data = load_data()
 	local completed = 0
 
-	for _, level in ipairs(category.levels) do
-		if data.completed[level.id] then
-			completed = completed + 1
-		end
+	for level_index = 1, #category.levels do
+		if data.completed[get_progress_key(category_index, level_index)] == true then completed = completed + 1 end
 	end
 
 	return completed, #category.levels
 end
 
 
-function M.category_completed(category)
-	local completed, total = M.category_progress(category)
+function M.is_category_completed(category_index)
+	local completed, total = M.category_progress(category_index)
 	return total > 0 and completed == total
 end
 
 
-function M.category_unlocked(category_id)
-	for index, category in ipairs(catalog.categories) do
-		if category.id == category_id then
-			if index == 1 then
-				return true
-			end
-			local previous = catalog.categories[index - 1]
-			return M.category_completed(previous)
-		end
-	end
-	return false
+
+function M.is_category_unlocked(category_index)
+	if type(category_index) ~= "number"	or category_index % 1 ~= 0 then	return false end
+	if not puzzles.categories[category_index] then return false	end
+
+	-- First category is always available.
+	if category_index == 1 then	return true	end
+
+	-- All puzzles in the preceding category
+	-- must be completed.
+	return M.is_category_completed(category_index - 1)
 end
 
 
