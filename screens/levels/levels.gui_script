@@ -61,10 +61,9 @@ local function show_categories(self)
 		local x = 360
 		local y = 950 - (index - 1) * 135
 
-		track(self, add_text(x, y + 15, category.name))
-
 		local color = unlocked and COLORS.card or COLORS.locked
 		local card = track(self, add_card(x, y, 520, 105, color))
+		track(self, add_text(x, y + 15, category.name))
 
 		local status
 		if not unlocked then
