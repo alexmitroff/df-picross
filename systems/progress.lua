@@ -6,6 +6,13 @@ local M = {}
 local SAVE_PATH = sys.get_save_file("harbour_picross", "progress")
 
 
+local function is_integer(input)
+	-- Because Lua does not have integer number as the data type
+	-- https://www.lua.org/pil/2.3.html
+	return type(input) == "number" and input % 1 == 0
+end
+
+
 local function get_progress_key(category_index, level_index)
 	return category_index .. "_" .. level_index
 end
@@ -45,11 +52,7 @@ end
 
 
 local function level_exists(category_index, level_index)
-	-- Because Lua does not have integer number as the data type
-	-- https://www.lua.org/pil/2.3.html
-	if type(category_index) ~= "number"	or type(level_index) ~= "number" then return false end
-	if category_index % 1 ~= 0 or level_index % 1 ~= 0 then	return false end
-
+	if not is_integer(category_index) or not is_integer(level_index) then return false end
 	return puzzles.get(category_index, level_index) ~= nil
 end
 
@@ -106,7 +109,7 @@ end
 
 
 function M.is_category_unlocked(category_index)
-	if type(category_index) ~= "number"	or category_index % 1 ~= 0 then	return false end
+	if not is_integer(category_index) then	return false end
 	if not puzzles.categories[category_index] then return false	end
 
 	-- First category is always available.
