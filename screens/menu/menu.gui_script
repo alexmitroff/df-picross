@@ -39,8 +39,7 @@ function on_input(self, action_id, action)
 		return true
 
 	elseif gui.pick_node(self.button_about, x, y) then
-		animate_press(self.button_about)
-		print("About clicked")
+		msg.post("main:/app#controller", "show_about")
 		return true
 	end
 end

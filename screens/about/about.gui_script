@@ -1,0 +1,14 @@
+local TOUCH = hash("touch")
+local APP = "main:/app#controller"
+
+function init(self)
+	msg.post(".", "acquire_input_focus")
+	self.button_back = gui.get_node("button__back")
+end
+
+function on_input(self, action_id, action)
+	if action_id == TOUCH and action.pressed and gui.pick_node(self.button_back, action.x, action.y) then
+		msg.post(APP, "show_menu")
+		return true
+	end
+end

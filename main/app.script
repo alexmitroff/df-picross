@@ -1,6 +1,7 @@
 local settings = require "systems.settings"
 
 local SCREENS = {
+	about = "#about_proxy",
 	menu = "#menu_proxy",
 	levels = "#levels_proxy",
 	game = "#game_proxy",
@@ -64,6 +65,9 @@ function on_message(self, message_id, message, sender)
 	if message_id == hash("show_menu") then
 		self.levels_return = nil
 		switch_screen(self, "menu")
+
+	elseif message_id == hash("show_about") then
+		switch_screen(self, "about")
 
 	elseif message_id == hash("show_levels") then
 		switch_screen(self, "levels")
