@@ -205,6 +205,18 @@ local function show_puzzles(self, category_index)
 end
 
 
+local function restore_levels_state(self, message)
+	local category_index = message.category_index
+	if not puzzles.categories[category_index] then return end
+	if not progress.is_category_unlocked(category_index) then return end
+
+	show_puzzles(self, category_index)
+
+	local fraction = math.max(0, math.min(1, message.scroll_fraction or 0))
+	self.scroll_y = fraction * self.max_scroll
+	apply_scroll(self)
+end
+
 function init(self)
 	msg.post(".", "acquire_input_focus")
 
@@ -231,6 +243,7 @@ function init(self)
 	self.last_viewport_height = size.y
 
 	show_categories(self)
+	msg.post(APP, "request_levels_state")
 end
 
 
@@ -323,9 +336,14 @@ function on_input(self, action_id, action)
 					show_puzzles(self, card.value)
 
 				elseif self.page == "puzzles" then
+					local fraction = 0
+					if self.max_scroll > 0 then
+						fraction = self.scroll_y / self.max_scroll
+					end
 					msg.post(APP, "show_game", {
 						category_index = self.category_index,
-						level_index = card.value
+						level_index = card.value,
+						scroll_fraction = fraction
 					})
 				end
 
@@ -357,7 +375,10 @@ end
 
 
 function on_message(self, message_id, message, sender)
-	if message_id == LAYOUT_CHANGED then
+	if message_id == hash("restore_levels_state") then
+		restore_levels_state(self, message)
+
+	elseif message_id == LAYOUT_CHANGED then
 		self.pointer = nil
 
 		layout_cards(self, true)

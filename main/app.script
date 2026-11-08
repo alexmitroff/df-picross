@@ -49,6 +49,8 @@ function init(self)
 	self.selected_category_index = nil
 	self.selected_level_index = nil
 
+	self.levels_return = nil
+
 	settings.init()
 	-- Required for input propagation to proxy worlds.
 	msg.post(".", "acquire_input_focus")
@@ -60,14 +62,25 @@ function on_message(self, message_id, message, sender)
 
 	-- Navigation requests
 	if message_id == hash("show_menu") then
+		self.levels_return = nil
 		switch_screen(self, "menu")
 
 	elseif message_id == hash("show_levels") then
 		switch_screen(self, "levels")
 
+	elseif message_id == hash("request_levels_state") then
+		if self.levels_return then
+			msg.post(sender, "restore_levels_state", self.levels_return)
+			self.levels_return = nil
+		end
+
 	elseif message_id == hash("show_game") then
 		self.selected_category_index = message.category_index
 		self.selected_level_index = message.level_index
+		self.levels_return = {
+			category_index = message.category_index,
+			scroll_fraction = message.scroll_fraction or 0
+		}
 		switch_screen(self, "game")
 
 	elseif message_id == hash("show_settings") then
