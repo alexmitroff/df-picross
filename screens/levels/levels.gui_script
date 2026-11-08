@@ -138,7 +138,7 @@ local function show_categories(self)
 	self.page = "categories"
 	self.category_index = nil
 
-	gui.set_text(self.title, "SELECT DIFFICULTY")
+	gui.set_text(self.title, "SELECT SECTION")
 
 	for index, category in ipairs(puzzles.categories) do
 		local unlocked = progress.is_category_unlocked(index)

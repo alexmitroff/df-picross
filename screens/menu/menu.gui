@@ -43,8 +43,8 @@ nodes {
 }
 nodes {
   scale {
-    x: 1.6
-    y: 1.6
+    x: 4.0
+    y: 4.0
   }
   size {
     x: 200.0
@@ -64,11 +64,11 @@ nodes {
 }
 nodes {
   position {
-    y: -60.0
+    y: -76.0
   }
   scale {
-    x: 0.8
-    y: 0.8
+    x: 1.6
+    y: 1.6
   }
   size {
     x: 200.0
@@ -121,6 +121,10 @@ nodes {
   inherit_alpha: true
 }
 nodes {
+  scale {
+    x: 3.0
+    y: 3.0
+  }
   size {
     x: 200.0
     y: 100.0
@@ -156,6 +160,10 @@ nodes {
   inherit_alpha: true
 }
 nodes {
+  scale {
+    x: 3.0
+    y: 3.0
+  }
   size {
     x: 200.0
     y: 100.0
@@ -191,6 +199,10 @@ nodes {
   inherit_alpha: true
 }
 nodes {
+  scale {
+    x: 3.0
+    y: 3.0
+  }
   size {
     x: 200.0
     y: 100.0

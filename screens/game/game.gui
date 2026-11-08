@@ -23,7 +23,9 @@ nodes {
   }
   type: TYPE_BOX
   id: "background"
+  adjust_mode: ADJUST_MODE_STRETCH
   inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
 }
 nodes {
   position {
@@ -339,6 +341,30 @@ layouts {
 layouts {
   name: "Portrait"
   nodes {
+    position {
+      x: 49.0
+    }
+    scale {
+      x: 3.0
+      y: 3.0
+    }
+    type: TYPE_TEXT
+    id: "title"
+    parent: "header"
+    overridden_fields: 1
+    overridden_fields: 3
+  }
+  nodes {
+    scale {
+      x: 2.0
+      y: 2.0
+    }
+    type: TYPE_TEXT
+    id: "button__back__label"
+    parent: "button__back"
+    overridden_fields: 3
+  }
+  nodes {
     size {
       x: 700.0
       y: 700.0
@@ -346,6 +372,31 @@ layouts {
     type: TYPE_BOX
     id: "puzzle"
     overridden_fields: 4
+  }
+  nodes {
+    position {
+      y: 95.0
+    }
+    scale {
+      x: 2.0
+      y: 2.0
+    }
+    type: TYPE_TEXT
+    id: "status"
+    parent: "footer"
+    overridden_fields: 1
+    overridden_fields: 3
+  }
+  nodes {
+    scale {
+      x: 2.0
+      y: 2.0
+      z: 2.0
+    }
+    type: TYPE_TEXT
+    id: "button__next__label"
+    parent: "button__next"
+    overridden_fields: 3
   }
 }
 adjust_reference: ADJUST_REFERENCE_PARENT
