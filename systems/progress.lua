@@ -121,6 +121,20 @@ function M.is_category_unlocked(category_index)
 end
 
 
+
+function M.is_level_unlocked(category_index, level_index)
+	if not level_exists(category_index, level_index) then return false end
+	if not M.is_category_unlocked(category_index) then return false	end
+
+	if level_index == 1 then
+		return true
+	end
+
+	return M.is_completed(category_index, level_index - 1)
+end
+
+
+
 function M.reset()
 	return save_data(default_data())
 end

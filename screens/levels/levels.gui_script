@@ -169,11 +169,9 @@ local function show_categories(self)
 end
 
 
-
 local function show_puzzles(self, category_index)
 	local category = puzzles.categories[category_index]
 	if not category then return end
-
 	clear_cards(self)
 
 	self.page = "puzzles"
@@ -183,26 +181,43 @@ local function show_puzzles(self, category_index)
 
 	for level_index, level in ipairs(category.levels) do
 		local completed = progress.is_completed(category_index, level_index)
-		local color = completed	and COLORS.completed or COLORS.card
+		local unlocked = progress.is_level_unlocked(category_index, level_index)
 
-		local card = add_content_node(self, add_card(0, 0, 150, 150, color))
-		local completed_label = nil
+		local color
 		if completed then
-			completed_label = add_content_node(self, add_text(0, 0, "DONE"))
+			color = COLORS.completed
+		elseif unlocked then
+			color = COLORS.card
+		else
+			color = COLORS.locked
 		end
 
+		local card = add_content_node(self, add_card(0, 0, 150, 150, color))
+
+		-- Show real titles only for accessible puzzles.
+
+		local status_text
+		if completed then
+			status_text = "COMPLETED"
+		elseif unlocked then
+			status_text = "AVAILABLE"
+		else
+			status_text = "LOCKED"
+		end
+		local title_text = unlocked	and level.title	or "???"
 		self.cards[#self.cards + 1] = {
 			card = card,
-			title = add_content_node(self, add_text(0, 0, tostring(level_index))),
-			subtitle = add_content_node(self, add_text(0, 0, level.gridSize .. " x " .. level.gridSize, COLORS.muted)),
-			completed_label = completed_label
+			title = add_content_node(self, add_text(0, 0, title_text, unlocked and COLORS.text or COLORS.muted)),
+			subtitle = add_content_node(self, add_text(0, 0, status_text, COLORS.muted))
 		}
 
-		add_clickable(self, card, level_index)
+		if unlocked then
+			add_clickable(self, card, level_index)
+		end
 	end
-
 	layout_cards(self, false)
 end
+
 
 
 local function restore_levels_state(self, message)

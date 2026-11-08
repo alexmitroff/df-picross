@@ -373,10 +373,13 @@ local PUZZLE_STATUS_TEXT = {
 local function sync_ui(self)
 	if not self.session then return	end
 
-	local s = self.session
-	gui.set_text(self.title, s.level.title)
-	gui.set_text(self.status, PUZZLE_STATUS_TEXT[s.ui.status] or "")
-	gui.set_enabled(self.button_next, s.ui.show_next)
+	local status_text = PUZZLE_STATUS_TEXT[self.session.ui.status] or ""
+	if not self.sessioncompleted and self.session.ui.status ~= "save_failed" then
+		status_text = self.session.level.hintTitle or ""
+	end
+	gui.set_text(self.title, self.session.level.title)
+	gui.set_text(self.status, status_text)
+	gui.set_enabled(self.button_next, self.session.ui.show_next)
 end
 
 
@@ -517,6 +520,10 @@ local function open_level(self, category_index, level_index)
 		print("Unknown puzzle:", tostring(category_index), tostring(level_index))
 		return false
 	end
+	if not progress.is_level_unlocked(category_index, level_index) then
+		print("Puzzle is locked:", category_index, level_index)
+		return false
+	end
 
 	self.drag = nil
 	self.panning = false
@@ -580,15 +587,14 @@ local function paint_cell(self, row, col, state)
 	update_clues(self, row, col)
 
 	if result.completed_now then
-		local s = self.session
-		local saved = progress.complete(s.category_index, s.level_index)
+		local saved = progress.complete(self.session.category_index, self.session.level_index)
 		local can_advance = false
 
-		if saved and s.next_category_index then
-			can_advance = progress.is_category_unlocked(s.next_category_index)
+		if saved and self.session.next_category_index and self.session.next_level_index then
+			can_advance = progress.is_level_unlocked(self.session.next_category_index, self.session.next_level_index)
 		end
 
-		session.finish(s, saved, can_advance)
+		session.finish(self.session, saved, can_advance)
 		reset_viewport(self)
 		sync_ui(self)
 
