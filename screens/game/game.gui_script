@@ -7,12 +7,14 @@ local progress = require "systems.progress"
 local session = require "systems.session"
 local viewport = require "systems.viewport"
 
+local MULTITOUCH = hash("multitouch")
 local TOUCH = hash("touch")
 local CROSS = hash("cross")
 local PAN = hash("pan")
 local ZOOM_IN = hash("zoom_in")
 local ZOOM_OUT = hash("zoom_out")
-local MULTITOUCH = hash("multitouch")
+
+local IS_MOBILE = sys.get_sys_info().system_name == "Android" or sys.get_sys_info().system_name == "iPhone OS"
 
 local OPEN_LEVEL = hash("open_level")
 local LAYOUT_CHANGED = hash("layout_changed")
@@ -374,7 +376,7 @@ local function sync_ui(self)
 	if not self.session then return	end
 
 	local status_text = PUZZLE_STATUS_TEXT[self.session.ui.status] or ""
-	if not self.sessioncompleted and self.session.ui.status ~= "save_failed" then
+	if not self.session.completed and self.session.ui.status ~= "save_failed" then
 		status_text = self.session.level.hintTitle or ""
 	end
 	gui.set_text(self.title, self.session.level.title)
@@ -945,7 +947,10 @@ function on_message(self, message_id, message, sender)
 end
 
 function on_input(self, action_id, action)
-	-- Pointer movement during a drag.
+	if IS_MOBILE and action_id ~= MULTITOUCH then
+		return true
+	end
+
 	if action_id == nil then
 		if self.panning and action.screen_x and action.screen_y then
 			continue_pan(self, action)
