@@ -3,6 +3,10 @@ local puzzles = require "levels.puzzles"
 local progress = require "systems.progress"
 
 local TOUCH = hash("touch")
+local WHEEL_UP = hash("zoom_in")
+local WHEEL_DOWN = hash("zoom_out")
+local LAYOUT_CHANGED = hash("layout_changed")
+
 local APP = "main:/app#controller"
 
 local COLORS = {
@@ -33,6 +37,7 @@ local function clear_cards(self)
 
 	self.dynamic_nodes = {}
 	self.clickable_cards = {}
+	self.cards = {}
 end
 
 local function track(self, node)
@@ -40,8 +45,89 @@ local function track(self, node)
 	return node
 end
 
+local function add_content_node(self, node)
+	gui.set_parent(node, self.content, false)
+	return track(self, node)
+end
+
 local function add_clickable(self, node, value)
 	table.insert(self.clickable_cards, {node = node, value = value})
+end
+
+
+local function clamp(value, minimum, maximum)
+	return math.max(minimum, math.min(maximum, value))
+end
+
+
+local function apply_scroll(self)
+	local size = gui.get_size(self.viewport)
+	self.scroll_y = clamp(self.scroll_y, 0,	self.max_scroll)
+	gui.set_position(self.content, vmath.vector3(0, size.y - self.content_height + self.scroll_y, 0))
+end
+
+
+local function scroll_by(self, amount)
+	self.scroll_y = self.scroll_y + amount
+	apply_scroll(self)
+end
+
+
+local function layout_cards(self, preserve_scroll)
+	local size = gui.get_size(self.viewport)
+
+	local padding = 24
+	local gap = 20
+
+	local columns
+	local card_height
+
+	if self.page == "categories" then
+		columns = clamp(math.floor((size.x - 2 * padding + gap) / 260),	1, 3)
+		card_height = 105
+	else
+		columns = clamp(math.floor((size.x - 2 * padding + gap) / 170),	1, 6)
+		card_height = 150
+	end
+
+	local available_width = math.max(1, size.x - 2 * padding)
+	local card_width = (available_width - (columns - 1) * gap) / columns
+	local count = #self.cards
+	local rows = math.ceil(count / columns)
+
+	local required_height = 2 * padding
+	if rows > 0 then
+		required_height = required_height + rows * card_height + (rows - 1) * gap
+	end
+
+	local previous_fraction = 0
+	if preserve_scroll and self.max_scroll > 0 then
+		previous_fraction = self.scroll_y / self.max_scroll
+	end
+
+	self.content_height = math.max(size.y, required_height)
+	self.max_scroll = math.max(	0, self.content_height - size.y)
+	self.scroll_y = preserve_scroll	and previous_fraction * self.max_scroll	or 0
+
+	gui.set_size(self.content, vmath.vector3(size.x, self.content_height, 0))
+
+	for index, item in ipairs(self.cards) do
+		local col = (index - 1) % columns
+		local row = math.floor((index - 1) / columns)
+
+		local x = padding + col * (card_width + gap) + card_width / 2
+		local y = self.content_height - padding	- card_height / 2 - row * (card_height + gap)
+
+		gui.set_position(item.card,	vmath.vector3(x, y, 0))
+		gui.set_size(item.card, vmath.vector3(card_width, card_height, 0))
+		gui.set_position(item.title, vmath.vector3(x, y + 17, 0))
+		gui.set_position(item.subtitle,	vmath.vector3(x, y - 20, 0))
+
+		if item.completed_label then
+			gui.set_position(item.completed_label, vmath.vector3(x, y - 48, 0))
+		end
+	end
+	apply_scroll(self)
 end
 
 
@@ -58,13 +144,6 @@ local function show_categories(self)
 		local unlocked = progress.is_category_unlocked(index)
 		local completed, total = progress.category_progress(index)
 
-		local x = 360
-		local y = 950 - (index - 1) * 135
-
-		local color = unlocked and COLORS.card or COLORS.locked
-		local card = track(self, add_card(x, y, 520, 105, color))
-		track(self, add_text(x, y + 15, category.name))
-
 		local status
 		if not unlocked then
 			status = "LOCKED"
@@ -74,10 +153,19 @@ local function show_categories(self)
 			status = completed .. " / " .. total .. " completed"
 		end
 
-		track(self, add_text(x, y - 20, status, COLORS.muted))
+		local color = unlocked and COLORS.card or COLORS.locked
+		local card = add_content_node(self, add_card(0, 0, 100, 105, color))
+
+		self.cards[#self.cards + 1] = {
+			card = card,
+			title = add_content_node(self, add_text(0, 0, category.name:upper(), unlocked and COLORS.text or COLORS.muted)),
+			subtitle = add_content_node(self, add_text(0, 0, status, COLORS.muted))
+		}
 
 		if unlocked and total > 0 then add_clickable(self, card, index)	end
 	end
+
+	layout_cards(self, false)
 end
 
 
@@ -94,25 +182,27 @@ local function show_puzzles(self, category_index)
 	gui.set_text(self.title, category.name:upper())
 
 	for level_index, level in ipairs(category.levels) do
-		local col = (level_index - 1) % 3
-		local row = math.floor((level_index - 1) / 3)
-
-		local x = 170 + col * 190
-		local y = 940 - row * 190
-
 		local completed = progress.is_completed(category_index, level_index)
-		local color = completed and COLORS.completed or COLORS.card
+		local color = completed	and COLORS.completed or COLORS.card
 
-		local card = track(self, add_card(x, y, 150, 150, color))
+		local card = add_content_node(self, add_card(0, 0, 150, 150, color))
+		local completed_label = nil
+		if completed then
+			completed_label = add_content_node(self, add_text(0, 0, "DONE"))
+		end
 
-		track(self, add_text(x, y + 25, tostring(level_index)))
-		track(self, add_text(x, y - 10, level.gridSize .. " x " .. level.gridSize, COLORS.muted))
-		if completed then track(self, add_text(x, y - 45, "DONE")) end
+		self.cards[#self.cards + 1] = {
+			card = card,
+			title = add_content_node(self, add_text(0, 0, tostring(level_index))),
+			subtitle = add_content_node(self, add_text(0, 0, level.gridSize .. " x " .. level.gridSize, COLORS.muted)),
+			completed_label = completed_label
+		}
 
 		add_clickable(self, card, level_index)
 	end
-end
 
+	layout_cards(self, false)
+end
 
 
 function init(self)
@@ -120,39 +210,160 @@ function init(self)
 
 	self.title = gui.get_node("title")
 	self.button_back = gui.get_node("button__back")
+	self.viewport =	gui.get_node("viewport")
+	self.content = gui.get_node("viewport__content")
 
 	self.dynamic_nodes = {}
 	self.clickable_cards = {}
+	self.cards = {}
+
+	self.page = nil
+	self.category_index = nil
+
+	self.scroll_y = 0
+	self.max_scroll = 0
+	self.content_height = 0
+
+	self.pointer = nil
+
+	local size = gui.get_size(self.viewport)
+	self.last_viewport_width = size.x
+	self.last_viewport_height = size.y
 
 	show_categories(self)
 end
 
+
+local function move_pointer(self, x, y)
+	local pointer = self.pointer
+	if not pointer then return end
+
+	local dx = x - pointer.start_x
+	local dy = y - pointer.start_y
+
+	if dx * dx + dy * dy > 144 then
+		pointer.moved = true
+	end
+
+	if pointer.moved then
+		scroll_by(self, pointer.last_y - y)
+	end
+
+	pointer.last_y = y
+end
+
+
+
 function on_input(self, action_id, action)
-	if action_id ~= TOUCH or not action.pressed then
+	local x = action.x
+	local y = action.y
+
+	-- Mouse-wheel scrolling
+	if action_id == WHEEL_UP or action_id == WHEEL_DOWN then
+		if x and y and gui.pick_node(self.viewport, x, y) and action.value ~= 0 then
+			local direction = action_id == WHEEL_DOWN and 1 or -1
+			scroll_by(self, direction * 80)
+			return true
+		end
+
 		return
 	end
 
-	local x, y = action.x, action.y
-
-	if gui.pick_node(self.button_back, x, y) then
-		if self.page == "puzzles" then
-			show_categories(self)
-		else
-			msg.post(APP, "show_menu")
+	-- Mouse movement while dragging
+	if action_id == nil then
+		if self.pointer and x and y then
+			move_pointer(self, x, y)
+			return true
 		end
+		return
+	end
+
+	if action_id ~= TOUCH then return end
+
+	-- Start touch / mouse drag
+	if action.pressed then
+		if gui.pick_node(self.button_back, x, y) then
+			if self.page == "puzzles" then
+				show_categories(self)
+			else
+				msg.post(APP, "show_menu")
+			end
+			return true
+		end
+
+		if gui.pick_node(self.viewport, x, y) then
+			self.pointer = {
+				start_x = x,
+				start_y = y,
+				last_y = y,
+				moved = false
+			}
+			return true
+		end
+
+		return
+	end
+
+	-- Finish touch / mouse drag
+	if action.released then
+		local pointer = self.pointer
+		self.pointer = nil
+
+		if not pointer then return end
+
+		-- A swipe should not activate a card.
+		if pointer.moved then return true end
+
+		if not gui.pick_node(self.viewport, x, y) then return true end
+
+		for _, card in ipairs(self.clickable_cards) do
+			if gui.pick_node(card.node, x, y) then
+
+				if self.page == "categories" then
+					show_puzzles(self, card.value)
+
+				elseif self.page == "puzzles" then
+					msg.post(APP, "show_game", {
+						category_index = self.category_index,
+						level_index = card.value
+					})
+				end
+
+				return true
+			end
+		end
+
 		return true
 	end
 
-	for _, card in ipairs(self.clickable_cards) do
-		if gui.pick_node(card.node, x, y) then
+	-- Some touch runtimes deliver move events
+	-- through the touch action itself.
+	if self.pointer and x and y then
+		move_pointer(self, x, y)
+		return true
+	end
+end
 
-			if self.page == "categories" then
-				show_puzzles(self, card.value)
-			elseif self.page == "puzzles" then
-				msg.post(APP, "show_game", {category_index = self.category_index, level_index = card.value})
-			end
 
-			return true
-		end
+function update(self, dt)
+	local size = gui.get_size(self.viewport)
+	if size.x ~= self.last_viewport_width or size.y ~= self.last_viewport_height then
+		self.last_viewport_width = size.x
+		self.last_viewport_height = size.y
+
+		layout_cards(self, true)
+	end
+end
+
+
+function on_message(self, message_id, message, sender)
+	if message_id == LAYOUT_CHANGED then
+		self.pointer = nil
+
+		layout_cards(self, true)
+
+		local size = gui.get_size(self.viewport)
+		self.last_viewport_width = size.x
+		self.last_viewport_height = size.y
 	end
 end
