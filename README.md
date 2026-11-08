@@ -1,13 +1,7 @@
-# Welcome to Defold
+# Harbour Picross — Defold Port
 
-This project was created from the "empty" project template.
+A Defold (Lua) port of Harbour Picross / Picross 2, a nonogram puzzle game originally developed for Sailfish OS.
 
-The settings in ["game.project"](defold://open?path=/game.project) are all the default. A bootstrap empty ["main.collection"](defold://open?path=/main/main.collection) is included.
-
-Check out [the documentation pages](https://defold.com/learn) for examples, tutorials, manuals and API docs.
-
-If you run into trouble, help is available in [our forum](https://forum.defold.com).
-
-Happy Defolding!
-
----
+## Original projects:
+* [Original Picross by baspar](https://github.com/Baspar/harbour-picross)
+* [Picross 2 fork and improvements by direc85](https://github.com/direc85/harbour-picross)
