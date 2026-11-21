@@ -159,6 +159,15 @@ end
 
 
 function M.row_clues_satisfied(puzzle, row)
+	if puzzle.row_clues[row][1] == 0 then
+		for col = 1, puzzle.width do
+			if puzzle.cells[row][col] ~= M.CROSSED then
+				return false
+			end
+		end
+		return true
+	end
+
 	local values = {}
 
 	for col = 1, puzzle.width do
@@ -168,16 +177,20 @@ function M.row_clues_satisfied(puzzle, row)
 
 	local actual = calculate_clues(values)
 
-	-- Do not mark a completely untouched row as complete.
-	if actual[1] == 0 then
-		return false
-	end
-
 	return clues_match(actual, puzzle.row_clues[row])
 end
 
 
 function M.col_clues_satisfied(puzzle, col)
+	if puzzle.col_clues[col][1] == 0 then
+		for row = 1, puzzle.height do
+			if puzzle.cells[row][col] ~= M.CROSSED then
+				return false
+			end
+		end
+		return true
+	end
+
 	local values = {}
 
 	for row = 1, puzzle.height do
@@ -186,10 +199,6 @@ function M.col_clues_satisfied(puzzle, col)
 	end
 
 	local actual = calculate_clues(values)
-
-	if actual[1] == 0 then
-		return false
-	end
 
 	return clues_match(actual, puzzle.col_clues[col])
 end
