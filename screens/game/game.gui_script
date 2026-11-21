@@ -383,6 +383,8 @@ local function sync_ui(self)
 	end
 	gui.set_text(self.title, self.session.level.title)
 	gui.set_text(self.status, status_text)
+	local retry = self.session.ui.status == "save_failed"
+	gui.set_text(self.button_next_label, retry and "RETRY SAVE" or "NEXT PUZZLE")
 	gui.set_enabled(self.button_next, self.session.ui.show_next)
 end
 
@@ -581,6 +583,37 @@ local function load_pending_level(self)
 end
 
 
+local function save_completion(self)
+	local s = self.session
+	local saved = progress.complete(s.category_index, s.level_index)
+	local can_advance = false
+
+	if saved and s.next_category_index and s.next_level_index then
+		can_advance = progress.is_level_unlocked(
+		s.next_category_index, s.next_level_index)
+	end
+
+	session.finish(s, saved, can_advance)
+	sync_ui(self)
+end
+
+
+local function press_completion_button(self, x, y)
+	if not self.session then return false end
+
+	local retry = self.session.ui.status == "save_failed"
+	if not retry and not self.session.ui.show_next then return false end
+	if not gui.pick_node(self.button_next, x, y) then return false end
+
+	if retry then
+		save_completion(self)
+	else
+		open_level(self, self.session.next_category_index, self.session.next_level_index)
+	end
+	return true
+end
+
+
 local function paint_cell(self, row, col, state)
 	if not self.session then return	end
 
@@ -591,18 +624,9 @@ local function paint_cell(self, row, col, state)
 	update_clues(self, row, col)
 
 	if result.completed_now then
-		local saved = progress.complete(self.session.category_index, self.session.level_index)
-		local can_advance = false
-
-		if saved and self.session.next_category_index and self.session.next_level_index then
-			can_advance = progress.is_level_unlocked(self.session.next_category_index, self.session.next_level_index)
-		end
-
-		session.finish(self.session, saved, can_advance)
-		reset_viewport(self)
-		sync_ui(self)
-
 		self.drag = nil
+		reset_viewport(self)
+		save_completion(self)
 	end
 end
 
@@ -856,9 +880,7 @@ local function handle_multitouch(self, action)
 		end
 
 		-- Next puzzle button
-		if self.session.ui.show_next and self.session.next_category_index and self.session.next_level_index
-		and gui.pick_node(self.button_next, touch.x, touch.y) then
-			open_level(self, self.session.next_category_index, self.session.next_level_index)
+		if press_completion_button(self, touch.x, touch.y) then
 			return true
 		end
 
@@ -907,6 +929,7 @@ function init(self)
 	self.status = gui.get_node("status")
 	self.button_back = gui.get_node("button__back")
 	self.button_next = gui.get_node("button__next")
+	self.button_next_label = gui.get_node("button__next__label")
 	self.puzzle_canvas = gui.get_node("puzzle")
 	self.grid_viewport = gui.get_node("puzzle__grid")
 	self.grid_content =	gui.get_node("puzzle__grid__content")
@@ -1042,9 +1065,8 @@ function on_input(self, action_id, action)
 	if not self.session then return false end
 
 	-- The `Next puzzle` button
-	if action_id == TOUCH and self.session.ui.show_next	and self.session.next_category_index and self.session.next_level_index
-	and gui.pick_node(self.button_next, x, y) then
-		return open_level(self, self.session.next_category_index, self.session.next_level_index)
+	if action_id == TOUCH and press_completion_button(self, x, y) then
+		return true
 	end
 
 	if self.drag then return true end
