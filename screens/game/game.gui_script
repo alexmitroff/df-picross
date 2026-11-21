@@ -19,6 +19,8 @@ local IS_MOBILE = sys.get_sys_info().system_name == "Android" or sys.get_sys_inf
 local OPEN_LEVEL = hash("open_level")
 local LAYOUT_CHANGED = hash("layout_changed")
 
+local TAP_SLOP = 12 
+
 local APP = "main:/app#controller"
 local COLORS = {
 	unknown = vmath.vector4(0.91, 0.94, 0.95, 1),
@@ -457,7 +459,6 @@ local function scroll_clues(self, direction, x, y)
 end
 
 
-
 local function grid_pointer_position(self, action)
 	local pos = gui.screen_to_local(self.grid_viewport,	vmath.vector3(action.screen_x, action.screen_y, 0))
 	return pos.x, pos.y
@@ -512,10 +513,11 @@ local TOUCH_MODES = {
 	idle = "idle",
 	navigation = "navigation",
 	blocked = "blocked",
-	painting = "painting",
+	pending_tap = "pending_tap",
 	scroll_rows = "scroll_rows",
 	scroll_columns = "scroll_columns",
 }
+
 
 local function open_level(self, category_index, level_index)
 	if not puzzles.get(category_index, level_index) then
@@ -531,6 +533,7 @@ local function open_level(self, category_index, level_index)
 	self.panning = false
 
 	self.touch_gesture.mode = TOUCH_MODES.idle
+	self.touch_gesture.pending_tap = nil
 	self.touch_gesture.last_x = nil
 	self.touch_gesture.last_y = nil
 	self.touch_gesture.last_distance = nil
@@ -552,7 +555,6 @@ local function open_level(self, category_index, level_index)
 
 	return true
 end
-
 
 
 local function load_pending_level(self)
@@ -756,6 +758,30 @@ local function handle_multitouch(self, action)
 
 	local count = #touches
 
+	local tap = gesture.pending_tap
+	if tap then
+		local contacts = action.touch or {}
+		local finger = contacts[1]
+
+		if #contacts ~= 1 or finger.id ~= tap.id then
+			-- Another finger participated, or the original finger is gone.
+			gesture.pending_tap = nil
+		else
+			local dx = finger.x - tap.x
+			local dy = finger.y - tap.y
+
+			if dx * dx + dy * dy > TAP_SLOP * TAP_SLOP then
+				gesture.pending_tap = nil
+			elseif finger.released then
+				gesture.pending_tap = nil
+				local row, col = find_cell(self, finger.x, finger.y)
+				if row == tap.row and col == tap.col then
+					tap_cell(self, finger.x, finger.y)
+				end
+			end
+		end
+	end
+	
 	-- All fingers released: ready for a new gesture.
 	if count == 0 then
 		self.drag = nil
@@ -848,10 +874,21 @@ local function handle_multitouch(self, action)
 			return true
 		end
 
-		-- Grid: cycle cell state
+		-- Grid: remember the cell; commit only on a clean release.
 		if gui.pick_node(self.grid_viewport, touch.x, touch.y) then
-			tap_cell(self, touch.x, touch.y)
-			gesture.mode = TOUCH_MODES.painting
+			local row, col = find_cell(self, touch.x, touch.y)
+
+			if row and not self.session.completed then
+				gesture.pending_tap = {
+					id = touch.id,
+					x = touch.x,
+					y = touch.y,
+					row = row,
+					col = col,
+				}
+				gesture.mode = TOUCH_MODES.pending_tap
+			end
+
 			return true
 		end
 	end
