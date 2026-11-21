@@ -129,6 +129,11 @@ nodes {
     x: 200.0
     y: 100.0
   }
+  color {
+    x: 0.95686275
+    y: 0.91764706
+    z: 0.83137256
+  }
   type: TYPE_TEXT
   text: "HARBOUR PICROSS"
   font: "default"
@@ -139,11 +144,11 @@ nodes {
 nodes {
   position {
     x: 298.0
-    y: 755.0
+    y: 768.0
   }
   scale {
-    x: 2.0
-    y: 2.0
+    x: 1.5
+    y: 1.5
   }
   size {
     x: 200.0
@@ -172,8 +177,8 @@ nodes {
 }
 nodes {
   position {
-    x: 90.0
-    y: 602.0
+    x: 29.0
+    y: 632.0
   }
   scale {
     x: 2.0
@@ -183,10 +188,16 @@ nodes {
     x: 200.0
     y: 100.0
   }
+  color {
+    x: 0.95686275
+    y: 0.91764706
+    z: 0.83137256
+  }
   type: TYPE_TEXT
   text: "Credits"
   font: "default"
   id: "credits__title"
+  pivot: PIVOT_NW
   parent: "credits"
   inherit_alpha: true
 }
@@ -215,7 +226,7 @@ nodes {
 nodes {
   position {
     x: 29.0
-    y: 474.0
+    y: 462.0
   }
   scale {
     x: 1.5
@@ -237,7 +248,7 @@ nodes {
 nodes {
   position {
     x: 29.0
-    y: 397.0
+    y: 365.0
   }
   scale {
     x: 1.5
@@ -252,6 +263,54 @@ nodes {
   "https://github.com/alexmitroff/df-picross"
   font: "default"
   id: "credits__port"
+  pivot: PIVOT_NW
+  parent: "credits"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 29.0
+    y: 255.0
+  }
+  scale {
+    x: 2.0
+    y: 2.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.95686275
+    y: 0.91764706
+    z: 0.83137256
+  }
+  type: TYPE_TEXT
+  text: "License"
+  font: "default"
+  id: "license"
+  pivot: PIVOT_NW
+  parent: "credits"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 29.0
+    y: 168.0
+  }
+  scale {
+    x: 1.5
+    y: 1.5
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "GPL-3.0\n"
+  ""
+  font: "default"
+  id: "credits__port1"
   pivot: PIVOT_NW
   parent: "credits"
   inherit_alpha: true
